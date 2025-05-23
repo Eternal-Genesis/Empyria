@@ -1,41 +1,23 @@
-<!-- 🧱 BLOQUE 6 – progress.view.html -->
-<section style="padding: 20px; color: #EAEAEA;">
-  <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: #4BD2E5;">Progreso Personal</h2>
+<!-- 🧱 BLOQUE 8 – progress.view.html (estilizado) -->
+<section class="section fade-in">
+  <h2>Progreso Personal</h2>
 
   <!-- Energía semanal -->
-  <div style="margin-top: 24px;">
-    <h3 style="color: #FFDE59;">Energía Promedio</h3>
-    <div id="energy-graph" style="
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      align-items: flex-end;
-      height: 100px;
-    "></div>
+  <div class="card" style="margin-top: 24px;">
+    <h3 style="color: var(--color-accent-secondary);">Energía Promedio</h3>
+    <div id="energy-graph" class="energy-bar-graph"></div>
   </div>
 
   <!-- Hábitos -->
-  <div style="margin-top: 32px;">
-    <h3 style="color: #2AF598;">Resumen de Hábitos</h3>
-    <div id="habits-graph" style="
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: conic-gradient(#2AF598 0% 50%, #FF5F6D 50% 100%);
-      margin-top: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #0B0E11;
-    ">
-      50% ✔️
-    </div>
+  <div class="card" style="margin-top: 32px;">
+    <h3 style="color: var(--color-success);">Resumen de Hábitos</h3>
+    <div id="habits-graph" class="habit-ring">50% ✔️</div>
   </div>
 
   <!-- Diario -->
-  <div style="margin-top: 32px;">
-    <h3 style="color: #FF5F6D;">Actividad en el Diario</h3>
-    <p id="diary-count" style="margin-top: 8px; color: #8A8A8A;">Entradas este mes: 0</p>
+  <div class="card" style="margin-top: 32px;">
+    <h3 style="color: var(--color-error);">Actividad en el Diario</h3>
+    <p id="diary-count" style="margin-top: 8px; color: var(--color-text-secondary);">Entradas este mes: 0</p>
   </div>
 </section>
+
