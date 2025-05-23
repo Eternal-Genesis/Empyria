@@ -1,38 +1,26 @@
-<!-- 🧱 BLOQUE 2 – home.view.html -->
-<section style="padding: 20px; color: #EAEAEA;">
+<!-- 🧱 BLOQUE 8 – home.view.html (estilizado) -->
+<section class="section fade-in">
   <!-- Energía diaria -->
-  <div style="margin-bottom: 24px;">
-    <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #4BD2E5;">Energía Hoy</h2>
-    <div id="energy-bar" style="
-      width: 100%;
-      height: 16px;
-      background: #12161C;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-top: 8px;
-      box-shadow: inset 0 0 5px #4BD2E5;">
-      <div id="energy-fill" style="height: 100%; width: 0%; background: #2AF598; transition: width 0.5s ease;"></div>
+  <div class="card" style="margin-bottom: 24px;">
+    <h2>Energía Hoy</h2>
+    <div id="energy-bar" class="glow" style="width: 100%; height: 16px; background: var(--color-card); border-radius: 8px; overflow: hidden; margin-top: 8px;">
+      <div id="energy-fill" style="height: 100%; width: 0%; background: var(--color-success); transition: width 0.5s ease;"></div>
     </div>
   </div>
 
   <!-- Calendario mini -->
-  <div style="margin-bottom: 24px;">
-    <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #FFDE59;">Calendario Mini</h2>
-    <div id="mini-calendar" style="
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;">
-      <div class="cal-block" style="flex: 1; margin: 0 5px; background: #12161C; border-radius: 12px; padding: 12px; text-align: center; color: #8A8A8A;">Mañana</div>
-      <div class="cal-block" style="flex: 1; margin: 0 5px; background: #12161C; border-radius: 12px; padding: 12px; text-align: center; color: #8A8A8A;">Tarde</div>
-      <div class="cal-block" style="flex: 1; margin: 0 5px; background: #12161C; border-radius: 12px; padding: 12px; text-align: center; color: #8A8A8A;">Noche</div>
+  <div class="card" style="margin-bottom: 24px;">
+    <h2 style="color: var(--color-accent-secondary);">Calendario Mini</h2>
+    <div id="mini-calendar" style="display: flex; justify-content: space-between; margin-top: 12px;">
+      <div class="card" style="flex: 1; margin: 0 5px; text-align: center; color: var(--color-text-secondary);">Mañana</div>
+      <div class="card" style="flex: 1; margin: 0 5px; text-align: center; color: var(--color-text-secondary);">Tarde</div>
+      <div class="card" style="flex: 1; margin: 0 5px; text-align: center; color: var(--color-text-secondary);">Noche</div>
     </div>
   </div>
 
   <!-- Sugerencias IA -->
-  <div>
-    <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #FF5F6D;">Sugerencia del Día</h2>
-    <p id="suggestion-text" style="margin-top: 10px; font-size: 1rem; color: #EAEAEA;">
-      ...
-    </p>
+  <div class="card">
+    <h2 style="color: var(--color-error);">Sugerencia del Día</h2>
+    <p id="suggestion-text" style="margin-top: 10px;">...</p>
   </div>
 </section>
