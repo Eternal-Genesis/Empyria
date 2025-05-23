@@ -11,6 +11,10 @@ async function loadBaseTemplate() {
   document.getElementById("app").appendChild(content);
 }
 
+// 👇 Muy importante: renderizar íconos después de cargar el DOM
+  if (window.lucide) lucide.createIcons();
+}
+
 // Carga la vista HTML dentro del <main>
 async function loadView(route) {
   const routeData = routes[route];
