@@ -1,1 +1,0 @@
-export default function init() { console.log('Calendario cargado'); }
