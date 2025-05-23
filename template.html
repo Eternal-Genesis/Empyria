@@ -1,30 +1,33 @@
-<!-- 🧱 BLOQUE 1 – template.html -->
+<!-- 🧱 BLOQUE 1 – template.html (menú con Lucide Icons) -->
 <template id="base-template">
   <div class="app-container" style="min-height: 100vh; display: flex; flex-direction: column;">
-
-    <!-- Contenedor principal de cada vista -->
     <main id="view-container" style="flex: 1; padding-bottom: 70px;"></main>
 
-    <!-- Menú inferior de navegación -->
-    <nav class="bottom-nav" style="
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: rgba(18, 22, 28, 0.9);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-top: 1px solid #1E1E1E;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    ">
-      <button data-route="inicio" class="nav-btn">🏠</button>
-      <button data-route="habits" class="nav-btn">🔁</button>
-      <button data-route="diary" class="nav-btn">✍️</button>
-      <button data-route="progress" class="nav-btn">📊</button>
-      <button data-route="profile" class="nav-btn">👤</button>
+    <!-- Menú inferior con íconos SVG -->
+    <nav class="bottom-nav">
+      <button data-route="inicio" class="nav-btn" aria-label="Inicio">
+        <i data-lucide="home"></i>
+      </button>
+      <button data-route="habits" class="nav-btn" aria-label="Hábitos">
+        <i data-lucide="list-todo"></i>
+      </button>
+      <button data-route="diary" class="nav-btn" aria-label="Diario">
+        <i data-lucide="pen-line"></i>
+      </button>
+      <button data-route="progress" class="nav-btn" aria-label="Progreso">
+        <i data-lucide="bar-chart-3"></i>
+      </button>
+      <button data-route="profile" class="nav-btn" aria-label="Perfil">
+        <i data-lucide="user"></i>
+      </button>
     </nav>
   </div>
 </template>
+
+<!-- Activación de íconos Lucide al renderizar -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    lucide.createIcons();
+  });
+</script>
+
