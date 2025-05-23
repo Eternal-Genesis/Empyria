@@ -1,0 +1,1 @@
+// logic.js - Espacio para lógica global futura
