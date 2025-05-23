@@ -201,3 +201,27 @@ p {
   color: var(--color-bg);
   transition: background 0.3s ease;
 }
+/* === PERFIL DE USUARIO === */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(145deg, var(--color-accent-primary), var(--color-success));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-bg);
+}
+
+.estado-label {
+  font-weight: bold;
+  color: var(--color-accent-secondary);
+}
