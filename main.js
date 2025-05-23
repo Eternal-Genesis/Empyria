@@ -9,9 +9,8 @@ async function loadBaseTemplate() {
   const content = template.querySelector("#base-template").content.cloneNode(true);
   document.getElementById("app").innerHTML = "";
   document.getElementById("app").appendChild(content);
-}
 
-// 👇 Muy importante: renderizar íconos después de cargar el DOM
+  // ✅ Importante: renderizar íconos después de insertar el DOM
   if (window.lucide) lucide.createIcons();
 }
 
