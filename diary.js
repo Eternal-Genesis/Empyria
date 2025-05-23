@@ -1,0 +1,1 @@
+export default function init() { console.log('Diario cargado'); }

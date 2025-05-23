@@ -1,0 +1,1 @@
+export default function init() { console.log('Perfil cargado'); }
