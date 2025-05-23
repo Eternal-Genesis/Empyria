@@ -52,3 +52,31 @@ function renderizarPerfil() {
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
 });
+// 🧱 BLOQUE 7 – Ampliación: Cambio de Tema
+
+function aplicarTemaGuardado() {
+  const tema = localStorage.getItem("tema") || "oscuro";
+  if (tema === "claro") {
+    document.body.classList.add("light-theme");
+  } else {
+    document.body.classList.remove("light-theme");
+  }
+}
+
+function alternarTema() {
+  const temaActual = document.body.classList.contains("light-theme") ? "claro" : "oscuro";
+  const nuevoTema = temaActual === "oscuro" ? "claro" : "oscuro";
+  localStorage.setItem("tema", nuevoTema);
+  aplicarTemaGuardado();
+}
+
+// Ejecutar al cargar la vista
+document.addEventListener("DOMContentLoaded", () => {
+  renderizarPerfil();
+  aplicarTemaGuardado();
+
+  const btnTema = document.getElementById("toggle-theme");
+  if (btnTema) {
+    btnTema.addEventListener("click", alternarTema);
+  }
+});
