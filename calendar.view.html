@@ -1,24 +1,22 @@
-<!-- 🧱 BLOQUE 3 – calendar.view.html -->
-<section style="padding: 20px; color: #EAEAEA;">
-  <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: #4BD2E5; margin-bottom: 16px;">
-    Calendario Circadiano
-  </h2>
+<!-- 🧱 BLOQUE 8 – calendar.view.html (estilizado) -->
+<section class="section fade-in">
+  <h2>Calendario Circadiano</h2>
 
   <!-- Bloque: Mañana -->
-  <div style="margin-bottom: 24px;">
-    <h3 style="color: #FFDE59;">Mañana</h3>
+  <div class="card" style="margin-bottom: 24px;">
+    <h3 style="color: var(--color-accent-secondary);">Mañana</h3>
     <ul id="block-morning" style="margin-top: 10px; padding-left: 18px; list-style-type: '☀️ ';"></ul>
   </div>
 
   <!-- Bloque: Tarde -->
-  <div style="margin-bottom: 24px;">
-    <h3 style="color: #4BD2E5;">Tarde</h3>
+  <div class="card" style="margin-bottom: 24px;">
+    <h3>Tarde</h3>
     <ul id="block-afternoon" style="margin-top: 10px; padding-left: 18px; list-style-type: '🌤️ ';"></ul>
   </div>
 
   <!-- Bloque: Noche -->
-  <div>
-    <h3 style="color: #FF5F6D;">Noche</h3>
+  <div class="card">
+    <h3 style="color: var(--color-error);">Noche</h3>
     <ul id="block-night" style="margin-top: 10px; padding-left: 18px; list-style-type: '🌙 ';"></ul>
   </div>
 </section>
