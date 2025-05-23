@@ -1,1 +1,0 @@
-// Lógica futura del proyecto
