@@ -1,38 +1,29 @@
-<!-- 🧱 BLOQUE 7 – profile.view.html -->
-<section style="padding: 20px; color: #EAEAEA;">
-  <h2 style="font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: #4BD2E5;">Tu Perfil Cognitivo</h2>
+<!-- 🧱 BLOQUE 8 – profile.view.html (estilizado) -->
+<section class="section fade-in">
+  <h2>Tu Perfil Cognitivo</h2>
 
-  <!-- Avatar y estado actual -->
-  <div style="margin-top: 20px; display: flex; align-items: center; gap: 16px;">
-    <div style="
-      width: 72px;
-      height: 72px;
-      background: linear-gradient(145deg, #4BD2E5, #2AF598);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #0B0E11;
-    ">
-      👤
-    </div>
+  <!-- Avatar y estado -->
+  <div class="card profile-header">
+    <div class="avatar">👤</div>
     <div>
       <div style="font-size: 1rem;">Estado actual:</div>
-      <div id="estado-mental" style="font-weight: bold; color: #FFDE59;">Cargando...</div>
+      <div id="estado-mental" class="estado-label">Cargando...</div>
     </div>
   </div>
 
   <!-- Logros -->
-  <div style="margin-top: 32px;">
-    <h3 style="color: #2AF598;">Logros desbloqueados</h3>
+  <div class="card" style="margin-top: 24px;">
+    <h3 style="color: var(--color-success);">Logros desbloqueados</h3>
     <ul id="lista-logros" style="padding-left: 18px; margin-top: 10px; font-size: 0.95rem;"></ul>
   </div>
 
-  <!-- Configuración -->
-  <div style="margin-top: 32px;">
-    <h3 style="color: #8A8A8A;">Preferencias (Próximamente)</h3>
-    <p style="color: #555;">Personalización de avatar, privacidad y estilo visual.</p>
+  <!-- Configuraciones -->
+  <div class="card" style="margin-top: 24px;">
+    <h3 style="color: var(--color-text-secondary);">Preferencias</h3>
+    <p style="color: var(--color-text-secondary);">Modo visual, privacidad y avatar (próximamente).</p>
+    <button id="toggle-theme" class="btn btn-secondary" style="margin-top: 10px;">
+      Cambiar tema
+    </button>
   </div>
 </section>
+
