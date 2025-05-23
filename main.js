@@ -33,10 +33,8 @@ async function loadView(route) {
 // Marca el botón activo en el menú inferior
 function setActiveNav(route) {
   document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.style.borderTop = "none";
-    if (btn.dataset.route === route) {
-      btn.style.borderTop = "3px solid #4BD2E5";
-    }
+    const isActive = btn.dataset.route === route;
+    btn.classList.toggle("active", isActive);
   });
 }
 
