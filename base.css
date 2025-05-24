@@ -278,7 +278,7 @@ p {
   --glow-color: #2AF598;
 }
 .nav-btn[data-route="progress"].active::before {
-  --glow-color: #B97BFF; /* violeta neón */
+  --glow-color: #9F4FFF; /* violeta neón */
 }
 .nav-btn[data-route="profile"].active::before {
   --glow-color: #FF5F6D;
