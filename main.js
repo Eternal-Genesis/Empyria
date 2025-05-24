@@ -51,9 +51,10 @@ function handleRouteChange() {
 window.addEventListener("hashchange", handleRouteChange);
 window.addEventListener("DOMContentLoaded", handleRouteChange);
 
-// Maneja clicks en los botones del menú
+// Maneja clicks en los botones del menú (incluso si se clickea el ícono SVG)
 document.addEventListener("click", (e) => {
-  if (e.target.matches(".nav-btn")) {
-    location.hash = `#/${e.target.dataset.route}`;
+  const btn = e.target.closest(".nav-btn");
+  if (btn && btn.dataset.route) {
+    location.hash = `#/${btn.dataset.route}`;
   }
 });
