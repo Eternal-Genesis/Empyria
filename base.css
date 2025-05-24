@@ -227,8 +227,7 @@ p {
 
 .nav-btn.active i {
   stroke: var(--glow-color);
-  filter: drop-shadow(0 0 6px var(--glow-color));
-  animation: pressPop 0.25s ease;
+  animation: iconSelectPop 0.3s ease-out;
 }
 
 /* Íconos SVG */
