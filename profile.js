@@ -71,7 +71,6 @@ function alternarTema() {
 }
 
 // Ejecutar al cargar la vista
-document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
   aplicarTemaGuardado();
 
