@@ -178,8 +178,8 @@ p {
 .nav-btn.active::before {
   content: "";
   position: absolute;
-  width: 36px;
-  height: 36px;
+  width: 60px;
+  height: 60px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -194,8 +194,8 @@ p {
 }
 
 .nav-btn i {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   stroke: var(--color-text-primary);
   stroke-width: 2;
   transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
