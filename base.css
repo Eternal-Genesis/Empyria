@@ -121,7 +121,7 @@ p {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* === MENÚ INFERIOR CON LUCIDE – AVANZADO === */
+/* === MENÚ INFERIOR CON LUCIDE – AVANZADO CON GLOW Y LÍNEA SUPERIOR === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -137,6 +137,20 @@ p {
   backdrop-filter: blur(10px);
   box-shadow: 0 0 12px rgba(75, 210, 229, 0.15), 0 0 20px rgba(75, 210, 229, 0.05);
   animation: navGlow 4s ease-in-out infinite alternate;
+  position: relative; /* necesario para ::before */
+}
+
+.bottom-nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background-color: var(--glow-color, var(--color-accent-primary));
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--glow-color);
+  animation: glowFadeIn 0.3s ease;
 }
 
 @keyframes navGlow {
@@ -164,7 +178,6 @@ p {
   justify-content: center;
 }
 
-/* Fondo cuadrado neón detrás del botón activo */
 .nav-btn.active {
   z-index: 1;
 }
@@ -196,6 +209,40 @@ p {
   to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.nav-btn i {
+  width: 26px;
+  height: 26px;
+  stroke: var(--color-text-primary);
+  stroke-width: 2;
+  transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  pointer-events: none;
+}
+
+.nav-btn:hover i {
+  stroke: var(--color-accent-primary);
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 4px var(--color-accent-primary));
+}
+
+.nav-btn.active i {
+  stroke: var(--color-accent-primary);
+  filter: drop-shadow(0 0 6px var(--color-accent-primary));
+  animation: glow-in 0.3s ease;
+}
+
+@keyframes glow-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0.5;
+    filter: drop-shadow(0 0 0 var(--color-accent-primary));
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 6px var(--color-accent-primary));
   }
 }
 
