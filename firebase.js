@@ -1,10 +1,12 @@
-// 🧱 BLOQUE 1 – firebase.js
+// 🧱 BLOQUE – firebase.js
+// Inicializa Firebase y prepara los servicios necesarios
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
 
-// Configuración de tu proyecto GenesisSystem-First
+// Configuración de tu proyecto Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyB9M6vM_aD6k_7SWTdU9ItHqbJVPt1wFo4",
   authDomain: "genesissystem-first.firebaseapp.com",
@@ -15,9 +17,13 @@ const firebaseConfig = {
   measurementId: "G-W6NEEBV2KE"
 };
 
-// Inicializa Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Exporta los servicios que usarás en la app
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+console.log("🔥 Firebase inicializado");
+
+// Exportar servicios para usar en otros módulos
+export { app, analytics, auth, db };
