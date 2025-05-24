@@ -268,6 +268,19 @@ p {
   --glow-color: #FF5F6D;
 }
 
+/* === LAYOUT GENERAL DE LA SPA (evita que el menú se mueva) === */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#view-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 100px; /* Espacio para que el menú no tape contenido */
+}
+
 /* === RED DE HÁBITOS === */
 .habits-grid {
   display: flex;
