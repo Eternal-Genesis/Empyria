@@ -143,13 +143,18 @@ p {
   content: "";
   position: absolute;
   top: 0;
-  left: 20%;
-  right: 20%;
-  height: 3px;
-  background-color: var(--glow-color);
-  border-radius: 2px;
-  box-shadow: 0 0 8px var(--glow-color), 0 0 16px var(--glow-color);
+  left: 10%;
+  right: 10%;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--glow-color);
+  box-shadow:
+    0 0 8px var(--glow-color),
+    0 0 16px var(--glow-color),
+    0 0 24px var(--glow-color);
+  opacity: 0.85;
 }
+
 
 .nav-btn {
   background: none;
