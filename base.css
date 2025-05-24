@@ -283,7 +283,7 @@ p {
 .nav-btn[data-route="habits"].active::before {
   --glow-color: #FFDE59;
 }
-.nav-btn[data-route="diary"].active::before {
+.nav-btn[data-route="tasks"].active::before {
   --glow-color: #2AF598;
 }
 .nav-btn[data-route="progress"].active::before {
@@ -292,11 +292,7 @@ p {
 .nav-btn[data-route="profile"].active::before {
   --glow-color: #FF5F6D;
 }
-/* === COLOR ESPECÍFICO PARA ICONO DE TASKS === */
-.nav-btn[data-route="tasks"].active i {
-  stroke: #2AF598;
-  filter: drop-shadow(0 0 6px #2AF598);
-}
+
 /* === LAYOUT GENERAL DE LA SPA (evita que el menú se mueva) === */
 .app-container {
   display: flex;
