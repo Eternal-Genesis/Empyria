@@ -150,19 +150,6 @@ p {
   stroke: var(--color-accent-primary);
 }
 
-.nav-btn.active::after {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-accent-primary);
-  border-radius: 50%;
-  box-shadow: 0 0 6px var(--color-accent-primary);
-}
-
 /* === RED DE HÁBITOS === */
 .habits-grid {
   display: flex;
