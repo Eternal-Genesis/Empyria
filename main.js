@@ -60,7 +60,6 @@ document.addEventListener("click", (e) => {
   }
 });
 function setGlowColor(route) {
-  const root = document.body;
   const colorMap = {
     inicio: "#4BD2E5",
     habits: "#FFDE59",
@@ -68,5 +67,8 @@ function setGlowColor(route) {
     progress: "#FFD700",
     profile: "#FF5F6D",
   };
-  root.style.setProperty("--glow-color", colorMap[route] || "#4BD2E5");
+  const nav = document.querySelector(".bottom-nav");
+  if (nav) {
+    nav.style.setProperty("--glow-color", colorMap[route] || "#4BD2E5");
+  }
 }
