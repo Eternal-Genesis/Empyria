@@ -63,7 +63,7 @@ function setGlowColor(route) {
   const colorMap = {
     inicio: "#4BD2E5",
     habits: "#FFDE59",
-    diary: "#2AF598",
+    tasks: "#2AF598",
     progress: "#9F4FFF",
     profile: "#FF5F6D",
   };
