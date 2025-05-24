@@ -52,7 +52,6 @@ function renderizarEntradas() {
 }
 
 // Inicializar eventos y vista
-document.addEventListener("DOMContentLoaded", () => {
   mostrarPrompt();
   renderizarEntradas();
 
