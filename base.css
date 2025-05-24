@@ -130,6 +130,7 @@ p {
   cursor: pointer;
   transition: transform 0.2s ease;
   position: relative;
+    user-select: none; /* evita selección accidental al hacer clic en el ícono */
 }
 
 .nav-btn i {
