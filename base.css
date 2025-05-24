@@ -121,7 +121,7 @@ p {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* === MENÚ INFERIOR CON LUCIDE === */
+/* === MENÚ INFERIOR CON LUCIDE – AVANZADO === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -135,6 +135,17 @@ p {
   border-top: 1px solid #1E1E1E;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  box-shadow: 0 0 12px rgba(75, 210, 229, 0.15), 0 0 20px rgba(75, 210, 229, 0.05);
+  animation: navGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes navGlow {
+  0% {
+    box-shadow: 0 0 8px rgba(75, 210, 229, 0.1), 0 0 12px rgba(75, 210, 229, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(75, 210, 229, 0.3), 0 0 40px rgba(75, 210, 229, 0.1);
+  }
 }
 
 .nav-btn {
@@ -146,14 +157,50 @@ p {
   transition: transform 0.2s ease;
   position: relative;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Fondo glow detrás del botón activo */
+.nav-btn.active {
+  z-index: 1;
+}
+
+.nav-btn.active::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border-radius: 16px;
+  background: var(--glow-color, var(--color-accent-primary));
+  opacity: 0.25;
+  filter: blur(12px);
+  z-index: -1;
+  animation: glowFadeIn 0.3s ease;
+}
+
+@keyframes glowFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+}
+
+/* Íconos SVG */
 .nav-btn i {
   width: 26px;
   height: 26px;
   stroke: var(--color-text-primary);
   stroke-width: 2;
   transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  pointer-events: none;
 }
 
 /* Hover sobre íconos */
@@ -163,14 +210,13 @@ p {
   filter: drop-shadow(0 0 4px var(--color-accent-primary));
 }
 
-/* Ícono activo: glow animado */
+/* Ícono activo con glow y animación */
 .nav-btn.active i {
   stroke: var(--color-accent-primary);
   filter: drop-shadow(0 0 6px var(--color-accent-primary));
   animation: glow-in 0.3s ease;
 }
 
-/* Animación para ícono activo */
 @keyframes glow-in {
   from {
     transform: scale(0.9);
@@ -182,6 +228,23 @@ p {
     opacity: 1;
     filter: drop-shadow(0 0 6px var(--color-accent-primary));
   }
+}
+
+/* === COLORES ÚNICOS POR BOTÓN === */
+.nav-btn[data-route="inicio"].active::before {
+  --glow-color: #4BD2E5;
+}
+.nav-btn[data-route="habits"].active::before {
+  --glow-color: #FFDE59;
+}
+.nav-btn[data-route="diary"].active::before {
+  --glow-color: #2AF598;
+}
+.nav-btn[data-route="progress"].active::before {
+  --glow-color: #FFD700;
+}
+.nav-btn[data-route="profile"].active::before {
+  --glow-color: #FF5F6D;
 }
 
 /* === RED DE HÁBITOS === */
