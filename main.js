@@ -64,7 +64,7 @@ function setGlowColor(route) {
     inicio: "#4BD2E5",
     habits: "#FFDE59",
     diary: "#2AF598",
-    progress: "#FFD700",
+    progress: "#9F4FFF",
     profile: "#FF5F6D",
   };
   const nav = document.querySelector(".bottom-nav");
