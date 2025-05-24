@@ -153,6 +153,8 @@ p {
   border: none;
   padding: 0;
   margin: 0;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   transition: transform 0.2s ease;
   position: relative;
@@ -162,7 +164,7 @@ p {
   justify-content: center;
 }
 
-/* Fondo glow detrás del botón activo */
+/* Fondo cuadrado neón detrás del botón activo */
 .nav-btn.active {
   z-index: 1;
 }
@@ -170,26 +172,29 @@ p {
 .nav-btn.active::before {
   content: "";
   position: absolute;
-  top: -12px;
-  left: -12px;
-  right: -12px;
-  bottom: -12px;
-  border-radius: 16px;
-  background: var(--glow-color, var(--color-accent-primary));
-  opacity: 0.25;
-  filter: blur(12px);
+  width: 36px;
+  height: 36px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px; /* Cuadro con bordes levemente redondeados */
+  background-color: var(--glow-color, var(--color-accent-primary));
+  box-shadow:
+    0 0 12px var(--glow-color),
+    0 0 24px var(--glow-color),
+    0 0 48px var(--glow-color);
   z-index: -1;
-  animation: glowFadeIn 0.3s ease;
+  animation: glowFadeIn 0.25s ease;
 }
 
 @keyframes glowFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: translate(-50%, -50%) scale(0.9);
   }
   to {
-    opacity: 0.25;
-    transform: scale(1);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
