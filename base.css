@@ -177,14 +177,15 @@ p {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 6px; /* Cuadro con bordes levemente redondeados */
+  border-radius: 6px;
   background-color: var(--glow-color, var(--color-accent-primary));
   box-shadow:
+    0 0 6px var(--glow-color),
     0 0 12px var(--glow-color),
-    0 0 24px var(--glow-color),
-    0 0 48px var(--glow-color);
+    0 0 24px var(--glow-color);
   z-index: -1;
-  animation: glowFadeIn 0.25s ease;
+  animation: glowFadeIn 0.3s ease;
+  opacity: 0.5;
 }
 
 @keyframes glowFadeIn {
