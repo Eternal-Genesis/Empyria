@@ -139,6 +139,7 @@ p {
   stroke: var(--color-text-primary);
   stroke-width: 2;
   transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  user-select: none; /* evita selección azul al hacer clic en el ícono */
 }
 
 /* Hover sobre íconos */
