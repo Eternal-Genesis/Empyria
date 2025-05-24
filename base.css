@@ -227,7 +227,7 @@ p {
 
 .nav-btn.active i {
   stroke: var(--glow-color);
-  animation: iconSelectPop 0.5s ease-out;
+  animation: iconSelectPop 0.3s ease-out;
 }
 
 /* Íconos SVG */
