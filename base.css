@@ -142,19 +142,18 @@ p {
 .bottom-nav::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 10%;
-  right: 10%;
-  height: 4px;
-  border-radius: 4px;
-  background: var(--glow-color);
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: transparent;
   box-shadow:
-    0 0 8px var(--glow-color),
-    0 0 16px var(--glow-color),
-    0 0 24px var(--glow-color);
-  opacity: 0.85;
+    0 -2px 12px var(--glow-color),
+    0 -4px 24px var(--glow-color),
+    0 -6px 32px var(--glow-color);
+  z-index: 2;
+  pointer-events: none;
 }
-
 
 .nav-btn {
   background: none;
