@@ -130,24 +130,43 @@ p {
   cursor: pointer;
   transition: transform 0.2s ease;
   position: relative;
-    user-select: none; /* evita selección accidental al hacer clic en el ícono */
+  user-select: none;
 }
 
 .nav-btn i {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   stroke: var(--color-text-primary);
   stroke-width: 2;
-  transition: stroke 0.3s ease, transform 0.2s ease;
+  transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
 }
 
+/* Hover sobre íconos */
 .nav-btn:hover i {
   stroke: var(--color-accent-primary);
-  transform: scale(1.2);
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 4px var(--color-accent-primary));
 }
 
+/* Ícono activo: glow animado */
 .nav-btn.active i {
   stroke: var(--color-accent-primary);
+  filter: drop-shadow(0 0 6px var(--color-accent-primary));
+  animation: glow-in 0.3s ease;
+}
+
+/* Animación para ícono activo */
+@keyframes glow-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0.5;
+    filter: drop-shadow(0 0 0 var(--color-accent-primary));
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 6px var(--color-accent-primary));
+  }
 }
 
 /* === RED DE HÁBITOS === */
