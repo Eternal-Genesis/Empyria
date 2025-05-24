@@ -127,7 +127,7 @@ p {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 76px;
   background: rgba(18, 22, 28, 0.9);
   display: flex;
   justify-content: space-around;
@@ -161,8 +161,8 @@ p {
   border: none;
   padding: 0;
   margin: 0;
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   cursor: pointer;
   transition: transform 0.2s ease;
   position: relative;
@@ -195,8 +195,8 @@ p {
 }
 
 .nav-btn i {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   stroke: var(--color-text-primary);
   stroke-width: 2;
   transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
