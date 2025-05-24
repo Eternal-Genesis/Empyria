@@ -45,14 +45,14 @@ textarea {
 
 /* === TEMA CLARO (se activa con .light-theme en <body>) === */
 body.light-theme {
-  --color-bg: #FAFAFA;
+  --color-bg: #F2F3F5;
   --color-card: #FFFFFF;
-  --color-accent-primary: #0077FF;
-  --color-accent-secondary: #FFC107;
-  --color-success: #00C853;
-  --color-error: #D50000;
-  --color-text-primary: #212121;
-  --color-text-secondary: #616161;
+  --color-accent-primary: #00BFFF;
+  --color-accent-secondary: #FF9900;
+  --color-success: #00D88F;
+  --color-error: #FF5E78;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #555555;
 }
 
 /* === ESTILOS BASE === */
