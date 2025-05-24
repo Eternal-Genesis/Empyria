@@ -1,61 +1,51 @@
-// 🧱 BLOQUE 5 – diary.js
+// 🧱 BLOQUE – tasks.js (versión inicial con localStorage)
 
-// Lista de sugerencias tipo prompt para reflexión
-const PROMPTS = [
-  "¿Qué emoción ha dominado tu día?",
-  "¿Qué aprendiste hoy sobre ti mismo?",
-  "¿Qué te dio paz hoy?",
-  "¿De qué estás agradecido ahora?",
-  "¿Qué pensamiento necesitas soltar?",
-];
+// Clave para localStorage
+const STORAGE_KEY = "tasks";
 
-// Obtiene un prompt aleatorio y lo muestra
-function mostrarPrompt() {
-  const prompt = PROMPTS[Math.floor(Math.random() * PROMPTS.length)];
-  const promptElemento = document.getElementById("prompt-text");
-  if (promptElemento) {
-    promptElemento.textContent = `“${prompt}”`;
-  }
-}
-
-// Guarda una entrada nueva en localStorage
-function guardarEntrada() {
-  const texto = document.getElementById("diary-input").value.trim();
-  if (!texto) return;
-
-  const entradas = JSON.parse(localStorage.getItem("diario") || "[]");
-  const nueva = {
-    id: Date.now(),
-    contenido: texto,
-    fecha: new Date().toLocaleString(),
-  };
-  entradas.unshift(nueva); // Añadir al inicio
-  localStorage.setItem("diario", JSON.stringify(entradas));
-  document.getElementById("diary-input").value = "";
-  renderizarEntradas();
-}
-
-// Muestra todas las entradas guardadas
-function renderizarEntradas() {
-  const lista = document.getElementById("diary-entries");
-  const entradas = JSON.parse(localStorage.getItem("diario") || "[]");
+// Cargar tareas desde almacenamiento
+function cargarTareas() {
+  const tareas = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  const lista = document.getElementById("tasks-list");
+  if (!lista) return;
 
   lista.innerHTML = "";
-  entradas.forEach((entrada) => {
+
+  tareas.forEach((tarea, index) => {
     const item = document.createElement("li");
-    item.textContent = `${entrada.fecha} — ${entrada.contenido}`;
-    item.style.marginBottom = "10px";
-    item.style.fontSize = "0.9rem";
-    item.style.color = "#8A8A8A";
+    item.textContent = tarea.texto;
+    item.classList.add("task-item");
+    if (tarea.completada) item.classList.add("task-completada");
+
+    item.addEventListener("click", () => toggleTarea(index));
     lista.appendChild(item);
   });
 }
 
-// Inicializar eventos y vista
-  mostrarPrompt();
-  renderizarEntradas();
+// Agregar una nueva tarea
+function agregarTarea() {
+  const input = document.getElementById("task-input");
+  const texto = input.value.trim();
+  if (!texto) return;
 
-  document
-    .getElementById("save-entry")
-    .addEventListener("click", guardarEntrada);
+  const tareas = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  tareas.unshift({ texto, completada: false });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tareas));
+
+  input.value = "";
+  cargarTareas();
+}
+
+// Alternar estado de tarea (✔️/❌)
+function toggleTarea(index) {
+  const tareas = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  tareas[index].completada = !tareas[index].completada;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tareas));
+  cargarTareas();
+}
+
+// Inicializar vista
+document.addEventListener("DOMContentLoaded", () => {
+  cargarTareas();
+  document.getElementById("add-task").addEventListener("click", agregarTarea);
 });
