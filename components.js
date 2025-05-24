@@ -14,10 +14,10 @@ const routes = {
     view: "habits.view.html",
     script: "habits.js",
   },
-  diary: {
-    view: "diary.view.html",
-    script: "diary.js",
-  },
+tasks: {
+  view: "tasks.view.html",
+  script: "tasks.js",
+},
   progress: {
     view: "progress.view.html",
     script: "progress.js",
