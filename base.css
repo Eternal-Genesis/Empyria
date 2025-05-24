@@ -369,6 +369,24 @@ p {
   color: var(--color-bg);
   transition: background 0.3s ease;
 }
+
+/* === ESTILOS PARA TAREAS === */
+.task-item {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.task-item:hover {
+  background: rgba(75, 210, 229, 0.1);
+}
+
+.task-completada {
+  text-decoration: line-through;
+  color: var(--color-success);
+}
+
 /* === PERFIL DE USUARIO === */
 .profile-header {
   display: flex;
