@@ -54,6 +54,15 @@ body.light-theme {
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #555555;
 }
+/* Ajustes visuales extra para modo claro */
+body.light-theme .bottom-nav {
+  background: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid #CCC;
+}
+
+body.light-theme {
+  --glow-color: var(--color-accent-primary); /* Línea superior y fondos activos */
+}
 
 /* === ESTILOS BASE === */
 body {
