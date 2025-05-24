@@ -1,28 +1,24 @@
-<!-- 🧱 BLOQUE 8 – diary.view.html (estilizado) -->
+<!-- 🧱 BLOQUE – tasks.view.html -->
 <section class="section fade-in">
-  <h2 style="color: var(--color-error);">Diario Filosófico</h2>
+  <h2 style="color: var(--color-accent-primary);">Inbox de Tareas</h2>
 
-  <!-- Prompt emocional -->
-  <div id="prompt-text" style="margin: 16px 0; font-style: italic; color: var(--color-text-secondary);">
-    “¿Qué emoción ha dominado tu día?”
+  <!-- Entrada de nueva tarea -->
+  <div class="card" style="margin-bottom: 20px;">
+    <input id="task-input" type="text" placeholder="Escribe tu tarea..." style="
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      background: var(--color-card);
+      color: var(--color-text-primary);
+    ">
+    <button id="add-task" class="btn btn-primary" style="margin-top: 10px;">Agregar</button>
   </div>
 
-  <!-- Área de escritura -->
-  <textarea id="diary-input" rows="6" class="card" placeholder="Escribe aquí tu reflexión..." style="
-    width: 100%;
-    resize: none;
-    outline: none;
-    font-size: 1rem;
-  "></textarea>
-
-  <!-- Botón para guardar -->
-  <button id="save-entry" class="btn btn-primary" style="margin-top: 12px;">
-    Guardar entrada
-  </button>
-
-  <!-- Entradas previas -->
-  <div style="margin-top: 32px;">
-    <h3 style="color: var(--color-accent-primary);">Entradas anteriores</h3>
-    <ul id="diary-entries" style="padding-left: 18px; margin-top: 10px;"></ul>
+  <!-- Lista de tareas -->
+  <div class="card">
+    <h3 style="color: var(--color-accent-secondary);">Tus Tareas</h3>
+    <ul id="tasks-list" style="margin-top: 12px; padding-left: 18px;"></ul>
   </div>
 </section>
