@@ -292,7 +292,11 @@ p {
 .nav-btn[data-route="profile"].active::before {
   --glow-color: #FF5F6D;
 }
-
+/* === COLOR ESPECÍFICO PARA ICONO DE TASKS === */
+.nav-btn[data-route="tasks"].active i {
+  stroke: #2AF598;
+  filter: drop-shadow(0 0 6px #2AF598);
+}
 /* === LAYOUT GENERAL DE LA SPA (evita que el menú se mueva) === */
 .app-container {
   display: flex;
