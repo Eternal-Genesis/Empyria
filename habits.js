@@ -57,8 +57,7 @@ function renderizarHabitos() {
   });
 }
 
-// Inicializa módulo
-document.addEventListener("DOMContentLoaded", () => {
-  cargarEstado();
-  renderizarHabitos();
+// Inicializa directamente (el DOM ya está cargado cuando se inyecta este script)
+cargarEstado();
+renderizarHabitos();
 });
