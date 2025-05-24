@@ -16,6 +16,14 @@ html, body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* === BLOQUE GLOBAL: evitar selección accidental de texto === */
+* {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+  user-select: none;         /* Estándar */
+}
+
 /* === TEMA OSCURO (por defecto) === */
 :root {
   --color-bg: #0B0E11;
@@ -139,7 +147,6 @@ p {
   stroke: var(--color-text-primary);
   stroke-width: 2;
   transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-  user-select: none; /* evita selección azul al hacer clic en el ícono */
 }
 
 /* Hover sobre íconos */
