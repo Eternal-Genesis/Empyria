@@ -48,7 +48,7 @@ body.light-theme {
   --color-bg: #F2F3F5;
   --color-card: #FFFFFF;
   --color-accent-primary: #00BFFF;
-  --color-accent-secondary: #FF9900;
+  --color-accent-secondary: #FF9900; /* Asegurate que sea suficientemente oscuro */
   --color-success: #00D88F;
   --color-error: #FF5E78;
   --color-text-primary: #1A1A1A;
