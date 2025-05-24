@@ -160,8 +160,8 @@ p {
   border: none;
   padding: 0;
   margin: 0;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   cursor: pointer;
   transition: transform 0.2s ease;
   position: relative;
@@ -194,8 +194,8 @@ p {
 }
 
 .nav-btn i {
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   stroke: var(--color-text-primary);
   stroke-width: 2;
   transition: stroke 0.3s ease, transform 0.3s ease, filter 0.3s ease;
