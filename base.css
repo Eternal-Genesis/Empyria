@@ -121,7 +121,7 @@ p {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* === MENÚ INFERIOR CON LUCIDE – AVANZADO CON GLOW Y LÍNEA SUPERIOR === */
+/* === MENÚ INFERIOR CON LUCIDE – GLOW ESTÁTICO + LÍNEA SUPERIOR === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -135,9 +135,8 @@ p {
   border-top: 1px solid #1E1E1E;
   z-index: 1000;
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 12px rgba(75, 210, 229, 0.15), 0 0 20px rgba(75, 210, 229, 0.05);
-  animation: navGlow 4s ease-in-out infinite alternate;
-  position: relative; /* necesario para ::before */
+  position: relative;
+  --glow-color: var(--color-accent-primary); /* valor fallback */
 }
 
 .bottom-nav::before {
@@ -147,19 +146,9 @@ p {
   left: 20%;
   right: 20%;
   height: 3px;
-  background-color: var(--glow-color, var(--color-accent-primary));
+  background-color: var(--glow-color);
   border-radius: 2px;
-  box-shadow: 0 0 8px var(--glow-color);
-  animation: glowFadeIn 0.3s ease;
-}
-
-@keyframes navGlow {
-  0% {
-    box-shadow: 0 0 8px rgba(75, 210, 229, 0.1), 0 0 12px rgba(75, 210, 229, 0.05);
-  }
-  100% {
-    box-shadow: 0 0 20px rgba(75, 210, 229, 0.3), 0 0 40px rgba(75, 210, 229, 0.1);
-  }
+  box-shadow: 0 0 8px var(--glow-color), 0 0 16px var(--glow-color);
 }
 
 .nav-btn {
@@ -191,25 +180,13 @@ p {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 6px;
-  background-color: var(--glow-color, var(--color-accent-primary));
+  background-color: var(--glow-color);
   box-shadow:
     0 0 6px var(--glow-color),
     0 0 12px var(--glow-color),
     0 0 24px var(--glow-color);
   z-index: -1;
-  animation: glowFadeIn 0.3s ease;
-  opacity: 0.5;
-}
-
-@keyframes glowFadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+  opacity: 0.9;
 }
 
 .nav-btn i {
@@ -222,29 +199,16 @@ p {
 }
 
 .nav-btn:hover i {
-  stroke: var(--color-accent-primary);
+  stroke: var(--glow-color);
   transform: scale(1.25);
-  filter: drop-shadow(0 0 4px var(--color-accent-primary));
+  filter: drop-shadow(0 0 6px var(--glow-color));
 }
 
 .nav-btn.active i {
-  stroke: var(--color-accent-primary);
-  filter: drop-shadow(0 0 6px var(--color-accent-primary));
-  animation: glow-in 0.3s ease;
+  stroke: var(--glow-color);
+  filter: drop-shadow(0 0 6px var(--glow-color));
 }
 
-@keyframes glow-in {
-  from {
-    transform: scale(0.9);
-    opacity: 0.5;
-    filter: drop-shadow(0 0 0 var(--color-accent-primary));
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-    filter: drop-shadow(0 0 6px var(--color-accent-primary));
-  }
-}
 
 /* Íconos SVG */
 .nav-btn i {
