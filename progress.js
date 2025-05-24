@@ -52,7 +52,6 @@ function mostrarActividadDiario() {
 }
 
 // Inicializa todo
-document.addEventListener("DOMContentLoaded", () => {
   mostrarGraficoEnergia();
   mostrarGraficoHabitos();
   mostrarActividadDiario();
