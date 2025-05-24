@@ -31,6 +31,7 @@ async function loadView(route) {
 
   // Actualiza la navegación activa
   setActiveNav(route);
+  setGlowColor(route);
 }
 
 // Marca el botón activo en el menú inferior
@@ -58,3 +59,14 @@ document.addEventListener("click", (e) => {
     location.hash = `#/${btn.dataset.route}`;
   }
 });
+function setGlowColor(route) {
+  const root = document.body;
+  const colorMap = {
+    inicio: "#4BD2E5",
+    habits: "#FFDE59",
+    diary: "#2AF598",
+    progress: "#FFD700",
+    profile: "#FF5F6D",
+  };
+  root.style.setProperty("--glow-color", colorMap[route] || "#4BD2E5");
+}
