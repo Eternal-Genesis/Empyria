@@ -56,21 +56,30 @@ function renderizarSesion() {
   if (!contenedor) return;
 
   const user = auth.currentUser;
-  if (user) {
-    const nombre = user.displayName || "Sin nombre";
-    const email = user.email;
-    const creado = user.metadata.creationTime;
+if (user) {
+  try {
+    const doc = await db.collection("users").doc(user.uid).get();
+    const datos = doc.data();
+
+    const email = datos?.email || user.email;
+    const creado = datos?.creado?.toDate?.().toLocaleString() || "Fecha desconocida";
+    const tema = datos?.theme || "oscuro";
 
     contenedor.innerHTML = `
-      <p><strong>Usuario:</strong> ${nombre}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Registrado:</strong> ${creado}</p>
+      <p><strong>Tema preferido:</strong> ${tema}</p>
       <button id="logout-btn" class="btn btn-secondary" style="margin-top: 10px;">Cerrar sesión</button>
     `;
 
     document.getElementById("logout-btn").addEventListener("click", () => {
       auth.signOut().then(() => location.reload());
     });
+  } catch (err) {
+    contenedor.innerHTML = `<p>Error al cargar datos del usuario.</p>`;
+    console.error("Error al leer perfil desde Firestore:", err);
+  }
+}
   } else {
     contenedor.innerHTML = `
   <p><strong>Iniciar sesión o registrarse</strong></p>
