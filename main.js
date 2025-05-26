@@ -124,28 +124,30 @@ async function alternarTema() {
 }
 
 // Al iniciar, intentar cargar el tema desde Firebase
-async function cargarTemaInicial() {
-  const user = auth.currentUser;
+function cargarTemaInicial() {
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      try {
+        const doc = await db.collection("users").doc(user.uid).get();
+        const datos = doc.data();
+        const tema = datos?.theme || "oscuro";
 
-  if (user) {
-    try {
-      const doc = await db.collection("users").doc(user.uid).get();
-      const datos = doc.data();
-      const tema = datos?.theme || "oscuro";
-
-      localStorage.setItem("tema", tema); // sincroniza localStorage
-      if (tema === "claro") {
-        document.body.classList.add("light-theme");
-      } else {
-        document.body.classList.remove("light-theme");
+        localStorage.setItem("tema", tema);
+        if (tema === "claro") {
+          document.body.classList.add("light-theme");
+        } else {
+          document.body.classList.remove("light-theme");
+        }
+        console.log("🌤 Tema desde Firebase (con sesión):", tema);
+      } catch (err) {
+        console.warn("No se pudo cargar el tema desde Firebase:", err);
+        aplicarTemaGuardado();
       }
-      console.log("🌤 Tema cargado desde Firebase:", tema);
-      return;
-    } catch (err) {
-      console.warn("No se pudo cargar el tema desde Firebase:", err);
+    } else {
+      aplicarTemaGuardado();
     }
-  }
-
+  });
+}
   // Fallback
   aplicarTemaGuardado();
 }
