@@ -31,16 +31,16 @@ textarea {
   user-select: text;
 }
 
-/* === TEMA OSCURO (por defecto) === */
+/* === TEMA OSCURO === */
 :root {
-  --color-bg: #0B0E11;
-  --color-card: #12161C;
-  --color-accent-primary: #4BD2E5;
-  --color-accent-secondary: #FFDE59;
-  --color-success: #2AF598;
-  --color-error: #FF5F6D;
-  --color-text-primary: #EAEAEA;
-  --color-text-secondary: #8A8A8A;
+  --color-bg: #0A0F14;              /* Fondo oscuro principal */
+  --color-card: #111820;            /* Fondo de tarjetas */
+  --color-accent-primary: #4BD2E5;  /* Acento azul neón */
+  --color-accent-secondary: #FF5F6D;/* Acento rojo neón */
+  --color-success: #2AF598;         /* Verde neón */
+  --color-error: #FF5F6D;           /* Rojo neón */
+  --color-text-primary: #E5E7EB;    /* Texto principal */
+  --color-text-secondary: #8A8A8A;  /* Texto secundario */
 }
 
 /* === TEMA CLARO (se activa con .light-theme en <body>) === */
