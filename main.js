@@ -73,6 +73,7 @@ function setGlowColor(route) {
   }
 }
 // === Gestión Global de Tema (oscuro/claro) ===
+
 function aplicarTemaGuardado() {
   const tema = localStorage.getItem("tema") || "oscuro";
   if (tema === "claro") {
@@ -81,7 +82,6 @@ function aplicarTemaGuardado() {
     document.body.classList.remove("light-theme");
   }
 }
-
 function alternarTema() {
   const temaActual = document.body.classList.contains("light-theme") ? "claro" : "oscuro";
   const nuevoTema = temaActual === "oscuro" ? "claro" : "oscuro";
@@ -89,6 +89,15 @@ function alternarTema() {
   aplicarTemaGuardado();
 }
 
+// Aplica el tema guardado y configura el botón
+document.addEventListener("DOMContentLoaded", () => {
+  aplicarTemaGuardado();
+
+  const btnTema = document.getElementById("toggle-theme");
+  if (btnTema) {
+    btnTema.addEventListener("click", alternarTema);
+  }
+});
 // Aplica el tema guardado y configura el botón
 document.addEventListener("DOMContentLoaded", () => {
   aplicarTemaGuardado();
