@@ -411,3 +411,24 @@ p {
   font-weight: bold;
   color: var(--color-accent-secondary);
 }
+
+/* === ANIMACIÓN DE CAMBIO DE TEMA === */
+body.theme-switching {
+  animation: fade-scale 0.4s ease;
+}
+
+@keyframes fade-scale {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
