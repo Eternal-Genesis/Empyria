@@ -81,28 +81,34 @@ function setGlowColor(route) {
   }
 }
 // === Gestión Global de Tema (oscuro/claro) ===
+import { auth, db } from "./firebase.js"; // asegúrate que esto esté arriba en el archivo
 
-function aplicarTemaGuardado() {
-  const tema = localStorage.getItem("tema") || "oscuro";
-  if (tema === "claro") {
-    document.body.classList.add("light-theme");
-  } else {
-    document.body.classList.remove("light-theme");
-  }
-}
-function alternarTema() {
+async function alternarTema() {
   const temaActual = document.body.classList.contains("light-theme") ? "claro" : "oscuro";
   const nuevoTema = temaActual === "oscuro" ? "claro" : "oscuro";
-  localStorage.setItem("tema", nuevoTema);
 
-  // 🟢 Activar animación
+  localStorage.setItem("tema", nuevoTema); // guardar en local
+
+  // Animación de transición
   document.body.classList.add("theme-switching");
   aplicarTemaGuardado();
-
-  // 🟢 Quitar la clase después de la animación (0.4s = 400ms)
   setTimeout(() => {
     document.body.classList.remove("theme-switching");
   }, 400);
+
+  // 🔥 Guardar también en Firestore si el usuario está logueado
+  const user = auth.currentUser;
+  if (user) {
+    try {
+      await db.collection("users").doc(user.uid).set(
+        { theme: nuevoTema },
+        { merge: true }
+      );
+      console.log("🎨 Tema guardado en Firebase:", nuevoTema);
+    } catch (err) {
+      console.error("Error al guardar tema en Firestore:", err);
+    }
+  }
 }
 
 // Aplica el tema guardado y configura el botón
