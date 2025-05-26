@@ -32,6 +32,14 @@ async function loadView(route) {
   // Actualiza la navegación activa
   setActiveNav(route);
   setGlowColor(route);
+
+  // 🟢 Agregar aquí el listener del botón de tema (si la vista es "profile")
+  if (route === "profile") {
+    const btnTema = document.getElementById("toggle-theme");
+    if (btnTema) {
+      btnTema.addEventListener("click", alternarTema);
+    }
+  }
 }
 
 // Marca el botón activo en el menú inferior
