@@ -106,12 +106,3 @@ document.addEventListener("DOMContentLoaded", () => {
     btnTema.addEventListener("click", alternarTema);
   }
 });
-// Aplica el tema guardado y configura el botón
-document.addEventListener("DOMContentLoaded", () => {
-  aplicarTemaGuardado();
-
-  const btnTema = document.getElementById("toggle-theme");
-  if (btnTema) {
-    btnTema.addEventListener("click", alternarTema);
-  }
-});
