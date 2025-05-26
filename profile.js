@@ -48,7 +48,43 @@ function renderizarPerfil() {
   });
 }
 
-// Inicialización al cargar la vista
+// Renderiza info de sesión
+import { auth } from './firebase.js';
+
+function renderizarSesion() {
+  const contenedor = document.getElementById("auth-info");
+  if (!contenedor) return;
+
+  const user = auth.currentUser;
+  if (user) {
+    const nombre = user.displayName || "Sin nombre";
+    const email = user.email;
+    const creado = user.metadata.creationTime;
+
+    contenedor.innerHTML = `
+      <p><strong>Usuario:</strong> ${nombre}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Registrado:</strong> ${creado}</p>
+      <button id="logout-btn" class="btn btn-secondary" style="margin-top: 10px;">Cerrar sesión</button>
+    `;
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      auth.signOut().then(() => location.reload());
+    });
+  } else {
+    contenedor.innerHTML = `
+      <p>No has iniciado sesión.</p>
+      <button id="login-btn" class="btn btn-primary" style="margin-top: 10px;">Iniciar sesión</button>
+    `;
+    document.getElementById("login-btn").addEventListener("click", () => {
+      alert("⚠️ Módulo de login aún no implementado.");
+    });
+  }
+}
+
+// Ejecutar ambas funciones al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
+  renderizarSesion();
 });
+
