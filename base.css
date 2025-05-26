@@ -432,3 +432,7 @@ body.theme-switching {
   }
 }
 
+body {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text-primary) !important;
+}
