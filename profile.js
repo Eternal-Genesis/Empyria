@@ -73,15 +73,48 @@ function renderizarSesion() {
     });
   } else {
     contenedor.innerHTML = `
-      <p>No has iniciado sesión.</p>
-      <button id="login-btn" class="btn btn-primary" style="margin-top: 10px;">Iniciar sesión</button>
-    `;
-    document.getElementById("login-btn").addEventListener("click", () => {
-      alert("⚠️ Módulo de login aún no implementado.");
-    });
-  }
-}
+  <p><strong>Iniciar sesión o registrarse</strong></p>
+  <input id="login-email" type="email" placeholder="Correo electrónico" class="input" style="margin-top: 10px; width: 100%; padding: 10px; border-radius: 6px; border: none;" />
+  <input id="login-password" type="password" placeholder="Contraseña" class="input" style="margin-top: 10px; width: 100%; padding: 10px; border-radius: 6px; border: none;" />
 
+  <div style="margin-top: 12px; display: flex; gap: 10px;">
+    <button id="btn-login" class="btn btn-primary">Entrar</button>
+    <button id="btn-register" class="btn btn-secondary">Registrar</button>
+  </div>
+
+  <p id="login-msg" style="margin-top: 12px; font-weight: bold; color: var(--color-error);"></p>
+`;
+
+document.getElementById("btn-login").addEventListener("click", async () => {
+  const email = document.getElementById("login-email").value;
+  const pass = document.getElementById("login-password").value;
+
+  try {
+    await auth.signInWithEmailAndPassword(email, pass);
+    location.reload();
+  } catch (err) {
+    document.getElementById("login-msg").textContent = "Error al iniciar sesión.";
+    console.error(err);
+  }
+});
+
+document.getElementById("btn-register").addEventListener("click", async () => {
+  const email = document.getElementById("login-email").value;
+  const pass = document.getElementById("login-password").value;
+
+  try {
+    const cred = await auth.createUserWithEmailAndPassword(email, pass);
+    await db.collection("users").doc(cred.user.uid).set({
+      email: cred.user.email,
+      creado: new Date(),
+      theme: "oscuro",
+    });
+    location.reload();
+  } catch (err) {
+    document.getElementById("login-msg").textContent = "Error al registrarse.";
+    console.error(err);
+  }
+});
 // Ejecutar ambas funciones al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
