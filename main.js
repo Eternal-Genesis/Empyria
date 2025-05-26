@@ -141,12 +141,6 @@ function cargarTemaInicial() {
 document.addEventListener("DOMContentLoaded", () => {
   cargarTemaInicial();
 });
-
-}
-  // Fallback
-  aplicarTemaGuardado();
-}
-
 // Al iniciar la app, aplicar tema y configurar botón si existe
 document.addEventListener("DOMContentLoaded", () => {
   cargarTemaInicial();
