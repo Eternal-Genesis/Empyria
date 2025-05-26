@@ -72,3 +72,29 @@ function setGlowColor(route) {
     nav.style.setProperty("--glow-color", colorMap[route] || "#4BD2E5");
   }
 }
+// === Gestión Global de Tema (oscuro/claro) ===
+function aplicarTemaGuardado() {
+  const tema = localStorage.getItem("tema") || "oscuro";
+  if (tema === "claro") {
+    document.body.classList.add("light-theme");
+  } else {
+    document.body.classList.remove("light-theme");
+  }
+}
+
+function alternarTema() {
+  const temaActual = document.body.classList.contains("light-theme") ? "claro" : "oscuro";
+  const nuevoTema = temaActual === "oscuro" ? "claro" : "oscuro";
+  localStorage.setItem("tema", nuevoTema);
+  aplicarTemaGuardado();
+}
+
+// Aplica el tema guardado y configura el botón
+document.addEventListener("DOMContentLoaded", () => {
+  aplicarTemaGuardado();
+
+  const btnTema = document.getElementById("toggle-theme");
+  if (btnTema) {
+    btnTema.addEventListener("click", alternarTema);
+  }
+});
