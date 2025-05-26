@@ -1,4 +1,4 @@
-//BLOQUE PROFILE.JS
+// 🧱 BLOQUE PROFILE.JS
 
 // Determina el estado mental basado en datos simples
 function calcularEstadoMental() {
@@ -31,24 +31,6 @@ function calcularLogros() {
   return logros;
 }
 
-// Aplica el tema guardado
-function aplicarTemaGuardado() {
-  const tema = localStorage.getItem("tema") || "oscuro";
-  if (tema === "claro") {
-    document.body.classList.add("light-theme");
-  } else {
-    document.body.classList.remove("light-theme");
-  }
-}
-
-// Alterna el tema al hacer clic
-function alternarTema() {
-  const temaActual = document.body.classList.contains("light-theme") ? "claro" : "oscuro";
-  const nuevoTema = temaActual === "oscuro" ? "claro" : "oscuro";
-  localStorage.setItem("tema", nuevoTema);
-  aplicarTemaGuardado();
-}
-
 // Renderiza el estado y logros en la vista
 function renderizarPerfil() {
   const estado = calcularEstadoMental();
@@ -69,11 +51,4 @@ function renderizarPerfil() {
 // Inicialización al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
-  aplicarTemaGuardado();
-
-  const btnTema = document.getElementById("toggle-theme");
-  if (btnTema) {
-    btnTema.addEventListener("click", alternarTema);
-  }
 });
-
