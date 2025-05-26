@@ -94,7 +94,15 @@ function alternarTema() {
   const temaActual = document.body.classList.contains("light-theme") ? "claro" : "oscuro";
   const nuevoTema = temaActual === "oscuro" ? "claro" : "oscuro";
   localStorage.setItem("tema", nuevoTema);
+
+  // 🟢 Activar animación
+  document.body.classList.add("theme-switching");
   aplicarTemaGuardado();
+
+  // 🟢 Quitar la clase después de la animación (0.4s = 400ms)
+  setTimeout(() => {
+    document.body.classList.remove("theme-switching");
+  }, 400);
 }
 
 // Aplica el tema guardado y configura el botón
