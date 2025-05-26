@@ -47,12 +47,12 @@ textarea {
 body.light-theme {
   --color-bg: #F2F3F5;
   --color-card: #FFFFFF;
-  --color-accent-primary: #00BFFF;
-  --color-accent-secondary: #FF9900; /* Asegurate que sea suficientemente oscuro */
-  --color-success: #00D88F;
+  --color-accent-primary: #0077CC;     /* Azul cielo moderno */
+  --color-accent-secondary: #003366;   /* Azul marino elegante */
+  --color-success: #00B88F;
   --color-error: #FF5E78;
   --color-text-primary: #1A1A1A;
-  --color-text-secondary: #555555;
+  --color-text-secondary: #444444;
 }
 /* Ajustes visuales extra para modo claro */
 body.light-theme .bottom-nav {
