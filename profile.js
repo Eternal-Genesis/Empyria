@@ -132,31 +132,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const installBtn = document.getElementById("btn-install-pwa");
   const section = document.getElementById("install-pwa-section");
 
-  // Detectar si estamos en modo app
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
-  // Mostrar siempre el botón en navegador (aunque ya esté instalada)
+  // ✅ Mostrar solo si NO es app instalada
   if (section) {
     section.style.display = isStandalone ? "none" : "block";
   }
 
   if (installBtn) {
     installBtn.addEventListener("click", async () => {
-      if (!deferredPrompt) {
-        alert("⚠️ La instalación no está disponible en este momento.\nEsto puede deberse a que ya instalaste la app o a que el navegador aún no permite instalar.");
-        return;
-      }
-
-      deferredPrompt.prompt();
-      const choice = await deferredPrompt.userChoice;
-      if (choice.outcome === 'accepted') {
-        console.log("✅ Usuario aceptó la instalación.");
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        if (choice.outcome === 'accepted') {
+          console.log("✅ Usuario aceptó la instalación.");
+        } else {
+          console.log("❌ Usuario canceló la instalación.");
+        }
+        deferredPrompt = null;
+        section.style.display = "none";
       } else {
-        console.log("❌ Usuario canceló la instalación.");
+        alert("ℹ️ Para instalar la app:\nTocá el ícono ⬇️ en la barra del navegador o usá 'Agregar a pantalla de inicio' en el menú.");
       }
-
-      deferredPrompt = null;
-      section.style.display = "none";
     });
   }
 });
