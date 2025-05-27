@@ -82,7 +82,9 @@ function configurarAutenticacion() {
     }
   });
 }
-  // Ejecutar solo cuando los elementos ya están en el DOM
+} // ← ESTA llave cierra la función configurarAutenticacion
+
+// Ejecutar solo cuando los elementos ya están en el DOM
 setTimeout(() => {
   console.log("⏱️ Ejecutando inicialización diferida de profile.js");
 
@@ -105,5 +107,4 @@ setTimeout(() => {
         : "";
     }
   });
-
 }, 50); // pequeño retardo para esperar el DOM inyectado
