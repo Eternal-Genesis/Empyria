@@ -132,26 +132,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const installBtn = document.getElementById("btn-install-pwa");
   const section = document.getElementById("install-pwa-section");
 
-  // Detectar si está corriendo como app (PWA instalada)
+  // Detectar si estamos en modo app
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
-  // Mostrar SIEMPRE en navegador, ocultar solo si está en modo app
-  if (!isStandalone && section) {
-    section.style.display = "block";
-  } else if (isStandalone && section) {
-    section.style.display = "none";
+  // Mostrar siempre el botón en navegador (aunque ya esté instalada)
+  if (section) {
+    section.style.display = isStandalone ? "none" : "block";
   }
 
   if (installBtn) {
     installBtn.addEventListener("click", async () => {
       if (!deferredPrompt) {
-        alert("⚠️ La instalación no está disponible en este momento.");
+        alert("⚠️ La instalación no está disponible en este momento.\nEsto puede deberse a que ya instalaste la app o a que el navegador aún no permite instalar.");
         return;
       }
 
-      // Lanzar el prompt
       deferredPrompt.prompt();
-
       const choice = await deferredPrompt.userChoice;
       if (choice.outcome === 'accepted') {
         console.log("✅ Usuario aceptó la instalación.");
