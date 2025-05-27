@@ -3,8 +3,6 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js";
-// const analytics = getAnalytics(app);
-export { app, db, auth }; // ✅ sin analytics
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js";
 
@@ -21,11 +19,11 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app); // Comentado si no se usa
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 console.log("🔥 Firebase inicializado");
 
-// Exportar servicios para usar en otros módulos
-export { app, analytics, auth, db };
+// ✅ Exportar solo una vez y después de definir todo
+export { app, db, auth };
