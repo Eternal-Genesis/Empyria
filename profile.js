@@ -96,13 +96,7 @@ function configurarAutenticacion() {
   });
 }
 
-// Inicialización al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
-  renderizarPerfil();
-  configurarAutenticacion();
-
-  // Procesar resultado del login por redirección
-  document.addEventListener("DOMContentLoaded", () => {
   console.log("🟢 DOMContentLoaded dentro de profile.js");
 
   renderizarPerfil();
