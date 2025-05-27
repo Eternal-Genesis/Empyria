@@ -1,8 +1,7 @@
-// 🧱 BLOQUE – firebase.js
-// Inicializa Firebase y prepara los servicios necesarios
+// 🧱 BLOQUE – firebase.js (versión ES6 modular completa)
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js";
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js";
+// Importar solo módulos ES
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
@@ -19,11 +18,10 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app); // Comentado si no se usa
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-console.log("🔥 Firebase inicializado");
+console.log("🔥 Firebase inicializado (modular)");
 
-// ✅ Exportar solo una vez y después de definir todo
+// Exportar para uso en otros módulos
 export { app, db, auth };
