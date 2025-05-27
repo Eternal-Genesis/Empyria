@@ -130,6 +130,17 @@ let deferredPrompt = null;
 // Una vez el DOM está listo
 document.addEventListener("DOMContentLoaded", () => {
   const installBtn = document.getElementById("btn-install-pwa");
+  const section = document.getElementById("install-pwa-section");
+
+  // Detectar si está corriendo como app (PWA instalada)
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+  // Mostrar SIEMPRE en navegador, ocultar solo si está en modo app
+  if (!isStandalone && section) {
+    section.style.display = "block";
+  } else if (isStandalone && section) {
+    section.style.display = "none";
+  }
 
   if (installBtn) {
     installBtn.addEventListener("click", async () => {
@@ -138,7 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Lanzar el prompt
       deferredPrompt.prompt();
+
       const choice = await deferredPrompt.userChoice;
       if (choice.outcome === 'accepted') {
         console.log("✅ Usuario aceptó la instalación.");
@@ -147,15 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       deferredPrompt = null;
-      const section = document.getElementById("install-pwa-section");
-      if (section) section.style.display = "none";
+      section.style.display = "none";
     });
-  }
-
-  // Ocultar si ya está instalada
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  if (isStandalone) {
-    const section = document.getElementById("install-pwa-section");
-    if (section) section.style.display = "none";
   }
 });
