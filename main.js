@@ -135,6 +135,7 @@ function cargarTemaInicial() {
       aplicarTemaGuardado();
     }
   });
+}
 // Inicia tema y vista principal al cargar la app
 window.addEventListener("DOMContentLoaded", () => {
   cargarTemaInicial();
