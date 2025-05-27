@@ -51,6 +51,7 @@ import { auth } from "./firebase.js";
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
   onAuthStateChanged,
   getRedirectResult
