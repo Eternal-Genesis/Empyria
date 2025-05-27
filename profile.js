@@ -128,4 +128,5 @@ function configurarAutenticacion() {
 // Inicialización al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
+  configurarAutenticacion();
 });
