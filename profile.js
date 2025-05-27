@@ -81,7 +81,6 @@ function configurarAutenticacion() {
       alert("Error al cerrar sesión: " + error.message);
     }
   });
-}
 } // ← ESTA llave cierra la función configurarAutenticacion
 
 // Ejecutar solo cuando los elementos ya están en el DOM
