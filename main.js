@@ -135,18 +135,8 @@ function cargarTemaInicial() {
       aplicarTemaGuardado();
     }
   });
-}
-
-// Iniciar carga de tema cuando DOM esté listo
-document.addEventListener("DOMContentLoaded", () => {
+// Inicia tema y vista principal al cargar la app
+window.addEventListener("DOMContentLoaded", () => {
   cargarTemaInicial();
-});
-// Al iniciar la app, aplicar tema y configurar botón si existe
-document.addEventListener("DOMContentLoaded", () => {
-  cargarTemaInicial();
-
-  const btnTema = document.getElementById("toggle-theme");
-  if (btnTema) {
-    btnTema.addEventListener("click", alternarTema);
-  }
+  handleRouteChange();
 });
