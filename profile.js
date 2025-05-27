@@ -54,7 +54,7 @@ import {
   getRedirectResult,
   signOut,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 // Configura el comportamiento de autenticación
 function configurarAutenticacion() {
