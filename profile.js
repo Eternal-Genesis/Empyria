@@ -81,6 +81,7 @@ function configurarAutenticacion() {
       alert("Error al cerrar sesión: " + error.message);
     }
   });
+}
   // Ejecutar solo cuando los elementos ya están en el DOM
 setTimeout(() => {
   console.log("⏱️ Ejecutando inicialización diferida de profile.js");
