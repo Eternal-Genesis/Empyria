@@ -113,4 +113,13 @@ setTimeout(() => {
         : "";
     }
   });
+  getRedirectResult(auth)
+  .then((result) => {
+    if (result && result.user) {
+      console.log("✅ Usuario autenticado tras redirección:", result.user.displayName);
+    }
+  })
+  .catch((error) => {
+    console.error("❌ Error tras redirección:", error.message);
+  });
 }, 50); // pequeño retardo para esperar el DOM inyectado
