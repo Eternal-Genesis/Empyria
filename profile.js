@@ -104,17 +104,6 @@ setTimeout(() => {
 
   renderizarPerfil();
   configurarAutenticacion();
-
-  getRedirectResult(auth)
-    .then((result) => {
-      if (result?.user) {
-        console.log("✅ Usuario autenticado:", result.user.displayName || result.user.email);
-      }
-      console.log("👁️ Estado actual de auth:", auth.currentUser);
-    })
-    .catch((error) => {
-      alert("Error al procesar inicio de sesión: " + error.message);
-    });
 }, 50); // pequeño retardo para esperar el DOM inyectado
 
 
