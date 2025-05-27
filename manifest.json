@@ -2,7 +2,7 @@
   "name": "Empyria OS",
   "short_name": "Empyria",
   "description": "Sistema cognitivo personal para gestionar hábitos, energía y tareas.",
-  "start_url": "/index.html?redirect",
+  "start_url": "/Empyria/index.html?redirect",
   "display": "standalone",
   "background_color": "#0A0F14",
   "theme_color": "#4BD2E5",
