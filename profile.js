@@ -60,6 +60,8 @@ import {
 function configurarAutenticacion() {
   const btnLogin = document.getElementById("login-google");
   const btnLogout = document.getElementById("logout");
+  console.log("Login button:", btnLogin);
+  console.log("Logout button:", btnLogout);
 
   if (!btnLogin || !btnLogout) return;
 
