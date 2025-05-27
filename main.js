@@ -23,11 +23,11 @@ async function loadView(route) {
   const html = await res.text();
   document.getElementById("view-container").innerHTML = html;
 
-  // Cargar y ejecutar el script correspondiente
-  const script = document.createElement("script");
-  script.src = routeData.script;
-  script.defer = true;
-  document.body.appendChild(script);
+  // Cargar y ejecutar el script correspondiente como módulo ES6
+const script = document.createElement("script");
+script.src = routeData.script;
+script.type = "module"; // ✅ Esto permite usar 'import' dentro del script
+document.body.appendChild(script);
 
   // Actualiza la navegación activa
   setActiveNav(route);
