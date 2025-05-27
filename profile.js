@@ -69,7 +69,7 @@ function configurarAutenticacion() {
 
   btnLogin.addEventListener("click", async () => {
     try {
-      await signInWithRedirect(auth, provider);
+      await signInWithPopup(auth, provider);
     } catch (error) {
       alert("Error al iniciar sesión: " + error.message);
     }
