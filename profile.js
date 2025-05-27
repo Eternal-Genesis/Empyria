@@ -47,11 +47,11 @@ function renderizarPerfil() {
     lista.appendChild(item);
   });
 }
-
 import { auth } from "./firebase.js";
 import {
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
@@ -67,52 +67,7 @@ function configurarAutenticacion() {
 
   btnLogin.addEventListener("click", async () => {
     try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      alert("Error al iniciar sesión: " + error.message);
-    }
-  });
-
-  btnLogout.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      alert("Error al cerrar sesión: " + error.message);
-    }
-  });
-onAuthStateChanged(auth, (user) => {
-  btnLogin.style.display = user ? "none" : "inline-block";
-  btnLogout.style.display = user ? "inline-block" : "none";
-
-  const infoUsuario = document.getElementById("user-info");
-  if (infoUsuario) {
-    infoUsuario.textContent = user
-      ? `Sesión activa como: ${user.displayName || user.email}`
-      : "";
-  }
-});  
-}
-//Código JS para login/logout con Google:
-import { auth } from "./firebase.js";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
-
-// Configura el comportamiento de autenticación
-function configurarAutenticacion() {
-  const btnLogin = document.getElementById("login-google");
-  const btnLogout = document.getElementById("logout");
-
-  if (!btnLogin || !btnLogout) return;
-
-  const provider = new GoogleAuthProvider();
-
-  btnLogin.addEventListener("click", async () => {
-    try {
-      await signInWithPopup(auth, provider);
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       alert("Error al iniciar sesión: " + error.message);
     }
@@ -129,10 +84,29 @@ function configurarAutenticacion() {
   onAuthStateChanged(auth, (user) => {
     btnLogin.style.display = user ? "none" : "inline-block";
     btnLogout.style.display = user ? "inline-block" : "none";
+
+    const infoUsuario = document.getElementById("user-info");
+    if (infoUsuario) {
+      infoUsuario.textContent = user
+        ? `Sesión activa como: ${user.displayName || user.email}`
+        : "";
+    }
   });
 }
+
 // Inicialización al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
   configurarAutenticacion();
+
+  // Procesar resultado del login por redirección
+  getRedirectResult(auth)
+    .then((result) => {
+      if (result?.user) {
+        console.log("✅ Usuario autenticado:", result.user.displayName || result.user.email);
+      }
+    })
+    .catch((error) => {
+      alert("Error al procesar inicio de sesión: " + error.message);
+    });
 });
