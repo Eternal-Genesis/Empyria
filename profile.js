@@ -150,12 +150,3 @@ document.addEventListener("DOMContentLoaded", () => {
       const section = document.getElementById("install-pwa-section");
       if (section) section.style.display = "none";
     });
-  }
-
-  // Ocultar si ya está en modo app
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  if (isStandalone) {
-    const section = document.getElementById("install-pwa-section");
-    if (section) section.style.display = "none";
-  }
-});
