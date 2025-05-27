@@ -102,6 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarAutenticacion();
 
   // Procesar resultado del login por redirección
+  document.addEventListener("DOMContentLoaded", () => {
+  console.log("🟢 DOMContentLoaded dentro de profile.js");
+
+  renderizarPerfil();
+
+  console.log("🟢 Ejecutando configurarAutenticacion()");
+  configurarAutenticacion();
+
   getRedirectResult(auth)
     .then((result) => {
       if (result?.user) {
