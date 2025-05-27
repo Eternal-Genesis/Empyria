@@ -125,14 +125,14 @@ setTimeout(() => {
 }, 50); // pequeño retardo para esperar el DOM inyectado
 
 // === BOTÓN DE INSTALACIÓN DE LA APP ===
-
 let deferredPrompt = null;
 
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
+  window.deferredPrompt = e; // 👈 Esto te permite usarlo desde la consola
 
-  // Mostrar el mensaje y el botón
+  // ✅ Mostrar mensaje visual
   const aviso = document.createElement("p");
   aviso.textContent = "📲 Empyria está lista para instalarse como app.";
   aviso.style.color = "var(--color-success)";
@@ -142,35 +142,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
   const authSection = document.getElementById("auth-section");
   if (authSection) authSection.appendChild(aviso);
 
+  // Mostrar el botón de instalar
   const section = document.getElementById("install-pwa-section");
   if (section) section.style.display = "block";
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-  const installBtn = document.getElementById("btn-install-pwa");
-
-  if (installBtn) {
-    installBtn.addEventListener("click", async () => {
-      if (!deferredPrompt) {
-        alert("⚠️ La instalación no está disponible en este momento.");
-        return;
-      }
-
-      deferredPrompt.prompt();
-
-      const choice = await deferredPrompt.userChoice;
-      if (choice.outcome === 'accepted') {
-        console.log("✅ Usuario aceptó la instalación.");
-      } else {
-        console.log("❌ Usuario canceló la instalación.");
-      }
-
-      deferredPrompt = null;
-      const section = document.getElementById("install-pwa-section");
-      if (section) section.style.display = "none";
-    });
-  }
-
   // Ocultar si ya está instalada
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
   if (isStandalone) {
