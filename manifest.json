@@ -15,7 +15,7 @@
   "launch_handler": {
     "client_mode": "focus-existing"
   },
-  "iarc_rating_id": "pending",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icon-192.png",
