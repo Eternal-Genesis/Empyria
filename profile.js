@@ -128,6 +128,11 @@ setTimeout(() => {
 let deferredPrompt = null;
 
 // Una vez el DOM está listo
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  window.deferredPrompt = e; // esto te ayuda también para pruebas en consola
+});
 document.addEventListener("DOMContentLoaded", () => {
   const installBtn = document.getElementById("btn-install-pwa");
   const section = document.getElementById("install-pwa-section");
