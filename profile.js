@@ -83,6 +83,22 @@ function configurarAutenticacion() {
     }
   });
 }
+onAuthStateChanged(auth, (user) => {
+  const btnLogin = document.getElementById("login-google");
+  const btnLogout = document.getElementById("logout");
+
+  if (!btnLogin || !btnLogout) return;
+
+  btnLogin.style.display = user ? "none" : "inline-block";
+  btnLogout.style.display = user ? "inline-block" : "none";
+
+  const infoUsuario = document.getElementById("user-info");
+  if (infoUsuario) {
+    infoUsuario.textContent = user
+      ? `Sesión activa como: ${user.displayName || user.email}`
+      : "";
+  }
+});
 // Ejecutar solo cuando los elementos ya están en el DOM
 setTimeout(() => {
   console.log("⏱️ Ejecutando inicialización diferida de profile.js");
@@ -99,22 +115,6 @@ setTimeout(() => {
     .catch((error) => {
       alert("Error al procesar inicio de sesión: " + error.message);
     });
-  onAuthStateChanged(auth, (user) => {
-  const btnLogin = document.getElementById("login-google");
-  const btnLogout = document.getElementById("logout");
-
-  if (!btnLogin || !btnLogout) return;
-
-  btnLogin.style.display = user ? "none" : "inline-block";
-  btnLogout.style.display = user ? "inline-block" : "none";
-
-  const infoUsuario = document.getElementById("user-info");
-  if (infoUsuario) {
-    infoUsuario.textContent = user
-      ? `Sesión activa como: ${user.displayName || user.email}`
-      : "";
-  }
-});
 }, 50); // pequeño retardo para esperar el DOM inyectado
 
 
