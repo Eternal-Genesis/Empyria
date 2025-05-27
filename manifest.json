@@ -9,10 +9,13 @@
   "background_color": "#0A0F14",
   "theme_color": "#4BD2E5",
   "orientation": "portrait",
+  "dir": "ltr",
+  "lang": "es",
   "categories": ["productivity", "health", "lifestyle"],
   "launch_handler": {
     "client_mode": "focus-existing"
   },
+  "iarc_rating_id": "pending",
   "icons": [
     {
       "src": "icon-192.png",
