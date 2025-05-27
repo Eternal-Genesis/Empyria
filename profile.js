@@ -140,25 +140,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
   // ✅ Mostrar solo si NO es app instalada
-  if (section) {
-    section.style.display = isStandalone ? "none" : "block";
-  }
+if (section) {
+  section.style.display = isStandalone ? "none" : "block";
+}
 
-  if (installBtn) {
-    installBtn.addEventListener("click", async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        if (choice.outcome === 'accepted') {
-          console.log("✅ Usuario aceptó la instalación.");
-        } else {
-          console.log("❌ Usuario canceló la instalación.");
-        }
-        deferredPrompt = null;
-        section.style.display = "none";
+if (installBtn) {
+  installBtn.addEventListener("click", async () => {
+    if (deferredPrompt) {
+      // Lanzar prompt nativo de instalación
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        console.log("✅ Usuario aceptó la instalación.");
       } else {
-        alert("ℹ️ Para instalar la app:\nTocá el ícono ⬇️ en la barra del navegador o usá 'Agregar a pantalla de inicio' en el menú.");
+        console.log("❌ Usuario canceló la instalación.");
       }
-    });
-  }
-});
+      deferredPrompt = null;
+      section.style.display = "none";
+    } else {
+      // Guía alternativa cuando no se puede instalar automáticamente
+      alert(
+        "ℹ️ Para instalar la app:\n\n👉 En PC: hacé clic en el ícono de flechita ⬇️ al lado de la barra de direcciones\n👉 En Android: tocá ⋮ (arriba a la derecha) y elegí 'Agregar a pantalla de inicio'"
+      );
+    }
+  });
+}
