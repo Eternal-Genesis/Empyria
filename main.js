@@ -136,3 +136,8 @@ document.addEventListener("DOMContentLoaded", () => {
     btnTema.addEventListener("click", alternarTema);
   }
 });
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  console.log("🟢 Empyria está corriendo como PWA instalada.");
+} else {
+  console.log("🔴 Empyria está corriendo en navegador.");
+}
