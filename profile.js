@@ -123,16 +123,16 @@ setTimeout(() => {
     console.error("❌ Error tras redirección:", error.message);
   });
 }, 50); // pequeño retardo para esperar el DOM inyectado
+
 // === BOTÓN DE INSTALACIÓN DE LA APP ===
 
 let deferredPrompt = null;
 
-// Escucha cuando el navegador detecta que se puede instalar
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
 
-  // ✅ Mostrar mensaje visual para saber que está disponible
+  // Mostrar el mensaje y el botón
   const aviso = document.createElement("p");
   aviso.textContent = "📲 Empyria está lista para instalarse como app.";
   aviso.style.color = "var(--color-success)";
@@ -142,31 +142,42 @@ window.addEventListener('beforeinstallprompt', (e) => {
   const authSection = document.getElementById("auth-section");
   if (authSection) authSection.appendChild(aviso);
 
-  // Mostrar el botón de instalar
   const section = document.getElementById("install-pwa-section");
   if (section) section.style.display = "block";
 });
-// Una vez el DOM está listo
+
 document.addEventListener("DOMContentLoaded", () => {
   const installBtn = document.getElementById("btn-install-pwa");
 
   if (installBtn) {
     installBtn.addEventListener("click", async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        if (choice.outcome === 'accepted') {
-          console.log("✅ Usuario instaló la app.");
-        }
-        deferredPrompt = null;
-
-        // Ocultar el botón después de instalar
-        const section = document.getElementById("install-pwa-section");
-        if (section) section.style.display = "none";
+      if (!deferredPrompt) {
+        alert("⚠️ La instalación no está disponible en este momento.");
+        return;
       }
+
+      deferredPrompt.prompt();
+
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        console.log("✅ Usuario aceptó la instalación.");
+      } else {
+        console.log("❌ Usuario canceló la instalación.");
+      }
+
+      deferredPrompt = null;
+      const section = document.getElementById("install-pwa-section");
+      if (section) section.style.display = "none";
     });
   }
 
+  // Ocultar si ya está instalada
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  if (isStandalone) {
+    const section = document.getElementById("install-pwa-section");
+    if (section) section.style.display = "none";
+  }
+});
   // Ocultar botón si ya está en modo app
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
   if (isStandalone) {
