@@ -127,33 +127,32 @@ setTimeout(() => {
 // === BOTÓN DE INSTALACIÓN DE LA APP ===
 let deferredPrompt = null;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  window.deferredPrompt = e; // 👈 Esto te permite usarlo desde la consola
+// Una vez el DOM está listo
+document.addEventListener("DOMContentLoaded", () => {
+  const installBtn = document.getElementById("btn-install-pwa");
 
-  // ✅ Mostrar mensaje visual
-  const aviso = document.createElement("p");
-  aviso.textContent = "📲 Empyria está lista para instalarse como app.";
-  aviso.style.color = "var(--color-success)";
-  aviso.style.marginTop = "10px";
-  aviso.style.fontWeight = "bold";
+  if (installBtn) {
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        alert("⚠️ La instalación no está disponible en este momento.");
+        return;
+      }
 
-  const authSection = document.getElementById("auth-section");
-  if (authSection) authSection.appendChild(aviso);
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        console.log("✅ Usuario aceptó la instalación.");
+      } else {
+        console.log("❌ Usuario canceló la instalación.");
+      }
 
-  // Mostrar el botón de instalar
-  const section = document.getElementById("install-pwa-section");
-  if (section) section.style.display = "block";
-});
-  // Ocultar si ya está instalada
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  if (isStandalone) {
-    const section = document.getElementById("install-pwa-section");
-    if (section) section.style.display = "none";
+      deferredPrompt = null;
+      const section = document.getElementById("install-pwa-section");
+      if (section) section.style.display = "none";
+    });
   }
-});
-  // Ocultar botón si ya está en modo app
+
+  // Ocultar si ya está en modo app
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
   if (isStandalone) {
     const section = document.getElementById("install-pwa-section");
