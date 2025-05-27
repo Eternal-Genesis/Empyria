@@ -1,27 +1,15 @@
-// 🔁 Cacheo simple para Empyria SPA
 const CACHE_NAME = 'empyria-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/base.css',
-  '/manifest.json',
-  '/template.html',
-  '/components.js',
-  '/main.js',
-  '/firebase.js',
-  // Agrega aquí vistas y scripts clave
-  '/home.view.html',
-  '/home.js',
-  '/habits.view.html',
-  '/habits.js',
-  '/calendar.view.html',
-  '/calendar.js',
-  '/tasks.view.html',
-  '/tasks.js',
-  '/progress.view.html',
-  '/progress.js',
-  '/profile.view.html',
-  '/profile.js'
+  '/Empyria/',
+  '/Empyria/index.html',
+  '/Empyria/base.css',
+  '/Empyria/manifest.json',
+  '/Empyria/template.html',
+  '/Empyria/components.js',
+  '/Empyria/main.js',
+  '/Empyria/firebase.js',
+  '/Empyria/icon-192.png',
+  '/Empyria/icon-512.png',
 ];
 
 self.addEventListener('install', (event) => {
