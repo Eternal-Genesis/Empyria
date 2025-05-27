@@ -111,6 +111,7 @@ setTimeout(() => {
       if (result?.user) {
         console.log("✅ Usuario autenticado:", result.user.displayName || result.user.email);
       }
+      console.log("👁️ Estado actual de auth:", auth.currentUser);
     })
     .catch((error) => {
       alert("Error al procesar inicio de sesión: " + error.message);
