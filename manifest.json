@@ -4,6 +4,7 @@
   "short_name": "Empyria",
   "description": "Sistema cognitivo personal para gestionar hábitos, energía y tareas.",
   "start_url": "/Empyria/index.html?redirect",
+  "scope": "/Empyria/",
   "display": "standalone",
   "display_override": ["window-controls-overlay"],
   "background_color": "#0A0F14",
@@ -34,5 +35,6 @@
       "sizes": "540x960",
       "type": "image/png"
     }
-  ]
+  ],
+  "scope_extensions": []
 }
