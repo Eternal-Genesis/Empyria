@@ -67,12 +67,18 @@ function configurarAutenticacion() {
   const provider = new GoogleAuthProvider();
 
   btnLogin.addEventListener("click", async () => {
-    try {
+  try {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      await signInWithRedirect(auth, provider);
+    } else {
       await signInWithPopup(auth, provider);
-    } catch (error) {
-      alert("Error al iniciar sesión: " + error.message);
     }
-  });
+  } catch (error) {
+    alert("Error al iniciar sesión: " + error.message);
+  }
+});
 
   btnLogout.addEventListener("click", async () => {
     try {
