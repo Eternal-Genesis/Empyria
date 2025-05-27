@@ -80,11 +80,17 @@ function configurarAutenticacion() {
       alert("Error al cerrar sesión: " + error.message);
     }
   });
+onAuthStateChanged(auth, (user) => {
+  btnLogin.style.display = user ? "none" : "inline-block";
+  btnLogout.style.display = user ? "inline-block" : "none";
 
-  onAuthStateChanged(auth, (user) => {
-    btnLogin.style.display = user ? "none" : "inline-block";
-    btnLogout.style.display = user ? "inline-block" : "none";
-  });
+  const infoUsuario = document.getElementById("user-info");
+  if (infoUsuario) {
+    infoUsuario.textContent = user
+      ? `Sesión activa como: ${user.displayName || user.email}`
+      : "";
+  }
+});  
 }
 //Código JS para login/logout con Google:
 import { auth } from "./firebase.js";
