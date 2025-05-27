@@ -95,8 +95,9 @@ function configurarAutenticacion() {
     }
   });
 }
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("🟢 DOMContentLoaded dentro de profile.js");
+// Ejecutar solo cuando los elementos ya están en el DOM
+setTimeout(() => {
+  console.log("⏱️ Ejecutando inicialización diferida de profile.js");
 
   renderizarPerfil();
   configurarAutenticacion();
@@ -110,5 +111,5 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch((error) => {
       alert("Error al procesar inicio de sesión: " + error.message);
     });
-});
+}, 50); // pequeño retardo para esperar el DOM inyectado
 
