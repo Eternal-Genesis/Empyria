@@ -52,7 +52,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  getRedirectResult
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 // Configura el comportamiento de autenticación
@@ -67,18 +68,18 @@ function configurarAutenticacion() {
   const provider = new GoogleAuthProvider();
 
   btnLogin.addEventListener("click", async () => {
-  try {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    try {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    if (isMobile) {
-      await signInWithRedirect(auth, provider);
-    } else {
-      await signInWithPopup(auth, provider);
+      if (isMobile) {
+        await signInWithRedirect(auth, provider);
+      } else {
+        await signInWithPopup(auth, provider);
+      }
+    } catch (error) {
+      alert("Error al iniciar sesión: " + error.message);
     }
-  } catch (error) {
-    alert("Error al iniciar sesión: " + error.message);
-  }
-});
+  });
 
   btnLogout.addEventListener("click", async () => {
     try {
@@ -87,8 +88,7 @@ function configurarAutenticacion() {
       alert("Error al cerrar sesión: " + error.message);
     }
   });
-} // ← ESTA llave cierra la función configurarAutenticacion
-
+} // <- ESTA LLAVE CIERRA las funciónes correctamente!
 // Ejecutar solo cuando los elementos ya están en el DOM
 setTimeout(() => {
   console.log("⏱️ Ejecutando inicialización diferida de profile.js");
