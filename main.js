@@ -104,7 +104,29 @@ function alternarTema() {
     document.body.classList.remove("theme-switching");
   }, 400);
 }
+// Detectar si se puede instalar como PWA
+let deferredPrompt;
 
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log("🛠️ App PWA lista para instalar (evento guardado)");
+
+  // Mostrar botón si existe en la vista cargada
+  const btn = document.getElementById("btn-instalar");
+  if (btn) {
+    btn.style.display = "inline-block";
+    btn.addEventListener("click", () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choice) => {
+        if (choice.outcome === "accepted") {
+          console.log("✅ App instalada");
+          btn.style.display = "none";
+        }
+      });
+    });
+  }
+});
 // Aplica el tema guardado y configura el botón
 document.addEventListener("DOMContentLoaded", () => {
   aplicarTemaGuardado();
