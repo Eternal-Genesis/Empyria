@@ -48,6 +48,83 @@ function renderizarPerfil() {
   });
 }
 
+import { auth } from "./firebase.js";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
+
+// Configura el comportamiento de autenticación
+function configurarAutenticacion() {
+  const btnLogin = document.getElementById("login-google");
+  const btnLogout = document.getElementById("logout");
+
+  if (!btnLogin || !btnLogout) return;
+
+  const provider = new GoogleAuthProvider();
+
+  btnLogin.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      alert("Error al iniciar sesión: " + error.message);
+    }
+  });
+
+  btnLogout.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert("Error al cerrar sesión: " + error.message);
+    }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    btnLogin.style.display = user ? "none" : "inline-block";
+    btnLogout.style.display = user ? "inline-block" : "none";
+  });
+}
+//Código JS para login/logout con Google:
+import { auth } from "./firebase.js";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js";
+
+// Configura el comportamiento de autenticación
+function configurarAutenticacion() {
+  const btnLogin = document.getElementById("login-google");
+  const btnLogout = document.getElementById("logout");
+
+  if (!btnLogin || !btnLogout) return;
+
+  const provider = new GoogleAuthProvider();
+
+  btnLogin.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      alert("Error al iniciar sesión: " + error.message);
+    }
+  });
+
+  btnLogout.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert("Error al cerrar sesión: " + error.message);
+    }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    btnLogin.style.display = user ? "none" : "inline-block";
+    btnLogout.style.display = user ? "inline-block" : "none";
+  });
+}
 // Inicialización al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   renderizarPerfil();
