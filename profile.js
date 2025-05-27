@@ -132,11 +132,20 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
 
+  // ✅ Mostrar mensaje visual para saber que está disponible
+  const aviso = document.createElement("p");
+  aviso.textContent = "📲 Empyria está lista para instalarse como app.";
+  aviso.style.color = "var(--color-success)";
+  aviso.style.marginTop = "10px";
+  aviso.style.fontWeight = "bold";
+
+  const authSection = document.getElementById("auth-section");
+  if (authSection) authSection.appendChild(aviso);
+
   // Mostrar el botón de instalar
   const section = document.getElementById("install-pwa-section");
   if (section) section.style.display = "block";
 });
-
 // Una vez el DOM está listo
 document.addEventListener("DOMContentLoaded", () => {
   const installBtn = document.getElementById("btn-install-pwa");
