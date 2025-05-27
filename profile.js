@@ -95,13 +95,10 @@ function configurarAutenticacion() {
     }
   });
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   console.log("🟢 DOMContentLoaded dentro de profile.js");
 
   renderizarPerfil();
-
-  console.log("🟢 Ejecutando configurarAutenticacion()");
   configurarAutenticacion();
 
   getRedirectResult(auth)
@@ -114,3 +111,4 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Error al procesar inicio de sesión: " + error.message);
     });
 });
+
