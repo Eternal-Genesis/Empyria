@@ -1,0 +1,33 @@
+<!-- 🧱 BLOQUE 1 – template.html (menú con Lucide Icons) -->
+<template id="base-template">
+  <div class="app-container" style="min-height: 100vh; display: flex; flex-direction: column;">
+    <main id="view-container" style="flex: 1; padding-bottom: 70px;"></main>
+
+    <!-- Menú inferior con íconos SVG -->
+    <nav class="bottom-nav">
+      <button data-route="inicio" class="nav-btn" aria-label="Inicio">
+        <i data-lucide="home"></i>
+      </button>
+      <button data-route="habits" class="nav-btn" aria-label="Hábitos">
+        <i data-lucide="list-todo"></i>
+      </button>
+      <button data-route="tasks" class="nav-btn" aria-label="Tareas">
+  <i data-lucide="check-circle"></i>
+</button>
+      <button data-route="progress" class="nav-btn" aria-label="Progreso">
+        <i data-lucide="bar-chart-3"></i>
+      </button>
+      <button data-route="profile" class="nav-btn" aria-label="Perfil">
+        <i data-lucide="user"></i>
+      </button>
+    </nav>
+  </div>
+</template>
+
+<!-- Activación de íconos Lucide al renderizar -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    lucide.createIcons();
+  });
+</script>
+
