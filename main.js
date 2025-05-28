@@ -50,17 +50,43 @@ function setActiveNav(route) {
   });
 }
 
-// Detecta cambios en el hash y carga la vista correspondiente
-import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { auth, db } from "./firebase.js";
+import {
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import {
+  getDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 function handleRouteChange() {
   const route = location.hash.replace("#/", "") || "inicio";
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     const rutaLibre = route === "welcome";
 
-    if (!user && !rutaLibre) {
+    if (!user) {
+      if (!rutaLibre) location.hash = "#/welcome";
+      return;
+    }
+
+    const ref = doc(db, "usuarios", user.uid);
+    const snap = await getDoc(ref);
+
+    if (!snap.exists()) {
+      location.hash = "#/welcome";
+      return;
+    }
+
+    const { fechaInicio } = snap.data();
+    const inicio = new Date(fechaInicio);
+    const hoy = new Date();
+    const diasPasados = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+
+    const accesoValido = diasPasados <= 7;
+
+    if (!accesoValido && !rutaLibre) {
+      sessionStorage.setItem("acceso_expirado", "true");
       location.hash = "#/welcome";
       return;
     }
@@ -69,9 +95,15 @@ function handleRouteChange() {
   });
 }
 
-// Escucha los cambios en el hash
 window.addEventListener("hashchange", handleRouteChange);
 window.addEventListener("DOMContentLoaded", handleRouteChange);
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".nav-btn");
+  if (btn && btn.dataset.route) {
+    location.hash = `#/${btn.dataset.route}`;
+  }
+});
 
 // Maneja clicks en los botones del menú (incluso si se clickea el ícono SVG)
 document.addEventListener("click", (e) => {
