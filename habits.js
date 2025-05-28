@@ -83,4 +83,39 @@ function toggleEstadoHabito(id, fecha = obtenerFechaActual()) {
 // Iniciar carga automática al cargar la vista
 document.addEventListener("DOMContentLoaded", () => {
   cargarHabitos();
+
+  const btnAbrir = document.getElementById("agregar-habito");
+  const btnCancelar = document.getElementById("btn-cancelar");
+  const btnCrear = document.getElementById("btn-crear");
+
+  if (btnAbrir) btnAbrir.addEventListener("click", abrirModalHabito);
+  if (btnCancelar) btnCancelar.addEventListener("click", cerrarModalHabito);
+  if (btnCrear) btnCrear.addEventListener("click", crearHabitoDesdeModal);
 });
+
+function crearHabitoDesdeModal() {
+  const nombre = document.getElementById("input-nombre").value.trim();
+  const bloque = document.getElementById("input-bloque").value;
+
+  if (!nombre || !bloque) {
+    alert("Por favor, completá todos los campos.");
+    return;
+  }
+
+  const id = crypto.randomUUID();
+  const fecha = obtenerFechaActual();
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  const dia = data[fecha] || {};
+
+  dia[id] = {
+    nombre,
+    bloque,
+    estado: "pending"
+  };
+
+  data[fecha] = dia;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+  cerrarModalHabito();
+  cargarHabitos();
+}
