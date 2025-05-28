@@ -63,8 +63,16 @@ function setActiveNav(route) {
 
 // Detecta cambios en el hash y carga la vista correspondiente
 function handleRouteChange() {
-  const route = location.hash.replace("#/", "") || "inicio";
-  loadBaseTemplate().then(() => loadView(route));
+  const routeKey = location.hash.replace("#/", "") || "inicio";
+  const routeData = routes[routeKey];
+
+  if (!routeData) return;
+
+  loadBaseTemplate().then(() => {
+    loadView(routeData.view, routeData.script); // ✅ carga vista + script
+    setActiveNav(routeKey);
+    setGlowColor(routeKey);
+  });
 }
 
 // Escucha los cambios en el hash
