@@ -341,6 +341,10 @@ p {
   color: var(--color-bg) !important;
   font-weight: bold;
 }
+.habit-pending {
+  background-color: var(--color-card);
+  color: var(--color-text-primary);
+}
 /* === PROGRESO VISUAL === */
 .energy-bar-graph {
   display: flex;
