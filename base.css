@@ -318,7 +318,7 @@ p {
   background: var(--color-card);
   border-radius: 12px;
   padding: 12px 16px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-text-primary);
   box-shadow: 0 0 6px rgba(75, 210, 229, 0.2);
   cursor: pointer;
@@ -326,8 +326,8 @@ p {
 }
 
 .habit-node:hover {
-  transform: scale(1.03);
-  background: rgba(75, 210, 229, 0.1);
+  transform: scale(1.02);
+  background: rgba(75, 210, 229, 0.06);
 }
 
 .habit-completed {
@@ -336,28 +336,66 @@ p {
   font-weight: bold;
 }
 
+.habit-pending {
+  background-color: var(--color-card);
+  color: var(--color-text-primary);
+}
+
 .habit-missed {
   background-color: var(--color-error) !important;
   color: var(--color-bg) !important;
   font-weight: bold;
 }
-.habit-pending {
-  background-color: var(--color-card);
-  color: var(--color-text-primary);
-}
-#modal-habito {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+
+/* === Swipe y acciones === */
+.habit-swipe-wrapper {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-#modal-habito.show {
-  display: flex !important;
+.habit-actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  background-color: var(--color-card);
+  z-index: 1;
+}
+
+.habit-edit,
+.habit-delete {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.habit-edit {
+  background-color: var(--color-accent-primary);
+  color: var(--color-bg);
+}
+
+.habit-delete {
+  background-color: var(--color-error);
+  color: var(--color-bg);
+}
+
+.habit-swipe {
+  flex: 1;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.habit-swipe-wrapper.show-actions .habit-swipe {
+  transform: translateX(60px);
 }
 /* === PROGRESO VISUAL === */
 .energy-bar-graph {
