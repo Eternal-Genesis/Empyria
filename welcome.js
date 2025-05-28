@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       verificarAcceso(userCred.user.uid);
     } catch (loginError) {
       if (loginError.code === "auth/user-not-found") {
+        console.log("🟠 Usuario no encontrado. Iniciando registro...");
         try {
           const userCred = await createUserWithEmailAndPassword(auth, email, password);
           const fechaHoy = new Date().toISOString();
