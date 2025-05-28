@@ -1,37 +1,15 @@
-<!-- profile.view.html -->
+<!--  profile.view.html – Vista del perfil con opción de cerrar sesión y cambiar tema -->
 <section class="section fade-in">
-  <h2>Tu Perfil Cognitivo</h2>
+  <h2 style="text-align: center;">Mi Perfil</h2>
 
-  <!-- Avatar y estado -->
-  <!-- Avatar y estado -->
-<div class="card profile-header">
-  <div class="avatar">👤</div>
-  <div>
-    <div style="font-size: 1rem;">Estado actual:</div>
-    <div id="estado-mental" class="estado-label">Cargando...</div>
-    <!-- 🔽 Nombre de usuario autenticado -->
-    <div id="user-info" style="margin-top: 6px; color: var(--color-text-secondary); font-size: 0.9rem;"></div>
-  </div>
-</div>
-
-  <!-- Logros -->
-  <div class="card" style="margin-top: 24px;">
-    <h3 style="color: var(--color-success);">Logros desbloqueados</h3>
-    <ul id="lista-logros" style="padding-left: 18px; margin-top: 10px; font-size: 0.95rem;"></ul>
+  <div class="card">
+    <p><strong>Nombre:</strong> <span id="nombre-usuario">-</span></p>
+    <p><strong>Email:</strong> <span id="email-usuario">-</span></p>
   </div>
 
-  <!-- Configuraciones -->
-  <div class="card" style="margin-top: 24px;">
-    <h3 style="color: var(--color-text-secondary);">Preferencias</h3>
-    <p style="color: var(--color-text-secondary);">Modo visual, privacidad y avatar (próximamente).</p>
-    <button id="toggle-theme" class="btn btn-secondary" style="margin-top: 10px;">
-      Cambiar tema
-    </button>
- <!-- Gestion de sesion -->
-    <div id="auth-section" style="margin-top: 20px;">
-    <button id="login-google" class="btn btn-primary">🔐 Iniciar sesión con Google</button>
-    <button id="logout" class="btn btn-secondary" style="display: none; margin-top: 10px;">Cerrar sesión</button>
+  <div class="card" style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+    <button id="cerrar-sesion" class="btn btn-error">Cerrar sesión</button>
+    <button id="btn-tema" class="btn btn-outline">🌓 Cambiar tema</button>
   </div>
-</div>
 </section>
 
