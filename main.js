@@ -51,9 +51,22 @@ function setActiveNav(route) {
 }
 
 // Detecta cambios en el hash y carga la vista correspondiente
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
 function handleRouteChange() {
   const route = location.hash.replace("#/", "") || "inicio";
-  loadBaseTemplate().then(() => loadView(route));
+
+  onAuthStateChanged(auth, (user) => {
+    const rutaLibre = route === "welcome";
+
+    if (!user && !rutaLibre) {
+      location.hash = "#/welcome";
+      return;
+    }
+
+    loadBaseTemplate().then(() => loadView(route));
+  });
 }
 
 // Escucha los cambios en el hash
