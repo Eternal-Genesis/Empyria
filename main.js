@@ -68,10 +68,17 @@ function handleRouteChange() {
   onAuthStateChanged(auth, async (user) => {
     const rutaLibre = route === "welcome";
 
-    if (!user) {
-      if (!rutaLibre) location.hash = "#/welcome";
-      return;
-    }
+if (!user) {
+  if (!rutaLibre) {
+    location.hash = "#/welcome";
+    return;
+  } else {
+    // 🔓 Usuario no logueado, pero está en ruta libre → cargar la vista
+    console.log("✅ Usuario no logueado, pero en ruta libre:", route);
+    loadBaseTemplate().then(() => loadView(route));
+    return;
+  }
+}
 
     const ref = doc(db, "usuarios", user.uid);
     const snap = await getDoc(ref);
