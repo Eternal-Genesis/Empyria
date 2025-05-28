@@ -14,14 +14,25 @@ async function loadBaseTemplate() {
   if (window.lucide) lucide.createIcons();
 }
 
-// Carga la vista HTML dentro del <main>
-async function loadView(route) {
-  const routeData = routes[route];
-  if (!routeData) return;
+function loadView(viewName, scriptName) {
+  return fetch(`views/${viewName}`)
+    .then((res) => res.text())
+    .then((html) => {
+      document.getElementById("view-container").innerHTML = html;
 
-  const res = await fetch(routeData.view);
-  const html = await res.text();
-  document.getElementById("view-container").innerHTML = html;
+      // ✅ Cargar el script si existe
+      if (scriptName) {
+        const existing = document.getElementById("view-script");
+        if (existing) existing.remove(); // eliminar script anterior
+
+        const script = document.createElement("script");
+        script.src = `scripts/${scriptName}`;
+        script.type = "module";
+        script.id = "view-script";
+        document.body.appendChild(script);
+      }
+    });
+}
 
   // Cargar y ejecutar el script correspondiente como módulo ES6
 const script = document.createElement("script");
