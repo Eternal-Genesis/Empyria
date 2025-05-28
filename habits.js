@@ -90,7 +90,7 @@ function cerrarModalHabito() {
 function abrirEdicionHabito(id, habito) {
   habitoEditandoId = id;
   const modal = document.getElementById("modal-habito");
-  if (modal) modal.style.display = "flex";
+  if (modal) modal.classList.add("show");
   document.getElementById("input-nombre").value = habito.nombre;
   document.getElementById("input-bloque").value = habito.bloque;
 }
