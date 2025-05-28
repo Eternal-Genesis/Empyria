@@ -76,7 +76,7 @@ function crearHabitoDesdeModal() {
 
 function abrirModalHabito() {
   const modal = document.getElementById("modal-habito");
-  if (modal) modal.style.display = "flex";
+  if (modal) modal.classList.add("show");
 }
 
 function cerrarModalHabito() {
