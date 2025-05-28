@@ -21,26 +21,25 @@
   </div>
 
   <!-- Modal para nuevo hábito -->
-  <div id="modal-habito"
-       style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center;">
-    <div class="card" style="width:90%; max-width:400px;">
-      <h3>Nuevo Hábito</h3>
+<div id="modal-habito">
+  <div class="card">
+    <h3 style="margin-bottom: 12px;">Nuevo Hábito</h3>
 
-      <input id="input-nombre" type="text" placeholder="Nombre del hábito"
-             style="width:100%; padding:10px; margin-bottom:12px; border-radius:8px; border:none; background:var(--color-card); color:var(--color-text-primary);" />
+    <input id="input-nombre" type="text" placeholder="Nombre del hábito"
+           style="width:100%; padding:12px; border-radius:10px; border:none; background:var(--color-card); color:var(--color-text-primary); margin-bottom:12px;" />
 
-      <label style="font-size:0.9rem;">¿En qué momento del día?</label>
-      <select id="input-bloque"
-              style="width:100%; padding:10px; margin-top:8px; border-radius:8px; border:none; background:var(--color-card); color:var(--color-text-primary);">
-        <option value="morning">Mañana</option>
-        <option value="afternoon">Tarde</option>
-        <option value="night">Noche</option>
-      </select>
+    <label for="input-bloque" style="font-size: 0.9rem;">¿En qué momento del día?</label>
+    <select id="input-bloque"
+            style="width:100%; padding:12px; margin-top:8px; border-radius:10px; border:none; background:var(--color-card); color:var(--color-text-primary); margin-bottom:16px;">
+      <option value="morning">Mañana</option>
+      <option value="afternoon">Tarde</option>
+      <option value="night">Noche</option>
+    </select>
 
-      <div style="margin-top:16px; display:flex; justify-content:space-between;">
-        <button id="btn-cancelar" class="btn btn-secondary">Cancelar</button>
-        <button id="btn-crear" class="btn btn-primary">Crear</button>
-      </div>
+    <div style="display: flex; justify-content: space-between; gap: 10px;">
+      <button id="btn-cancelar" class="btn btn-secondary" style="flex: 1;">Cancelar</button>
+      <button id="btn-crear" class="btn btn-primary" style="flex: 1;">Guardar</button>
     </div>
   </div>
+</div>
 </section>
