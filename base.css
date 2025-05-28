@@ -345,6 +345,20 @@ p {
   background-color: var(--color-card);
   color: var(--color-text-primary);
 }
+#modal-habito {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#modal-habito.show {
+  display: flex !important;
+}
 /* === PROGRESO VISUAL === */
 .energy-bar-graph {
   display: flex;
