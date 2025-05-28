@@ -16,15 +16,16 @@ async function loadBaseTemplate() {
 
 function loadView(viewName, scriptName) {
   return fetch(`views/${viewName}`)
-    .then((res) => res.text())
-    .then((html) => {
+    .then(res => res.text())
+    .then(html => {
       document.getElementById("view-container").innerHTML = html;
 
-      // ✅ Cargar el script si existe
-      if (scriptName) {
-        const existing = document.getElementById("view-script");
-        if (existing) existing.remove(); // eliminar script anterior
+      // 🔁 Remover script anterior si ya existe
+      const existingScript = document.getElementById("view-script");
+      if (existingScript) existingScript.remove();
 
+      // ✅ Insertar nuevo script si hay uno
+      if (scriptName) {
         const script = document.createElement("script");
         script.src = `scripts/${scriptName}`;
         script.type = "module";
