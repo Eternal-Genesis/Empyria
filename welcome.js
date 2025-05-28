@@ -9,12 +9,12 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// Carrusel de beneficios
+// Carrusel
 const slides = [
-  "📊 Visualiza tu energía y hábitos diarios",
+  "📊 Visualizá tu energía y hábitos diarios",
   "🧠 Mejora tu enfoque con IA personalizada",
-  "📅 Organiza tu día según tu biorritmo",
-  "🎯 Desbloqueá todas estas funciones al registrarte",
+  "📅 Organizá tu día según tu biorritmo",
+  "🎯 Desbloqueá todo esto al registrarte gratis por 7 días",
 ];
 let index = 0;
 
@@ -24,34 +24,36 @@ function rotarCarrusel() {
   index = (index + 1) % slides.length;
 }
 setInterval(rotarCarrusel, 4000);
-rotarCarrusel(); // primer mensaje
+rotarCarrusel();
 
-// Login o Registro
 document.addEventListener("DOMContentLoaded", () => {
+  const msg = document.getElementById("login-msg");
+  const expirado = sessionStorage.getItem("acceso_expirado");
+  if (expirado) {
+    msg.textContent = "⛔ Tu prueba gratuita ha expirado. Por favor, pagá para continuar.";
+    msg.style.color = "var(--color-error)";
+    sessionStorage.removeItem("acceso_expirado");
+  }
+
   document.getElementById("login-btn").addEventListener("click", async () => {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-    const msg = document.getElementById("login-msg");
 
     if (!email || !password) {
-      msg.textContent = "Por favor, completa ambos campos.";
+      msg.textContent = "Por favor, completá ambos campos.";
       msg.style.color = "var(--color-error)";
       return;
     }
 
     try {
-      // Primero intenta login
       const userCred = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCred.user;
-      verificarAcceso(user.uid);
+      verificarAcceso(userCred.user.uid);
     } catch (loginError) {
       if (loginError.code === "auth/user-not-found") {
-        // Si no existe, lo registramos
         try {
           const userCred = await createUserWithEmailAndPassword(auth, email, password);
-          const user = userCred.user;
           const fechaHoy = new Date().toISOString();
-          await setDoc(doc(db, "usuarios", user.uid), {
+          await setDoc(doc(db, "usuarios", userCred.user.uid), {
             email,
             fechaInicio: fechaHoy
           });
@@ -70,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Validar acceso por 7 días
 async function verificarAcceso(uid) {
   const msg = document.getElementById("login-msg");
   const ref = doc(db, "usuarios", uid);
@@ -93,7 +94,5 @@ async function verificarAcceso(uid) {
   } else {
     msg.textContent = "⛔ Tu prueba gratuita terminó. Por favor pagá para continuar.";
     msg.style.color = "var(--color-error)";
-    // Aquí podrías mostrar botón para pagar
   }
 }
-
