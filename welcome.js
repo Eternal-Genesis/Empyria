@@ -71,7 +71,10 @@ async function procesarLogin(email, password) {
     const userCred = await signInWithEmailAndPassword(auth, email, password);
     verificarAcceso(userCred.user.uid);
   } catch (loginError) {
-    if (loginError.code === "auth/user-not-found") {
+    if (
+  loginError.code === "auth/user-not-found" ||
+  loginError.code === "auth/invalid-login-credentials"
+) {
       console.log("🟠 Usuario no encontrado. Iniciando registro...");
       try {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
