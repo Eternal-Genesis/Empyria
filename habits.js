@@ -81,7 +81,7 @@ function abrirModalHabito() {
 
 function cerrarModalHabito() {
   const modal = document.getElementById("modal-habito");
-  if (modal) modal.style.display = "none";
+  if (modal) modal.classList.remove("show");
   document.getElementById("input-nombre").value = "";
   document.getElementById("input-bloque").value = "morning";
   habitoEditandoId = null;
