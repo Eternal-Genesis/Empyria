@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.getElementById("login-btn").addEventListener("click", async () => {
+    console.log("🟡 Clic detectado en login-btn");
+    
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
