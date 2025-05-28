@@ -40,22 +40,47 @@ function cargarHabitos(fecha = obtenerFechaActual()) {
     let completados = 0;
 
     filtrados.forEach(([id, h]) => {
-      const div = document.createElement("div");
-      div.classList.add("habit-node");
-      div.textContent = h.nombre;
+  const contenedorHabito = document.createElement("div");
+  contenedorHabito.classList.add("habit-node");
+  contenedorHabito.style.display = "flex";
+  contenedorHabito.style.justifyContent = "space-between";
+  contenedorHabito.style.alignItems = "center";
 
-      // Color visual
-      if (h.estado === "completed") {
-        div.classList.add("habit-completed");
-        completados++;
-      } else {
-        div.classList.add("habit-pending"); // Agregaremos estilo en CSS si querés
-      }
+  // Texto del hábito
+  const nombreEl = document.createElement("span");
+  nombreEl.textContent = h.nombre;
+  nombreEl.style.flex = "1";
+  nombreEl.style.cursor = "pointer";
 
-      // Toggle de estado
-      div.addEventListener("click", () => toggleEstadoHabito(id, fecha));
-      contenedor.appendChild(div);
-    });
+  if (h.estado === "completed") {
+    nombreEl.classList.add("habit-completed");
+    completados++;
+  } else {
+    nombreEl.classList.add("habit-pending");
+  }
+
+  nombreEl.addEventListener("click", () => toggleEstadoHabito(id, fecha));
+
+  // Botón de eliminar 🗑️
+  const btnEliminar = document.createElement("button");
+  btnEliminar.textContent = "🗑️";
+  btnEliminar.style.background = "transparent";
+  btnEliminar.style.border = "none";
+  btnEliminar.style.cursor = "pointer";
+  btnEliminar.style.marginLeft = "8px";
+  btnEliminar.style.fontSize = "1.1rem";
+  btnEliminar.title = "Eliminar hábito";
+
+  btnEliminar.addEventListener("click", (e) => {
+    e.stopPropagation(); // evita que dispare el cambio de estado
+    eliminarHabito(id, fecha);
+  });
+
+  // Armado del nodo
+  contenedorHabito.appendChild(nombreEl);
+  contenedorHabito.appendChild(btnEliminar);
+  contenedor.appendChild(contenedorHabito);
+});
 
     // Mostrar contador
     const contador = document.createElement("div");
