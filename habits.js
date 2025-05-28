@@ -22,7 +22,7 @@ function guardarHabitosDelDia(habitos, fecha = obtenerFechaActual()) {
 }
 
 // Renderiza los hábitos por bloque (mañana, tarde, noche)
-export function cargarHabitos(fecha = obtenerFechaActual()) {
+function cargarHabitos(fecha = obtenerFechaActual()) {
   const habitos = obtenerHabitosDelDia(fecha);
 
   bloques.forEach((bloque) => {
