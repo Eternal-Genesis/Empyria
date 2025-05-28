@@ -114,6 +114,7 @@ function cerrarModalHabito() {
   if (modal) modal.style.display = "none";
   document.getElementById("input-nombre").value = "";
   document.getElementById("input-bloque").value = "morning";
+  habitoEditandoId = null;
 }
 // ABRIR EDICIÓN CON CAMPOS PRECARGADOS
 function abrirEdicionHabito(id, habito) {
