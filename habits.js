@@ -31,6 +31,18 @@ function cargarHabitos(fecha = obtenerFechaActual()) {
       div.className = "habit-node";
       div.textContent = h.nombre;
 
+      // Visual según estado
+      if (h.estado === "completed") {
+        div.classList.add("habit-completed");
+      } else {
+        div.classList.add("habit-pending");
+      }
+
+      // Clic para cambiar estado
+      div.addEventListener("click", () => {
+        toggleEstadoHabito(id);
+      });
+
       contenedor.appendChild(div);
     });
   });
