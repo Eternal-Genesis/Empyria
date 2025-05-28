@@ -1,54 +1,43 @@
-// habits.js — Paso 1: mostrar hábitos por bloque desde localStorage
+<section class="screen" data-screen="habits" data-title="Hábitos">
+  <div class="container">
+    
+    <!-- Botón ➕ arriba a la derecha -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+      <button id="agregar-habito" class="btn btn-primary" style="padding: 6px 14px; border-radius: 8px;">
+        ➕ Hábito
+      </button>
+    </div>
 
-const STORAGE_KEY = "habitosPorDia";
-const bloques = ["morning", "afternoon", "night"];
+    <!-- Bloques por momento del día -->
+    <h2 class="subtitle">☀️ Mañana</h2>
+    <div id="habits-morning" class="habits-grid"></div>
 
-// Devuelve la fecha de hoy en formato YYYY-MM-DD
-function obtenerFechaActual() {
-  return new Date().toISOString().split("T")[0];
-}
+    <h2 class="subtitle">🌤️ Tarde</h2>
+    <div id="habits-afternoon" class="habits-grid"></div>
 
-// Devuelve los hábitos guardados para hoy
-function obtenerHabitosDelDia(fecha = obtenerFechaActual()) {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-  return data[fecha] || {};
-}
+    <h2 class="subtitle">🌙 Noche</h2>
+    <div id="habits-night" class="habits-grid"></div>
 
-// Muestra los hábitos en la interfaz
-function cargarHabitos(fecha = obtenerFechaActual()) {
-  const habitos = obtenerHabitosDelDia(fecha);
+  </div>
 
-  bloques.forEach((bloque) => {
-    const contenedor = document.getElementById(`habits-${bloque}`);
-    if (!contenedor) return;
+  <!-- Modal para nuevo hábito -->
+  <div id="modal-habito" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center;">
+    <div class="card" style="width:90%; max-width:400px;">
+      <h3>Nuevo Hábito</h3>
+      
+      <input id="input-nombre" type="text" placeholder="Nombre del hábito" style="width:100%; padding:10px; margin-bottom:12px; border-radius:8px; border:none; background:var(--color-card); color:var(--color-text-primary);" />
 
-    contenedor.innerHTML = "";
+      <label style="font-size:0.9rem;">¿En qué momento del día?</label>
+      <select id="input-bloque" style="width:100%; padding:10px; margin-top:8px; border-radius:8px; border:none; background:var(--color-card); color:var(--color-text-primary);">
+        <option value="morning">Mañana</option>
+        <option value="afternoon">Tarde</option>
+        <option value="night">Noche</option>
+      </select>
 
-    Object.entries(habitos).forEach(([id, h]) => {
-      if (h.bloque !== bloque) return;
-
-      const div = document.createElement("div");
-      div.className = "habit-node";
-      div.textContent = h.nombre;
-
-      // Visual según estado
-      if (h.estado === "completed") {
-        div.classList.add("habit-completed");
-      } else {
-        div.classList.add("habit-pending");
-      }
-
-      // Clic para cambiar estado
-      div.addEventListener("click", () => {
-        toggleEstadoHabito(id);
-      });
-
-      contenedor.appendChild(div);
-    });
-  });
-}
-
-// Ejecutar cuando se carga la vista
-document.addEventListener("DOMContentLoaded", () => {
-  cargarHabitos();
-});
+      <div style="margin-top:16px; display:flex; justify-content:space-between;">
+        <button id="btn-cancelar" class="btn btn-secondary">Cancelar</button>
+        <button id="btn-crear" class="btn btn-primary">Crear</button>
+      </div>
+    </div>
+  </div>
+</section>
