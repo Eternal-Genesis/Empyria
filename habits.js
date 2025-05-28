@@ -1,69 +1,86 @@
-// 🧱 BLOQUE – habits.js (versión inicial con Firebase)
+// habits.js (modo local con estructura por día)
 
-import { db } from './firebase.js';
-
-// Estructura por bloques (morning, afternoon, night)
+const STORAGE_KEY = "habitosPorDia";
 const bloques = ["morning", "afternoon", "night"];
 
-// Referencia a la colección 'habits'
-const habitsRef = db.collection('habits');
+// Devuelve la fecha actual en formato YYYY-MM-DD
+function obtenerFechaActual() {
+  return new Date().toISOString().split("T")[0];
+}
 
-// Cargar y renderizar hábitos
-export async function cargarHabitos() {
-  try {
-    const snapshot = await habitsRef.get();
-    const habitos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+// Obtiene los hábitos del día desde localStorage
+function obtenerHabitosDelDia(fecha = obtenerFechaActual()) {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  return data[fecha] || {};
+}
 
-    bloques.forEach(bloque => {
-      const contenedor = document.getElementById(`habits-${bloque}`);
-      if (!contenedor) return;
-      contenedor.innerHTML = "";
+// Guarda los hábitos del día en localStorage
+function guardarHabitosDelDia(habitos, fecha = obtenerFechaActual()) {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  data[fecha] = habitos;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
 
-      habitos
-        .filter(h => h.bloque === bloque)
-        .forEach(h => {
-          const div = document.createElement("div");
-          div.classList.add("habit-node");
-          div.textContent = h.nombre;
+// Renderiza los hábitos por bloque (mañana, tarde, noche)
+export function cargarHabitos(fecha = obtenerFechaActual()) {
+  const habitos = obtenerHabitosDelDia(fecha);
 
-          if (h.estado === "completed") div.classList.add("habit-completed");
-          if (h.estado === "missed") div.classList.add("habit-missed");
+  bloques.forEach((bloque) => {
+    const contenedor = document.getElementById(`habits-${bloque}`);
+    if (!contenedor) return;
 
-          div.addEventListener("click", () => toggleEstado(h.id, h.estado));
+    contenedor.innerHTML = "";
 
-          contenedor.appendChild(div);
-        });
+    // Filtrar hábitos por bloque
+    const filtrados = Object.entries(habitos).filter(
+      ([_, h]) => h.bloque === bloque
+    );
+
+    // Contador
+    let completados = 0;
+
+    filtrados.forEach(([id, h]) => {
+      const div = document.createElement("div");
+      div.classList.add("habit-node");
+      div.textContent = h.nombre;
+
+      // Color visual
+      if (h.estado === "completed") {
+        div.classList.add("habit-completed");
+        completados++;
+      } else {
+        div.classList.add("habit-pending"); // Agregaremos estilo en CSS si querés
+      }
+
+      // Toggle de estado
+      div.addEventListener("click", () => toggleEstadoHabito(id, fecha));
+      contenedor.appendChild(div);
     });
-  } catch (error) {
-    console.error("Error al cargar hábitos:", error);
-  }
+
+    // Mostrar contador
+    const contador = document.createElement("div");
+    contador.style.marginTop = "8px";
+    contador.style.fontSize = "0.85rem";
+    contador.style.color = "var(--color-text-secondary)";
+    contador.textContent = `✔️ ${completados}/${filtrados.length} completados`;
+
+    contenedor.appendChild(contador);
+  });
 }
 
-// Cambiar estado al hacer click
-async function toggleEstado(id, estadoActual) {
-  let nuevoEstado = "completed";
-  if (estadoActual === "completed") nuevoEstado = "missed";
-  else if (estadoActual === "missed") nuevoEstado = "pending";
+// Alterna el estado de un hábito entre pendiente y completado
+function toggleEstadoHabito(id, fecha = obtenerFechaActual()) {
+  const habitos = obtenerHabitosDelDia(fecha);
+  if (!habitos[id]) return;
 
-  try {
-    await habitsRef.doc(id).update({ estado: nuevoEstado });
-    cargarHabitos();
-  } catch (error) {
-    console.error("Error al actualizar estado:", error);
-  }
+  habitos[id].estado =
+    habitos[id].estado === "completed" ? "pending" : "completed";
+
+  guardarHabitosDelDia(habitos, fecha);
+  cargarHabitos(fecha);
 }
 
-// Agregar nuevo hábito (ejemplo)
-export async function agregarHabit(nombre, bloque) {
-  try {
-    await habitsRef.add({
-      nombre,
-      bloque,
-      estado: "pending",
-      creadoEn: new Date(),
-    });
-    cargarHabitos();
-  } catch (error) {
-    console.error("Error al agregar hábito:", error);
-  }
-}
+// Iniciar carga automática al cargar la vista
+document.addEventListener("DOMContentLoaded", () => {
+  cargarHabitos();
+});
