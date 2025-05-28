@@ -1,69 +1,42 @@
-// 🧱 BLOQUE – habits.js (versión inicial con Firebase)
+// habits.js — Paso 1: mostrar hábitos por bloque desde localStorage
 
-import { db } from './firebase.js';
-
-// Estructura por bloques (morning, afternoon, night)
+const STORAGE_KEY = "habitosPorDia";
 const bloques = ["morning", "afternoon", "night"];
 
-// Referencia a la colección 'habits'
-const habitsRef = db.collection('habits');
+// Devuelve la fecha de hoy en formato YYYY-MM-DD
+function obtenerFechaActual() {
+  return new Date().toISOString().split("T")[0];
+}
 
-// Cargar y renderizar hábitos
-export async function cargarHabitos() {
-  try {
-    const snapshot = await habitsRef.get();
-    const habitos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+// Devuelve los hábitos guardados para hoy
+function obtenerHabitosDelDia(fecha = obtenerFechaActual()) {
+  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+  return data[fecha] || {};
+}
 
-    bloques.forEach(bloque => {
-      const contenedor = document.getElementById(`habits-${bloque}`);
-      if (!contenedor) return;
-      contenedor.innerHTML = "";
+// Muestra los hábitos en la interfaz
+function cargarHabitos(fecha = obtenerFechaActual()) {
+  const habitos = obtenerHabitosDelDia(fecha);
 
-      habitos
-        .filter(h => h.bloque === bloque)
-        .forEach(h => {
-          const div = document.createElement("div");
-          div.classList.add("habit-node");
-          div.textContent = h.nombre;
+  bloques.forEach((bloque) => {
+    const contenedor = document.getElementById(`habits-${bloque}`);
+    if (!contenedor) return;
 
-          if (h.estado === "completed") div.classList.add("habit-completed");
-          if (h.estado === "missed") div.classList.add("habit-missed");
+    contenedor.innerHTML = "";
 
-          div.addEventListener("click", () => toggleEstado(h.id, h.estado));
+    Object.entries(habitos).forEach(([id, h]) => {
+      if (h.bloque !== bloque) return;
 
-          contenedor.appendChild(div);
-        });
+      const div = document.createElement("div");
+      div.className = "habit-node";
+      div.textContent = h.nombre;
+
+      contenedor.appendChild(div);
     });
-  } catch (error) {
-    console.error("Error al cargar hábitos:", error);
-  }
+  });
 }
 
-// Cambiar estado al hacer click
-async function toggleEstado(id, estadoActual) {
-  let nuevoEstado = "completed";
-  if (estadoActual === "completed") nuevoEstado = "missed";
-  else if (estadoActual === "missed") nuevoEstado = "pending";
-
-  try {
-    await habitsRef.doc(id).update({ estado: nuevoEstado });
-    cargarHabitos();
-  } catch (error) {
-    console.error("Error al actualizar estado:", error);
-  }
-}
-
-// Agregar nuevo hábito (ejemplo)
-export async function agregarHabit(nombre, bloque) {
-  try {
-    await habitsRef.add({
-      nombre,
-      bloque,
-      estado: "pending",
-      creadoEn: new Date(),
-    });
-    cargarHabitos();
-  } catch (error) {
-    console.error("Error al agregar hábito:", error);
-  }
-}
+// Ejecutar cuando se carga la vista
+document.addEventListener("DOMContentLoaded", () => {
+  cargarHabitos();
+});
