@@ -367,6 +367,10 @@ p {
   align-items: flex-end;
   height: 100px;
 }
+#agregar-habito {
+  z-index: 1000 !important;
+  position: relative;
+}
 
 .energy-bar-graph div {
   width: 10px;
