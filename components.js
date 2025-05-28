@@ -1,4 +1,4 @@
-// components.js
+// 🧱 BLOQUE 1 – components.js
 
 // Mapa de rutas para la SPA
 const routes = {
