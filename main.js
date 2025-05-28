@@ -33,6 +33,9 @@ document.body.appendChild(script);
   setActiveNav(route);
   setGlowColor(route);
 
+  // 🔧 Activar íconos Lucide después de cargar vista
+  if (window.lucide) lucide.createIcons();
+
   // 🟢 Agregar aquí el listener del botón de tema (si la vista es "profile")
   if (route === "profile") {
     const btnTema = document.getElementById("toggle-theme");
