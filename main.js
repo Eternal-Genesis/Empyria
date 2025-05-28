@@ -79,14 +79,36 @@ if (!user) {
     return;
   }
 }
+try {
+  const ref = doc(db, "usuarios", user.uid);
+  const snap = await getDoc(ref);
 
-    const ref = doc(db, "usuarios", user.uid);
-    const snap = await getDoc(ref);
+  if (!snap.exists()) {
+    console.warn("⚠️ Usuario sin documento en Firestore. Redirigiendo...");
+    location.hash = "#/welcome";
+    return;
+  }
 
-    if (!snap.exists()) {
-      location.hash = "#/welcome";
-      return;
-    }
+  const { fechaInicio } = snap.data();
+  const inicio = new Date(fechaInicio);
+  const hoy = new Date();
+  const diasPasados = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+  const accesoValido = diasPasados <= 7;
+
+  if (!accesoValido && !rutaLibre) {
+    sessionStorage.setItem("acceso_expirado", true);
+    location.hash = "#/welcome";
+    return;
+  }
+
+  // ✅ Si todo está bien, continuar
+  loadBaseTemplate().then(() => loadView(route));
+
+} catch (error) {
+  console.error("❌ Error al obtener datos de Firestore:", error.message);
+  alert("No se pudo conectar con Firestore. Por favor, revisá tu conexión.");
+  location.hash = "#/welcome"; // Fallback a vista pública
+}
 
     const { fechaInicio } = snap.data();
     const inicio = new Date(fechaInicio);
