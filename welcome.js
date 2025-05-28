@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
+      console.log("🔵 Intentando iniciar sesión con:", email);
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       verificarAcceso(userCred.user.uid);
     } catch (loginError) {
