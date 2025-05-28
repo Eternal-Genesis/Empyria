@@ -1,0 +1,24 @@
+<!-- 🧱 BLOQUE – tasks.view.html -->
+<section class="section fade-in">
+  <h2 style="color: var(--color-accent-primary);">Inbox de Tareas</h2>
+
+  <!-- Entrada de nueva tarea -->
+  <div class="card" style="margin-bottom: 20px;">
+    <input id="task-input" type="text" placeholder="Escribe tu tarea..." style="
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      background: var(--color-card);
+      color: var(--color-text-primary);
+    ">
+    <button id="add-task" class="btn btn-primary" style="margin-top: 10px;">Agregar</button>
+  </div>
+
+  <!-- Lista de tareas -->
+  <div class="card">
+    <h3 style="color: var(--color-accent-secondary);">Tus Tareas</h3>
+    <ul id="tasks-list" style="margin-top: 12px; padding-left: 18px;"></ul>
+  </div>
+</section>
