@@ -26,54 +26,53 @@ function rotarCarrusel() {
 setInterval(rotarCarrusel, 4000);
 rotarCarrusel();
 
-document.addEventListener("DOMContentLoaded", () => {
-  const msg = document.getElementById("login-msg");
-  const expirado = sessionStorage.getItem("acceso_expirado");
-  if (expirado) {
-    msg.textContent = "⛔ Tu prueba gratuita ha expirado. Por favor, pagá para continuar.";
+const msg = document.getElementById("login-msg");
+const expirado = sessionStorage.getItem("acceso_expirado");
+
+if (expirado) {
+  msg.textContent = "⛔ Tu prueba gratuita ha expirado. Por favor, pagá para continuar.";
+  msg.style.color = "var(--color-error)";
+  sessionStorage.removeItem("acceso_expirado");
+}
+
+document.getElementById("login-btn").addEventListener("click", async () => {
+  console.log("🟡 Clic detectado en login-btn");
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    msg.textContent = "Por favor, completá ambos campos.";
     msg.style.color = "var(--color-error)";
-    sessionStorage.removeItem("acceso_expirado");
+    return;
   }
 
-  document.getElementById("login-btn").addEventListener("click", async () => {
-    console.log("🟡 Clic detectado en login-btn");
-    
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    if (!email || !password) {
-      msg.textContent = "Por favor, completá ambos campos.";
-      msg.style.color = "var(--color-error)";
-      return;
-    }
-
-    try {
-      console.log("🔵 Intentando iniciar sesión con:", email);
-      const userCred = await signInWithEmailAndPassword(auth, email, password);
-      verificarAcceso(userCred.user.uid);
-    } catch (loginError) {
-      if (loginError.code === "auth/user-not-found") {
-        console.log("🟠 Usuario no encontrado. Iniciando registro...");
-        try {
-          const userCred = await createUserWithEmailAndPassword(auth, email, password);
-          const fechaHoy = new Date().toISOString();
-          await setDoc(doc(db, "usuarios", userCred.user.uid), {
-            email,
-            fechaInicio: fechaHoy
-          });
-          msg.textContent = "✅ Registro exitoso. Accediendo...";
-          msg.style.color = "var(--color-success)";
-          location.hash = "#/inicio";
-        } catch (registroError) {
-          msg.textContent = "Error al registrar: " + registroError.message;
-          msg.style.color = "var(--color-error)";
-        }
-      } else {
-        msg.textContent = "Error: " + loginError.message;
+  try {
+    console.log("🔵 Intentando iniciar sesión con:", email);
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+    verificarAcceso(userCred.user.uid);
+  } catch (loginError) {
+    if (loginError.code === "auth/user-not-found") {
+      console.log("🟠 Usuario no encontrado. Iniciando registro...");
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        const fechaHoy = new Date().toISOString();
+        await setDoc(doc(db, "usuarios", userCred.user.uid), {
+          email,
+          fechaInicio: fechaHoy
+        });
+        msg.textContent = "✅ Registro exitoso. Accediendo...";
+        msg.style.color = "var(--color-success)";
+        location.hash = "#/inicio";
+      } catch (registroError) {
+        msg.textContent = "Error al registrar: " + registroError.message;
         msg.style.color = "var(--color-error)";
       }
+    } else {
+      msg.textContent = "Error: " + loginError.message;
+      msg.style.color = "var(--color-error)";
     }
-  });
+  }
 });
 
 async function verificarAcceso(uid) {
