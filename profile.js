@@ -1,20 +1,25 @@
-// 🧱 profile.js – Muestra perfil, permite cerrar sesión y cambiar tema manualmente
+// ✅ profile.js completo y optimizado
 
-// 🔗 Firebase Auth
 import { auth } from "./firebase.js";
 import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-// ⏳ Al cargar el DOM
-document.addEventListener("DOMContentLoaded", () => {
+// ⏳ Esperar que el DOM esté cargado tras SPA
+setTimeout(() => {
   const nombreEl = document.getElementById("nombre-usuario");
   const emailEl = document.getElementById("email-usuario");
   const btnCerrarSesion = document.getElementById("cerrar-sesion");
   const btnTema = document.getElementById("btn-tema");
 
-  // 👤 Muestra info del usuario logueado
+  // ⚠️ Validación
+  if (!btnCerrarSesion || !nombreEl || !emailEl) {
+    console.warn("⚠️ Elementos del perfil no encontrados aún");
+    return;
+  }
+
+  // 👤 Mostrar info del usuario logueado
   onAuthStateChanged(auth, (user) => {
     if (user) {
       nombreEl.textContent = user.displayName || "Usuario";
@@ -25,17 +30,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 🔒 Cierra sesión y redirige
-  btnCerrarSesion?.addEventListener("click", async () => {
+  // 🔓 Cerrar sesión
+  btnCerrarSesion.addEventListener("click", async () => {
     try {
       await signOut(auth);
+      sessionStorage.clear();
       location.hash = "#/welcome";
+      console.log("🚪 Sesión cerrada");
     } catch (err) {
-      console.error("Error al cerrar sesión:", err);
+      console.error("❌ Error al cerrar sesión:", err.message);
     }
   });
 
-  // 🌓 Alterna tema claro/oscuro manualmente y guarda en localStorage
+  // 🌓 Cambiar tema
   btnTema?.addEventListener("click", () => {
     const root = document.documentElement;
     const actual = root.dataset.tema || "light";
@@ -44,9 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("tema", nuevo);
   });
 
-  // ✅ Aplica el tema guardado al iniciar
+  // 🌙 Aplicar tema guardado
   const temaGuardado = localStorage.getItem("tema");
   if (temaGuardado) {
     document.documentElement.dataset.tema = temaGuardado;
   }
-});
+}, 150); // Tiempo mínimo para asegurar carga de la vista
