@@ -145,12 +145,5 @@ function nextSlide() {
   }
   updateCarousel();
 }
-
-// Actualizar el carrusel (mueve los slides)
-function updateCarousel() {
-  const offset = -currentSlide * 100 + '%';
-  document.querySelector('.carousel').style.transform = `translateX(${offset})`;
-}
-
 // Avanzar al siguiente slide cada 4 segundos
 setInterval(nextSlide, 4000);
