@@ -1,4 +1,4 @@
-// 🧱 BLOQUE 1 – main.js
+// main.js
 
 // Carga la plantilla base (template.html) y la inserta en #app
 async function loadBaseTemplate() {
@@ -108,22 +108,8 @@ try {
   console.error("❌ Error al obtener datos de Firestore:", error.message);
   alert("No se pudo conectar con Firestore. Redirigiendo a modo limitado...");
   loadBaseTemplate().then(() => loadView("welcome"));
-}
-    const { fechaInicio } = snap.data();
-    const inicio = new Date(fechaInicio);
-    const hoy = new Date();
-    const diasPasados = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
-
-    const accesoValido = diasPasados <= 7;
-
-    if (!accesoValido && !rutaLibre) {
-      sessionStorage.setItem("acceso_expirado", "true");
-      location.hash = "#/welcome";
-      return;
-    }
-
-    loadBaseTemplate().then(() => loadView(route));
-  });
+  }
+});
 }
 
 window.addEventListener("hashchange", handleRouteChange);
