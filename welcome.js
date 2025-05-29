@@ -11,7 +11,7 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// 🧱 Carrusel motivacional
+// 🌀 Carrusel motivacional
 const motivationalSlides = [
   "📊 Visualizá tu energía y hábitos diarios",
   "🧠 Mejora tu enfoque con IA personalizada",
@@ -27,37 +27,6 @@ function rotarCarrusel() {
   }
 }
 setInterval(rotarCarrusel, 4000);
-rotarCarrusel();
-
-// Lógica de transición entre pasos
-document.getElementById('btn-continuar').addEventListener('click', () => {
-  console.log('🔵 Clic detectado en el botón Quiero esto');
-  // Redirigir a la siguiente sección (registro)
-  location.hash = '#/registro';
-});
-
-// Animación de carrusel (carrusel de beneficios)
-let currentSlide = 0;
-const carouselSlides = document.querySelectorAll('.carousel-slide');
-
-// Función para avanzar al siguiente slide
-function nextSlide() {
-  if (currentSlide < carouselSlides.length - 1) {
-    currentSlide++;
-  } else {
-    currentSlide = 0;
-  }
-  updateCarousel();
-}
-
-// Avanzar al siguiente slide cada 4 segundos
-setInterval(nextSlide, 4000);
-
-// Actualizar carrusel
-function updateCarousel() {
-  const offset = -currentSlide * 100 + '%';
-  document.querySelector('.carousel').style.transform = `translateX(${offset})`;
-}
 rotarCarrusel();
 
 const msg = document.getElementById("login-msg");
@@ -121,10 +90,10 @@ async function procesarLogin(email, password) {
         });
         mostrarMensaje("✅ Registro exitoso. Accediendo...", "success");
 
-setTimeout(() => {
-  console.log("🚀 Redirigiendo a #/inicio...");
-  location.hash = "#/inicio";
-}, 1000);
+        setTimeout(() => {
+          console.log("🚀 Redirigiendo a #/inicio...");
+          location.hash = "#/inicio";
+        }, 1000);
       } catch (registroError) {
         mostrarMensaje("Error al registrar: " + registroError.message, "error");
       }
@@ -154,27 +123,29 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
   procesarLogin(email, password);
 });
 
-// Lógica de transición entre pasos
-
-// Detectar clic en el botón 'Quiero esto'
+// 🧠 Lógica de transición entre pasos
 document.getElementById('btn-continuar').addEventListener('click', () => {
   console.log('🔵 Clic detectado en el botón Quiero esto');
-  // Redirigir a la siguiente sección (registro)
   location.hash = '#/registro';
 });
 
-// Animación de carrusel
+// 🧠 Animación de carrusel
 let currentSlide = 0;
-const slides = document.querySelectorAll('.carousel-slide');
+const carouselSlides = document.querySelectorAll('.carousel-slide'); // Cambiado a 'carouselSlides' para evitar duplicación
 
-// Función para avanzar al siguiente slide
 function nextSlide() {
-  if (currentSlide < slides.length - 1) {
+  if (currentSlide < carouselSlides.length - 1) {
     currentSlide++;
   } else {
     currentSlide = 0;
   }
   updateCarousel();
 }
-// Avanzar al siguiente slide cada 4 segundos
+
+// Actualizar el carrusel con la animación
+function updateCarousel() {
+  const offset = -currentSlide * 100 + '%';
+  document.querySelector('.carousel').style.transform = `translateX(${offset})`;
+}
+
 setInterval(nextSlide, 4000);
