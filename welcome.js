@@ -1,25 +1,4 @@
-// 🌀 Carrusel motivacional
-const slides = [
-  "📊 Visualizá tu energía y hábitos diarios",
-  "🧠 Mejora tu enfoque con IA personalizada",
-  "📅 Organizá tu día según tu biorritmo",
-  "🎯 Desbloqueá todo esto al registrarte gratis por 7 días",
-];
-
-let index = 0;
-
-function rotarCarrusel() {
-  const texto = document.getElementById("slide-text");
-  if (texto) {
-    texto.textContent = slides[index];
-    index = (index + 1) % slides.length;
-  }
-}
-
-setInterval(rotarCarrusel, 4000);
-rotarCarrusel();
-
-// 🧱 welcome.js – Modularizado y funcional sin esperar DOMContentLoaded
+// 🧱 welcome.js – Control robusto de errores en verificación de acceso
 
 import { auth, db } from './firebase.js';
 import {
@@ -31,6 +10,24 @@ import {
   setDoc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+// 🌀 Carrusel motivacional
+const slides = [
+  "📊 Visualizá tu energía y hábitos diarios",
+  "🧠 Mejora tu enfoque con IA personalizada",
+  "📅 Organizá tu día según tu biorritmo",
+  "🎯 Desbloqueá todo esto al registrarte gratis por 7 días",
+];
+let index = 0;
+function rotarCarrusel() {
+  const texto = document.getElementById("slide-text");
+  if (texto) {
+    texto.textContent = slides[index];
+    index = (index + 1) % slides.length;
+  }
+}
+setInterval(rotarCarrusel, 4000);
+rotarCarrusel();
 
 const msg = document.getElementById("login-msg");
 
@@ -44,24 +41,32 @@ function validarCampos(email, password) {
 }
 
 async function verificarAcceso(uid) {
-  const ref = doc(db, "usuarios", uid);
-  const snap = await getDoc(ref);
+  try {
+    const ref = doc(db, "usuarios", uid);
+    const snap = await getDoc(ref);
 
-  if (!snap.exists()) {
-    mostrarMensaje("❌ No se encontró el usuario en la base.", "error");
-    return;
-  }
+    if (!snap.exists()) {
+      mostrarMensaje("❌ No se encontró el usuario en la base.", "error");
+      return;
+    }
 
-  const { fechaInicio } = snap.data();
-  const inicio = new Date(fechaInicio);
-  const hoy = new Date();
-  const dias = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+    const { fechaInicio } = snap.data();
+    const inicio = new Date(fechaInicio);
+    const hoy = new Date();
+    const dias = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
 
-  if (dias <= 7) {
-    mostrarMensaje(`✅ Acceso válido (${7 - dias} días restantes)`, "success");
-    location.hash = "#/inicio";
-  } else {
-    mostrarMensaje("⛔ Tu prueba gratuita terminó. Por favor pagá para continuar.", "error");
+    if (dias <= 7) {
+      mostrarMensaje(`✅ Acceso válido (${7 - dias} días restantes)`, "success");
+      location.hash = "#/inicio";
+    } else {
+      sessionStorage.setItem("acceso_expirado", true);
+      mostrarMensaje("⛔ Tu prueba gratuita terminó. Por favor pagá para continuar.", "error");
+      location.hash = "#/welcome";
+    }
+  } catch (error) {
+    console.error("❌ Error al verificar acceso en Firestore:", error.message);
+    mostrarMensaje("No se pudo verificar el acceso. Verificá tu conexión.", "error");
+    location.hash = "#/welcome";
   }
 }
 
@@ -72,9 +77,9 @@ async function procesarLogin(email, password) {
     verificarAcceso(userCred.user.uid);
   } catch (loginError) {
     if (
-  loginError.code === "auth/user-not-found" ||
-  loginError.code === "auth/invalid-login-credentials"
-) {
+      loginError.code === "auth/user-not-found" ||
+      loginError.code === "auth/invalid-login-credentials"
+    ) {
       console.log("🟠 Usuario no encontrado. Iniciando registro...");
       try {
         const userCred = await createUserWithEmailAndPassword(auth, email, password);
