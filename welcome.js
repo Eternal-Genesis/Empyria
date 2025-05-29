@@ -122,3 +122,35 @@ document.getElementById("login-btn")?.addEventListener("click", () => {
 
   procesarLogin(email, password);
 });
+
+// Lógica de transición entre pasos
+
+// Detectar clic en el botón 'Quiero esto'
+document.getElementById('btn-continuar').addEventListener('click', () => {
+  console.log('🔵 Clic detectado en el botón Quiero esto');
+  // Redirigir a la siguiente sección (registro)
+  location.hash = '#/registro';
+});
+
+// Animación de carrusel
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+
+// Función para avanzar al siguiente slide
+function nextSlide() {
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+  } else {
+    currentSlide = 0;
+  }
+  updateCarousel();
+}
+
+// Actualizar el carrusel (mueve los slides)
+function updateCarousel() {
+  const offset = -currentSlide * 100 + '%';
+  document.querySelector('.carousel').style.transform = `translateX(${offset})`;
+}
+
+// Avanzar al siguiente slide cada 4 segundos
+setInterval(nextSlide, 4000);
