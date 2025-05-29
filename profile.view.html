@@ -1,15 +1,12 @@
-<!--  profile.view.html – Vista del perfil con opción de cerrar sesión y cambiar tema -->
+<!-- ✅ profile.view.html actualizado y funcional -->
 <section class="section fade-in">
-  <h2 style="text-align: center;">Mi Perfil</h2>
+  <h2>👤 Mi Perfil</h2>
 
-  <div class="card">
+  <div class="profile-card">
     <p><strong>Nombre:</strong> <span id="nombre-usuario">-</span></p>
     <p><strong>Email:</strong> <span id="email-usuario">-</span></p>
   </div>
 
-  <div class="card" style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-    <button id="cerrar-sesion" class="btn btn-error">Cerrar sesión</button>
-    <button id="btn-tema" class="btn btn-outline">🌓 Cambiar tema</button>
-  </div>
+  <button id="cerrar-sesion" class="btn btn-error">Cerrar sesión</button>
+  <button id="btn-tema" class="btn btn-secondary">🌓 Cambiar tema</button>
 </section>
-
