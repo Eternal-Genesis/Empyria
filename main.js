@@ -106,10 +106,9 @@ try {
 
 } catch (error) {
   console.error("❌ Error al obtener datos de Firestore:", error.message);
-  alert("No se pudo conectar con Firestore. Por favor, revisá tu conexión.");
-  location.hash = "#/welcome"; // Fallback a vista pública
+  alert("No se pudo conectar con Firestore. Redirigiendo a modo limitado...");
+  loadBaseTemplate().then(() => loadView("welcome"));
 }
-
     const { fechaInicio } = snap.data();
     const inicio = new Date(fechaInicio);
     const hoy = new Date();
