@@ -11,8 +11,8 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-// 🌀 Carrusel motivacional
-const slides = [
+// 🧱 Carrusel motivacional
+const motivationalSlides = [
   "📊 Visualizá tu energía y hábitos diarios",
   "🧠 Mejora tu enfoque con IA personalizada",
   "📅 Organizá tu día según tu biorritmo",
@@ -22,11 +22,42 @@ let index = 0;
 function rotarCarrusel() {
   const texto = document.getElementById("slide-text");
   if (texto) {
-    texto.textContent = slides[index];
-    index = (index + 1) % slides.length;
+    texto.textContent = motivationalSlides[index];
+    index = (index + 1) % motivationalSlides.length;
   }
 }
 setInterval(rotarCarrusel, 4000);
+rotarCarrusel();
+
+// Lógica de transición entre pasos
+document.getElementById('btn-continuar').addEventListener('click', () => {
+  console.log('🔵 Clic detectado en el botón Quiero esto');
+  // Redirigir a la siguiente sección (registro)
+  location.hash = '#/registro';
+});
+
+// Animación de carrusel (carrusel de beneficios)
+let currentSlide = 0;
+const carouselSlides = document.querySelectorAll('.carousel-slide');
+
+// Función para avanzar al siguiente slide
+function nextSlide() {
+  if (currentSlide < carouselSlides.length - 1) {
+    currentSlide++;
+  } else {
+    currentSlide = 0;
+  }
+  updateCarousel();
+}
+
+// Avanzar al siguiente slide cada 4 segundos
+setInterval(nextSlide, 4000);
+
+// Actualizar carrusel
+function updateCarousel() {
+  const offset = -currentSlide * 100 + '%';
+  document.querySelector('.carousel').style.transform = `translateX(${offset})`;
+}
 rotarCarrusel();
 
 const msg = document.getElementById("login-msg");
