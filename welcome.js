@@ -89,7 +89,11 @@ async function procesarLogin(email, password) {
           fechaInicio: fechaHoy
         });
         mostrarMensaje("✅ Registro exitoso. Accediendo...", "success");
-        location.hash = "#/inicio";
+
+setTimeout(() => {
+  console.log("🚀 Redirigiendo a #/inicio...");
+  location.hash = "#/inicio";
+}, 1000);
       } catch (registroError) {
         mostrarMensaje("Error al registrar: " + registroError.message, "error");
       }
