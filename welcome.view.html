@@ -1,3 +1,54 @@
+<!-- Paso 1: Bienvenida emocional -->
+<section class="welcome-step fade-in">
+  <h2>Bienvenido a Empyria</h2>
+  <p class="subtitle">Tu gestor de energía y hábitos diarios</p>
+  <button id="btn-descubrir" class="btn btn-primary">Descubrir Empyria</button>
+</section>
+
+<style>
+  .welcome-step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    text-align: center;
+    background-color: var(--color-background);
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .welcome-step h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-primary);
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    margin-top: 10px;
+  }
+
+  .btn-primary {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+</style>
 <section class="section fade-in">
   <h2 style="text-align: center;">Bienvenido a Empyria</h2>
 
