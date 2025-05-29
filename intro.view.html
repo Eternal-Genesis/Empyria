@@ -1,5 +1,5 @@
 <!-- 🌟 intro.view.html – Introducción Deslizante de Empyria -->
-<section class="section fade-in" style="overflow: hidden; position: relative;">
+<section class="intro-section">
   <div id="intro-slider" class="slide-container">
     <!-- Slide 1 -->
     <div class="slide">
@@ -29,21 +29,37 @@
 </section>
 
 <style>
+  .intro-section {
+    height: 100vh;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 40px 20px 100px;
+    position: relative;
+  }
+
   .slide-container {
     display: flex;
     transition: transform 0.6s ease-in-out;
     width: 300%;
+    height: 100%;
   }
 
   .slide {
     width: 100%;
     flex-shrink: 0;
-    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
     text-align: center;
   }
 
   .slide h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--color-accent-primary);
     margin-bottom: 16px;
   }
@@ -64,10 +80,16 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    z-index: 1000;
   }
 
   #slide-indicator {
     font-weight: bold;
     color: var(--color-text-secondary);
+  }
+
+  /* Oculta menú inferior de navegación */
+  .bottom-nav {
+    display: none !important;
   }
 </style>
