@@ -36,12 +36,15 @@ btnOmitir.addEventListener("click", () => {
 // Iniciar vista correcta
 actualizarVista();
 
-// Asegurar centrado vertical del contenido de cada slide
-document.querySelectorAll(".slide").forEach(slide => {
-  slide.style.height = "100%";
+// Aplicar altura automática y centrado del contenido
+const slides = document.querySelectorAll(".slide");
+slides.forEach(slide => {
+  slide.style.minHeight = "100vh";
+  slide.style.padding = "20px";
   slide.style.display = "flex";
   slide.style.flexDirection = "column";
   slide.style.justifyContent = "center";
   slide.style.alignItems = "center";
   slide.style.textAlign = "center";
+  slide.style.boxSizing = "border-box";
 });
