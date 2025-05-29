@@ -12,7 +12,7 @@ function actualizarVista() {
   const offset = -pasoActual * 100;
   slider.style.transform = `translateX(${offset}%)`;
   indicador.textContent = `${pasoActual + 1} / ${totalPasos}`;
-  
+
   if (pasoActual === totalPasos - 1) {
     btnSiguiente.textContent = "Empezar";
   } else {
@@ -35,3 +35,13 @@ btnOmitir.addEventListener("click", () => {
 
 // Iniciar vista correcta
 actualizarVista();
+
+// Asegurar centrado vertical del contenido de cada slide
+document.querySelectorAll(".slide").forEach(slide => {
+  slide.style.height = "100%";
+  slide.style.display = "flex";
+  slide.style.flexDirection = "column";
+  slide.style.justifyContent = "center";
+  slide.style.alignItems = "center";
+  slide.style.textAlign = "center";
+});
