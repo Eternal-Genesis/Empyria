@@ -1,10 +1,10 @@
-// 🧱 BLOQUE 1 – components.js
+// components.js
 
 // Mapa de rutas para la SPA
 const routes = {
-  welcome: {
-    view: "welcome.view.html",
-    script: "welcome.js",
+  intro: {
+    view: "intro.view.html",
+    script: "intro.js",
   },
   inicio: {
     view: "home.view.html",
