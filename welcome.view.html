@@ -51,13 +51,77 @@
 </style>
 <section class="section fade-in">
   <h2 style="text-align: center;">Bienvenido a Empyria</h2>
-
-  <!-- Carrusel -->
-  <div class="card" style="margin-top: 20px;">
-    <div id="carrusel" style="height: 100px; overflow: hidden;">
-      <p id="slide-text" style="font-size: 1rem; text-align: center;"></p>
+  
+<!-- Paso 2: Carrusel de beneficios -->
+<section class="benefits-carousel">
+  <div class="carousel">
+    <div class="carousel-slide">
+      <h3>📅 Organizá tu día según tu biorritmo</h3>
+      <p>Planifica tu jornada optimizando tus niveles de energía.</p>
+    </div>
+    <div class="carousel-slide">
+      <h3>🎯 Potenciá tu enfoque</h3>
+      <p>Con herramientas para mejorar tu productividad y concentración.</p>
+    </div>
+    <div class="carousel-slide">
+      <h3>📈 Seguimiento de progreso</h3>
+      <p>Monitoreá tu rendimiento y ajusta tu enfoque a diario.</p>
     </div>
   </div>
+  <button id="btn-continuar" class="btn btn-primary">Quiero esto</button>
+</section>
+
+<style>
+  .benefits-carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--color-background);
+    height: 100vh;
+  }
+
+  .carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%;
+    text-align: center;
+    padding: 30px;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .carousel-slide h3 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+  }
+
+  .carousel-slide p {
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+  }
+
+  .btn-primary {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+</style>
 
   <!-- Formulario -->
   <div class="card" style="margin-top: 24px;">
