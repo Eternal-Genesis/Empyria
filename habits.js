@@ -109,23 +109,24 @@ function ocultarModal() {
 function guardarHabito() {
   const nombre = document.getElementById("input-nombre").value.trim();
   const iconoInput = document.getElementById("input-icono").value.trim();
-const emojiRegex = /^[\p{Emoji}]$/u;
+  const emojiRegex = /^[\p{Emoji}]$/u;
 
-if (!emojiRegex.test(iconoInput)) {
-  alert("Solo se permite un único emoji como ícono.");
-  return;
-}
+  // Validación para asegurarse de que solo haya un emoji
+  if (!emojiRegex.test(iconoInput)) {
+    alert("Solo se permite un único emoji como ícono.");
+    return;
+  }
 
-const icono = iconoInput;
   const momento = document.getElementById("input-momento").value;
 
-  if (!nombre) {
-    alert("El nombre del hábito es obligatorio.");
+  // Validación de campos vacíos
+  if (!nombre || !iconoInput || !momento) {
+    alert("Por favor, completa todos los campos.");
     return;
   }
 
   const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
-  const nuevo = { id, nombre, icono, momento, estado: "pending" };
+  const nuevo = { id, nombre, icono: iconoInput, momento, estado: "pending" };
 
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   habitos.push(nuevo);
