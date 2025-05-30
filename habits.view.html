@@ -32,20 +32,23 @@
       <select id="input-frecuencia" class="input-frecuencia">
         <option value="" disabled selected>Selecciona la frecuencia</option>
         <option value="diario">Diario</option>
-        <option value="semanal">Semanal</option>
-        <option value="mensual">Mensual</option>
         <option value="personalizado">Personalizado</option>
       </select>
 
-      <!-- Recordatorio del hábito -->
-      <select id="input-hora-recordatorio" class="input-hora-recordatorio">
-        <option value="" disabled selected>Selecciona la hora del recordatorio</option>
-        <option value="08:00">08:00 AM</option>
-        <option value="09:00">09:00 AM</option>
-        <option value="12:00">12:00 PM</option>
-        <option value="18:00">06:00 PM</option>
-        <option value="20:00">08:00 PM</option>
-      </select>
+      <!-- Días de la semana (solo si "Personalizado" está seleccionado) -->
+      <div id="dias-semana" style="display: none;">
+        <label><input type="checkbox" id="lunes"> Lunes</label>
+        <label><input type="checkbox" id="martes"> Martes</label>
+        <label><input type="checkbox" id="miercoles"> Miércoles</label>
+        <label><input type="checkbox" id="jueves"> Jueves</label>
+        <label><input type="checkbox" id="viernes"> Viernes</label>
+        <label><input type="checkbox" id="sabado"> Sábado</label>
+        <label><input type="checkbox" id="domingo"> Domingo</label>
+      </div>
+
+      <!-- Recordatorio (opcional) -->
+      <label for="input-hora-recordatorio">Selecciona la hora del recordatorio (opcional):</label>
+      <input type="time" id="input-hora-recordatorio" class="input-hora-recordatorio">
 
       <div class="modal-actions" style="margin-top: 12px;">
         <button id="btn-cancelar" class="btn">Cancelar</button>
