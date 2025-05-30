@@ -142,8 +142,12 @@ function ocultarModal() {
 }
 
 function guardarHabito() {
-  const nombre = document.getElementById("input-nombre").value.trim();  // Asegurarse de que no haya espacios extra
+  const nombre = document.getElementById("input-nombre").value.trim();
   const iconoInput = document.getElementById("input-icono").value.trim();
+  const momento = document.getElementById("input-momento").value;
+  const frecuencia = document.getElementById("input-frecuencia").value;
+  const horaRecordatorio = document.getElementById("input-hora-recordatorio").value;
+
   const emojiRegex = /^[\p{Emoji}]$/u;
 
   // Validar si el emoji es correcto
@@ -152,24 +156,30 @@ function guardarHabito() {
     return;
   }
 
-  // Verificar si el nombre es vacío
+  // Validar el nombre
   if (!nombre) {
     alert("El nombre del hábito es obligatorio.");
     return;
   }
 
-  const icono = iconoInput;
-  const momento = document.getElementById("input-momento").value;
-
-  // Crear un nuevo hábito
+  // Crear el objeto de hábito
   const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
-  const nuevo = { id, nombre, icono, momento, estado: "pending" };
+  const nuevoHábito = {
+    id,
+    nombre,
+    icono: iconoInput,
+    momento,
+    frecuencia,        // Almacenamos la frecuencia
+    recordatorio: horaRecordatorio,  // Almacenamos el recordatorio
+    estado: "pending"  // Estado inicial del hábito
+  };
 
+  // Obtener los hábitos existentes y agregar el nuevo
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  habitos.push(nuevo);
+  habitos.push(nuevoHábito);
   localStorage.setItem("habitos", JSON.stringify(habitos));
 
-  // Cerrar el modal y recargar los hábitos
+  // Cerrar el modal y recargar la lista de hábitos
   ocultarModal();
   cargarHabitos();
 }
