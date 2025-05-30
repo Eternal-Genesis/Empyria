@@ -1,4 +1,4 @@
-// 🧠 habits.js – Versión final y robusta con aparición sin errores del botón
+// 🧠 habits.js – Solución definitiva con botón blindado contra parpadeos
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -95,9 +95,13 @@ function iniciarVistaHabitos() {
       visibility: "hidden"
     });
 
-    document.querySelector(".section")?.appendChild(btn);
+    document.body.appendChild(btn);
+
+    // Esperar a que el DOM y CSS estén completamente listos
     requestAnimationFrame(() => {
-      btn.style.visibility = "visible";
+      setTimeout(() => {
+        btn.style.visibility = "visible";
+      }, 50);
     });
   }
 
@@ -117,3 +121,4 @@ window.addEventListener("hashchange", () => {
 if (location.hash === "#/habits") {
   setTimeout(iniciarVistaHabitos, 100);
 }
+
