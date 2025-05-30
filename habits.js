@@ -71,10 +71,8 @@ function guardarHabito() {
 function iniciarVistaHabitos() {
   const btn = document.getElementById("btn-nuevo-habito");
   if (btn) {
-    btn.style.display = "flex";
-    requestAnimationFrame(() => btn.classList.add("visible"));
-    btn.addEventListener("click", mostrarModal);
-  }
+  btn.addEventListener("click", mostrarModal);
+}
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
   document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
   cargarHabitos();
