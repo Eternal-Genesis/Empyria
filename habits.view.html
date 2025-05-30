@@ -14,14 +14,37 @@
     <div class="modal-content">
       <h3 id="modal-title">Nuevo Hábito</h3>
 
+      <!-- Nombre del hábito -->
       <input type="text" id="input-nombre" placeholder="Nombre del hábito">
+
+      <!-- Ícono del hábito -->
       <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
 
+      <!-- Momento del día -->
       <select id="input-momento" class="input-momento">
         <option value="" disabled selected>Selecciona el momento del día</option>
         <option value="mañana">Mañana</option>
         <option value="tarde">Tarde</option>
         <option value="noche">Noche</option>
+      </select>
+
+      <!-- Frecuencia del hábito -->
+      <select id="input-frecuencia" class="input-frecuencia">
+        <option value="" disabled selected>Selecciona la frecuencia</option>
+        <option value="diario">Diario</option>
+        <option value="semanal">Semanal</option>
+        <option value="mensual">Mensual</option>
+        <option value="personalizado">Personalizado</option>
+      </select>
+
+      <!-- Recordatorio del hábito -->
+      <select id="input-hora-recordatorio" class="input-hora-recordatorio">
+        <option value="" disabled selected>Selecciona la hora del recordatorio</option>
+        <option value="08:00">08:00 AM</option>
+        <option value="09:00">09:00 AM</option>
+        <option value="12:00">12:00 PM</option>
+        <option value="18:00">06:00 PM</option>
+        <option value="20:00">08:00 PM</option>
       </select>
 
       <div class="modal-actions" style="margin-top: 12px;">
