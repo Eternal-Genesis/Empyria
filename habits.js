@@ -1,5 +1,19 @@
 // 🧠 habits.js – Versión final con control del botón solo en sección hábitos
 
+// Mostrar u ocultar los días de la semana según la frecuencia seleccionada
+document.getElementById("input-frecuencia").addEventListener("change", function() {
+  const frecuencia = this.value;
+  const diasSemana = document.getElementById("dias-semana");
+
+  if (frecuencia === "personalizado") {
+    // Mostrar los días de la semana si se selecciona "Personalizado"
+    diasSemana.style.display = "block";
+  } else {
+    // Ocultar los días de la semana si no es "Personalizado"
+    diasSemana.style.display = "none";
+  }
+});
+
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
   if (!container) return;
