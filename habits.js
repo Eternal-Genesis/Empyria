@@ -74,8 +74,12 @@ function editarHabito(id) {
 
     // Cerramos el modal y recargamos los hábitos
     ocultarModal();
-    cargarHabitos();
+    cargarHabitos(); // Recarga la lista de hábitos para mostrar los cambios
   };
+
+  // Mostrar el modal
+  mostrarModal();
+}
 
   // Mostrar el modal
   mostrarModal();
