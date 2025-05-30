@@ -1,26 +1,30 @@
-<!-- 🧱 BLOQUE 8 – home.view.html (estilizado) -->
+<!-- 🏠 home.view.html – Estilo HabitNow (Header inicial) -->
 <section class="section fade-in">
-  <!-- Energía diaria -->
-  <div class="card" style="margin-bottom: 24px;">
-    <h2>Energía Hoy</h2>
-    <div id="energy-bar" class="glow" style="width: 100%; height: 16px; background: var(--color-card); border-radius: 8px; overflow: hidden; margin-top: 8px;">
-      <div id="energy-fill" style="height: 100%; width: 0%; background: var(--color-success); transition: width 0.5s ease;"></div>
-    </div>
-  </div>
-
-  <!-- Calendario mini -->
-  <div class="card" style="margin-bottom: 24px;">
-    <h2 style="color: var(--color-accent-secondary);">Calendario Mini</h2>
-    <div id="mini-calendar" style="display: flex; justify-content: space-between; margin-top: 12px;">
-      <div class="card" style="flex: 1; margin: 0 5px; text-align: center; color: var(--color-text-secondary);">Mañana</div>
-      <div class="card" style="flex: 1; margin: 0 5px; text-align: center; color: var(--color-text-secondary);">Tarde</div>
-      <div class="card" style="flex: 1; margin: 0 5px; text-align: center; color: var(--color-text-secondary);">Noche</div>
-    </div>
-  </div>
-
-  <!-- Sugerencias IA -->
-  <div class="card">
-    <h2 style="color: var(--color-error);">Sugerencia del Día</h2>
-    <p id="suggestion-text" style="margin-top: 10px;">...</p>
+  <!-- Header con fecha y saludo -->
+  <div class="home-header">
+    <h1 id="home-greeting">Hola 👋</h1>
+    <p id="home-date">Hoy es...</p>
   </div>
 </section>
+
+<style>
+  .home-header {
+    padding: 24px 20px 16px;
+    background-color: var(--color-card);
+    border-radius: 16px;
+    margin: 20px;
+    text-align: left;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .home-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: var(--color-accent-primary);
+  }
+
+  .home-header p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+  }
+</style>
