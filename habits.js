@@ -1,4 +1,4 @@
-// 🧠 habits.js – Corrección: botón insertado correctamente y modal controlado solo por click
+// 🧠 habits.js – Botón insertado con estilo directo para evitar saltos visuales
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -75,8 +75,28 @@ function iniciarVistaHabitos() {
     btn.className = "btn-float";
     btn.setAttribute("aria-label", "Nuevo hábito");
     btn.textContent = "➕";
-    btn.addEventListener("click", mostrarModal);
-    document.querySelector(".section")?.appendChild(btn); // dentro del section, no body
+    btn.onclick = mostrarModal;
+
+    // Aplicar estilo directamente para evitar interferencias externas
+    Object.assign(btn.style, {
+      position: "fixed",
+      bottom: "80px",
+      right: "20px",
+      width: "56px",
+      height: "56px",
+      borderRadius: "50%",
+      backgroundColor: "var(--color-accent-primary)",
+      color: "white",
+      fontSize: "1.5rem",
+      border: "none",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+      zIndex: 999,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    });
+
+    document.querySelector(".section")?.appendChild(btn);
   }
 
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
