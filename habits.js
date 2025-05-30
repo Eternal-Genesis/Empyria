@@ -62,13 +62,14 @@ function editarHabito(id) {
     const nuevoIcono = document.getElementById("input-icono").value.trim();
     const nuevoMomento = document.getElementById("input-momento").value;
 
-    // Validar los campos
+    // No validamos "nombre obligatorio" porque ya estamos editando el hábito
+    // Solo guardamos cambios si hay un nombre no vacío (en caso de edición)
     if (!nuevoNombre) {
       alert("El nombre del hábito es obligatorio.");
       return;
     }
 
-    // Actualizar los datos del hábito directamente
+    // Actualizar los datos del hábito existente
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
