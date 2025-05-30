@@ -186,27 +186,35 @@
     font-size: 1rem;
   }
 
-/* Estilos para los días de la semana */
+/* Estilos para los días de la semana en fila horizontal */
 #dias-semana {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);  /* 3 columnas */
-  gap: 15px;  /* Espacio entre los días */
+  display: flex;               /* Usar flexbox para una disposición horizontal */
+  gap: 15px;                   /* Espacio entre los checkboxes */
+  justify-content: center;     /* Centrar los días en el contenedor */
   margin-top: 15px;
 }
 
 #dias-semana label {
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 1.2rem;            /* Tamaño de fuente más pequeño para un diseño minimalista */
   color: #333;
-  font-weight: 500;
+  font-weight: 600;             /* Negrita para los días */
+  text-transform: uppercase;    /* Convertir las letras a mayúsculas */
 }
 
 #dias-semana input {
-  margin-right: 8px;
-  transform: scale(1.2);  /* Aumenta el tamaño de los checkboxes */
+  margin-right: 8px;            /* Espacio entre el checkbox y la letra */
+  transform: scale(1.2);        /* Aumentar ligeramente el tamaño del checkbox */
+  cursor: pointer;             /* Cambiar el cursor a mano cuando se pasa sobre el checkbox */
 }
-  
+
+#dias-semana input[type="checkbox"] {
+  width: 20px; /* Tamaño del checkbox */
+  height: 20px;
+  accent-color: #007bff; /* Color de los checkboxes */
+}
+
   /* Estilo para el campo de momento */
   .input-momento {
     color: var(--color-text-primary);
