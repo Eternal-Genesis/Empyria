@@ -142,7 +142,7 @@ function ocultarModal() {
 }
 
 function guardarHabito() {
-  const nombre = document.getElementById("input-nombre").value.trim();
+  const nombre = document.getElementById("input-nombre").value.trim();  // Asegurarse de que no haya espacios extra
   const iconoInput = document.getElementById("input-icono").value.trim();
   const emojiRegex = /^[\p{Emoji}]$/u;
 
