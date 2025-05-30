@@ -62,7 +62,15 @@ function editarHabito(id) {
   mostrarModal();
 }
 
-// Función para guardar o actualizar el hábito
+function mostrarModal() {
+  const modalTitle = document.querySelector(".modal-content h3");
+  if (!habitToEdit) {
+    // Si no estamos editando, mostramos "Nuevo Hábito"
+    modalTitle.textContent = "Nuevo Hábito";
+  }
+  document.getElementById("modal-habito").classList.add("active");
+}
+
 document.getElementById("btn-guardar").onclick = function() {
   const nuevoNombre = document.getElementById("input-nombre").value.trim();
   const nuevoIcono = document.getElementById("input-icono").value.trim();
@@ -70,6 +78,13 @@ document.getElementById("btn-guardar").onclick = function() {
 
   if (!nuevoNombre || !nuevoIcono || !nuevoMomento) {
     alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  // Validación del emoji (acepta un solo emoji)
+  const emojiRegex = /^[\p{Emoji}\u200B]+$/u;
+  if (!emojiRegex.test(nuevoIcono)) {
+    alert("Solo se permite un único emoji como ícono.");
     return;
   }
 
