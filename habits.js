@@ -55,9 +55,7 @@ function cargarHabitos() {
 }
 
 function editarHabito(id) {
-  // Obtener el array de hábitos del localStorage
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  // Encontrar el hábito a editar
   const habit = habitos.find(h => h.id === id);
   
   // Si el hábito no se encuentra, no hacer nada
@@ -79,7 +77,7 @@ function editarHabito(id) {
   // Si la frecuencia es "personalizado", marcar los días correspondientes
   if (habit.frecuencia === "personalizado") {
     habit.dias.forEach(dia => {
-      document.getElementById(dia.toLowerCase()).checked = true;
+      document.getElementById(dia.toLowerCase()).checked = true; // Marcar los días según el valor guardado
     });
   }
 
