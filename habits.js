@@ -37,7 +37,7 @@ function crearCardHabit(habito) {
 
   card.innerHTML = `
     <div class="habit-info">
-      <span class="habit-icon">${habito.icono || "🧩"}</span>
+      <span class="habit-icon">${habito.icono || "🧘"}</span>
       <div>
         <div class="habit-name">${habito.nombre}</div>
         <div class="habit-momento">${habito.momento || ""}</div>
@@ -75,7 +75,7 @@ function editarHabito(id) {
   const habit = habitos.find(h => h.id === id);
   if (!habit) return;
 
-  // Pre-llenar los campos del modal de edición
+  // Pre-llenar los campos del modal de edición con los datos del hábito
   document.getElementById("input-nombre-editar").value = habit.nombre;
   document.getElementById("input-icono-editar").value = habit.icono;
   document.getElementById("input-momento-editar").value = habit.momento;
@@ -128,7 +128,7 @@ function eliminarHabito(id) {
   const habitos = obtenerHabitosDeStorage();
   const nuevosHabitos = habitos.filter(h => h.id !== id);
   localStorage.setItem(HABITOS_KEY, JSON.stringify(nuevosHabitos));
-  cargarHabitos();
+  cargarHabitos();  // Recarga la lista de hábitos en la interfaz
 }
 
 // === ABRIR Y CERRAR EL MODAL DE CREACIÓN ===
@@ -147,10 +147,10 @@ function ocultarModal() {
 function guardarHabito() {
   const nombre = document.getElementById("input-nombre").value.trim();
   const iconoInput = document.getElementById("input-icono").value.trim();
-  const emojiRegex = /^[\p{Emoji}]$/u;
+  const emojiRegex = /^[\p{Emoji}\u200B-\u200D\u23F0-\u23FF\u2600-\u26FF\u2700-\u27BF\uD83C[\uDC00-\uDFFF]]+$/u;
 
   if (!emojiRegex.test(iconoInput)) {
-    alert("Solo se permite un único emoji como ícono.");
+    alert("Por favor, ingresa un emoji válido.");
     return;
   }
 
@@ -162,7 +162,7 @@ function guardarHabito() {
     return;
   }
 
-  const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
+  const id = crypto.randomUUID(); // Genera un id único
   const nuevo = { id, nombre, icono, momento, estado: "pending" };
 
   const habitos = obtenerHabitosDeStorage();
