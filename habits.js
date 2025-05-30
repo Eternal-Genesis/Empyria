@@ -62,14 +62,13 @@ function editarHabito(id) {
     const nuevoIcono = document.getElementById("input-icono").value.trim();
     const nuevoMomento = document.getElementById("input-momento").value;
 
-    // No validamos "nombre obligatorio" porque ya estamos editando el hábito
-    // Solo guardamos cambios si hay un nombre no vacío (en caso de edición)
+    // Validación del nombre obligatorio
     if (!nuevoNombre) {
       alert("El nombre del hábito es obligatorio.");
       return;
     }
 
-    // Actualizar los datos del hábito existente
+    // Actualizar los datos del hábito directamente
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
@@ -116,21 +115,24 @@ function ocultarModal() {
 function guardarHabito() {
   const nombre = document.getElementById("input-nombre").value.trim();
   const iconoInput = document.getElementById("input-icono").value.trim();
-const emojiRegex = /^[\p{Emoji}]$/u;
+  const emojiRegex = /^[\p{Emoji}]$/u;
 
-if (!emojiRegex.test(iconoInput)) {
-  alert("Solo se permite un único emoji como ícono.");
-  return;
-}
+  // Validar si el emoji es correcto
+  if (!emojiRegex.test(iconoInput)) {
+    alert("Solo se permite un único emoji como ícono.");
+    return;
+  }
 
-const icono = iconoInput;
-  const momento = document.getElementById("input-momento").value;
-
+  // Verificar si el nombre es vacío
   if (!nombre) {
     alert("El nombre del hábito es obligatorio.");
     return;
   }
 
+  const icono = iconoInput;
+  const momento = document.getElementById("input-momento").value;
+
+  // Crear un nuevo hábito
   const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
   const nuevo = { id, nombre, icono, momento, estado: "pending" };
 
@@ -138,6 +140,7 @@ const icono = iconoInput;
   habitos.push(nuevo);
   localStorage.setItem("habitos", JSON.stringify(habitos));
 
+  // Cerrar el modal y recargar los hábitos
   ocultarModal();
   cargarHabitos();
 }
