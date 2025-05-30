@@ -1,140 +1,93 @@
-<!-- 🧱 BLOQUE – habits.view.html con carga invisible y animación correcta -->
-<section class="section fade-in">
-  <h2>Tus Hábitos</h2>
+// 🧠 habits.js – Inicialización sólida para navegación SPA
 
-  <!-- Contenedor de tarjetas de hábitos -->
-  <div id="habits-container" class="habits-grid" style="margin-top: 20px;"></div>
+function cargarHabitos() {
+  const container = document.getElementById("habits-container");
+  if (!container) return;
 
-  <!-- Botón flotante oculto inicialmente -->
-  <button id="btn-nuevo-habito" class="btn-float invisible" aria-label="Nuevo hábito">➕</button>
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  container.innerHTML = "";
 
-  <!-- Modal para crear hábito -->
-  <div id="modal-habito" class="modal-habito">
-    <div class="modal-content">
-      <h3>Nuevo Hábito</h3>
-      <input type="text" id="input-nombre" placeholder="Nombre del hábito">
-      <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
-      <div class="modal-actions">
-        <button id="btn-cancelar" class="btn">Cancelar</button>
-        <button id="btn-guardar" class="btn btn-primary">Guardar</button>
+  habitos.forEach(h => {
+    const card = document.createElement("div");
+    card.className = "habit-card";
+
+    card.innerHTML = `
+      <div class="habit-info">
+        <span class="habit-icon">${h.icono || "🧩"}</span>
+        <span class="habit-name">${h.nombre}</span>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="habit-actions">
+        <button title="Editar" onclick="editarHabito('${h.id}')">✏️</button>
+      </div>
+    `;
 
-<style>
-  .habits-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 0 20px;
+    container.appendChild(card);
+  });
+}
+
+function editarHabito(id) {
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const habit = habitos.find(h => h.id === id);
+  if (!habit) return;
+
+  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
+  if (nuevoNombre) {
+    habit.nombre = nuevoNombre;
+    localStorage.setItem("habitos", JSON.stringify(habitos));
+    cargarHabitos();
+  }
+}
+
+function mostrarModal() {
+  document.getElementById("modal-habito").classList.add("active");
+}
+
+function ocultarModal() {
+  document.getElementById("modal-habito").classList.remove("active");
+  document.getElementById("input-nombre").value = "";
+  document.getElementById("input-icono").value = "";
+}
+
+function guardarHabito() {
+  const nombre = document.getElementById("input-nombre").value.trim();
+  const icono = document.getElementById("input-icono").value.trim() || "🧩";
+
+  if (!nombre) {
+    alert("El nombre del hábito es obligatorio.");
+    return;
   }
 
-  .habit-card {
-    background: var(--color-card);
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  }
+  const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
+  const nuevo = { id, nombre, icono, estado: "pending" };
 
-  .habit-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  habitos.push(nuevo);
+  localStorage.setItem("habitos", JSON.stringify(habitos));
 
-  .habit-icon {
-    font-size: 1.5rem;
-  }
+  ocultarModal();
+  cargarHabitos();
+}
 
-  .habit-name {
-    font-size: 1.2rem;
-    color: var(--color-text-primary);
+function iniciarVistaHabitos() {
+  const btn = document.getElementById("btn-nuevo-habito");
+  if (btn) {
+    btn.style.display = "flex";
+    requestAnimationFrame(() => btn.classList.add("visible"));
+    btn.addEventListener("click", mostrarModal);
   }
+  document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
+  document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
+  cargarHabitos();
+}
 
-  .habit-actions {
-    display: flex;
-    gap: 8px;
+// Detectar navegación en SPA y recargar la vista
+window.addEventListener("hashchange", () => {
+  if (location.hash === "#/habits") {
+    setTimeout(iniciarVistaHabitos, 100);
   }
+});
 
-  .habit-actions button {
-    background: none;
-    border: none;
-    color: var(--color-accent-primary);
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-
-  .btn-float {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: var(--color-accent-primary);
-    color: white;
-    font-size: 1.5rem;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    z-index: 999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-  }
-
-  .btn-float.visible {
-    display: flex;
-    opacity: 1;
-  }
-
-  .modal-habito {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.4);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-
-  .modal-habito.active {
-    display: flex;
-  }
-
-  .modal-content {
-    background-color: var(--color-bg);
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-
-  .modal-content h3 {
-    margin-bottom: 16px;
-  }
-
-  .modal-content input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    font-size: 1rem;
-  }
-
-  .modal-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-</style>
+// Si ya estás en /habits al cargar
+if (location.hash === "#/habits") {
+  setTimeout(iniciarVistaHabitos, 100);
+}
