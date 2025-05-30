@@ -1,4 +1,4 @@
-// 🧠 home.js – Header y hábitos del día usando localStorage
+// 🧠 home.js – Header y hábitos del día usando localStorage (interactivos)
 
 function obtenerSaludo() {
   const hora = new Date().getHours();
@@ -16,6 +16,19 @@ function obtenerFecha() {
   };
 }
 
+function cambiarEstado(id) {
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const index = habitos.findIndex(h => h.id === id);
+  if (index === -1) return;
+
+  const estadoActual = habitos[index].estado || "pending";
+  const siguienteEstado = estadoActual === "pending" ? "completed" : estadoActual === "completed" ? "missed" : "pending";
+  habitos[index].estado = siguienteEstado;
+
+  localStorage.setItem("habitos", JSON.stringify(habitos));
+  cargarHabitosDelDia();
+}
+
 function cargarHabitosDelDia() {
   const lista = document.querySelector(".habit-list");
   if (!lista) return;
@@ -26,6 +39,7 @@ function cargarHabitosDelDia() {
   habitos.forEach(h => {
     const card = document.createElement("div");
     card.className = `habit-card ${h.estado || "pending"}`;
+    card.addEventListener("click", () => cambiarEstado(h.id));
 
     card.innerHTML = `
       <div class="habit-info">
