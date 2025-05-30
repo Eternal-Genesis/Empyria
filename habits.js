@@ -44,6 +44,8 @@ function cargarHabitos() {
 function toggleHabitMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
   const allMenus = document.querySelectorAll('.habit-menu'); // Seleccionamos todos los menús
+
+  // Ocultamos todos los menús abiertos que no sean el que estamos clicando
   allMenus.forEach(m => {
     if (m !== menu) {
       m.style.display = 'none'; // Ocultamos todos los menús que no sean el que hemos clicado
@@ -132,7 +134,7 @@ function guardarHabito() {
     ocultarModal();
     habitToEdit = null;  // Limpiamos la variable después de la edición
   } else {
-    // Si no estamos editando, creamos un nuevo hábito (esto es cuando se crea uno nuevo)
+    // Si no estamos editando, creamos un nuevo hábito
     const id = Date.now().toString();
     const nuevoHábito = { id, nombre, icono, momento };
 
@@ -192,4 +194,5 @@ if (location.hash === "#/habits") {
 }
 
 window.editarHabito = editarHabito;
+
 
