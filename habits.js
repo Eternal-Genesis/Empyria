@@ -3,7 +3,7 @@
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
   if (!container) return;
-
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   container.innerHTML = "";
 
