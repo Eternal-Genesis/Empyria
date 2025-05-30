@@ -1,4 +1,4 @@
-// 🧠 habits.js – Carga robusta con soporte y manejo de errores
+// 🧠 habits.js – Crea y edita hábitos con modal moderno y persistencia
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -26,52 +26,52 @@ function cargarHabitos() {
 }
 
 function editarHabito(id) {
-  try {
-    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-    const habit = habitos.find(h => h.id === id);
-    if (!habit) return;
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const habit = habitos.find(h => h.id === id);
+  if (!habit) return;
 
-    const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
-    if (nuevoNombre) {
-      habit.nombre = nuevoNombre;
-      localStorage.setItem("habitos", JSON.stringify(habitos));
-      cargarHabitos();
-    }
-  } catch (e) {
-    console.error("Error al editar hábito:", e);
-  }
-}
-
-function nuevoHabito() {
-  try {
-    const nombre = prompt("Nombre del nuevo hábito:");
-    if (!nombre) return;
-
-    const icono = prompt("Icono para el hábito (emoji):", "🧩");
-    const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
-
-    const nuevo = {
-      id,
-      nombre,
-      icono,
-      estado: "pending"
-    };
-
-    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-    habitos.push(nuevo);
+  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
+  if (nuevoNombre) {
+    habit.nombre = nuevoNombre;
     localStorage.setItem("habitos", JSON.stringify(habitos));
     cargarHabitos();
-  } catch (e) {
-    console.error("Error al crear nuevo hábito:", e);
   }
 }
 
-// ✅ Ejecutar cuando la vista ya esté renderizada
-setTimeout(() => {
-  try {
-    document.getElementById("btn-nuevo-habito")?.addEventListener("click", nuevoHabito);
-    cargarHabitos();
-  } catch (e) {
-    console.error("Error al inicializar hábitos:", e);
+function mostrarModal() {
+  document.getElementById("modal-habito").classList.add("active");
+}
+
+function ocultarModal() {
+  document.getElementById("modal-habito").classList.remove("active");
+  document.getElementById("input-nombre").value = "";
+  document.getElementById("input-icono").value = "";
+}
+
+function guardarHabito() {
+  const nombre = document.getElementById("input-nombre").value.trim();
+  const icono = document.getElementById("input-icono").value.trim() || "🧩";
+
+  if (!nombre) {
+    alert("El nombre del hábito es obligatorio.");
+    return;
   }
+
+  const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
+  const nuevo = { id, nombre, icono, estado: "pending" };
+
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  habitos.push(nuevo);
+  localStorage.setItem("habitos", JSON.stringify(habitos));
+
+  ocultarModal();
+  cargarHabitos();
+}
+
+// Inicialización segura para SPA
+setTimeout(() => {
+  document.getElementById("btn-nuevo-habito")?.addEventListener("click", mostrarModal);
+  document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
+  document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
+  cargarHabitos();
 }, 100);
