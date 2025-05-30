@@ -68,7 +68,7 @@ function editarHabito(id) {
       return;
     }
 
-    // Actualizar los datos del hábito
+    // Actualizar los datos del hábito directamente
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
@@ -104,16 +104,12 @@ function mostrarModal() {
 }
 
 function ocultarModal() {
-  // Eliminar la clase 'active' para ocultar el modal
   document.getElementById("modal-habito").classList.remove("active");
-
-  // Limpiar los campos del formulario (esto es importante para evitar que datos previos se queden en el formulario)
+  // Limpiar los valores del formulario para evitar mostrar datos de un hábito previamente editado
   document.getElementById("input-nombre").value = "";
   document.getElementById("input-icono").value = "";
   document.getElementById("input-momento").value = "";
-
-  // Opcional: Restablecer el título del modal al estado original (Nuevo Hábito) en caso de edición
-  document.getElementById("modal-title").textContent = "Nuevo Hábito";
+  document.getElementById("modal-title").textContent = "Nuevo Hábito"; // Restaurar título
 }
 
 function guardarHabito() {
