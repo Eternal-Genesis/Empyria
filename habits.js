@@ -63,7 +63,7 @@ function editarHabito(id) {
   // Mostrar el modal
   document.getElementById("modal-habito").classList.add("active");
 
-  // Configurar el botón de "Guardar" para actualizar el hábito
+  // Cambiar la lógica del botón de "Guardar" para actualizar el hábito
   document.getElementById("btn-guardar").onclick = function() {
     const nuevoNombre = document.getElementById("input-nombre").value.trim();
     const nuevoIcono = document.getElementById("input-icono").value.trim();
@@ -117,9 +117,12 @@ function mostrarModal(id = null) {
     document.getElementById("input-nombre").value = "";
     document.getElementById("input-icono").value = "";
     document.getElementById("input-momento").value = "";
-    document.getElementById("btn-guardar").onclick = guardarHabito; // Llamar a la función de guardar
+    
+    // Cambiar el comportamiento del botón de "Guardar" para crear un nuevo hábito
+    document.getElementById("btn-guardar").onclick = guardarHabito; 
   }
 
+  // Mostrar el modal
   document.getElementById("modal-habito").classList.add("active");
 }
 
