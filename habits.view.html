@@ -186,6 +186,27 @@
     font-size: 1rem;
   }
 
+/* Estilos para los días de la semana */
+#dias-semana {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);  /* 3 columnas */
+  gap: 15px;  /* Espacio entre los días */
+  margin-top: 15px;
+}
+
+#dias-semana label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+#dias-semana input {
+  margin-right: 8px;
+  transform: scale(1.2);  /* Aumenta el tamaño de los checkboxes */
+}
+  
   /* Estilo para el campo de momento */
   .input-momento {
     color: var(--color-text-primary);
