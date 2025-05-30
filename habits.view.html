@@ -24,6 +24,23 @@
         <option value="noche">Noche</option>
       </select>
 
+      <!-- Selección de frecuencia -->
+      <div id="selector-frecuencia" class="dias-selector">
+        <label><input type="radio" name="frecuencia" value="diario" checked> Diario</label>
+        <label><input type="radio" name="frecuencia" value="personalizado"> Días</label>
+      </div>
+
+      <!-- Días de la semana -->
+      <div id="dias-semana" class="dias-semana" style="display: none;">
+        <button data-dia="L">L</button>
+        <button data-dia="M">M</button>
+        <button data-dia="X">X</button>
+        <button data-dia="J">J</button>
+        <button data-dia="V">V</button>
+        <button data-dia="S">S</button>
+        <button data-dia="D">D</button>
+      </div>
+
       <div class="modal-actions" style="margin-top: 12px;">
         <button id="btn-cancelar" class="btn">Cancelar</button>
         <button id="btn-guardar" class="btn btn-primary">Guardar</button>
@@ -186,6 +203,38 @@
     border: none;
   }
 
+  .dias-selector {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.dias-semana {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.dias-semana button {
+  flex: 1 1 auto;
+  padding: 6px;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.dias-semana button.selected {
+  background-color: var(--color-accent-primary, #007bff);
+  color: white;
+}
+
   .btn-primary {
     background-color: var(--color-btn-primary, #28a745);
   }
@@ -235,5 +284,3 @@
     align-items: center;
   }
 </style>
-
-
