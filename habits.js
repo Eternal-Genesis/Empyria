@@ -48,6 +48,15 @@ function editarHabito(id) {
   }
 }
 
+function toggleHabitMenu(id) {
+  const menu = document.getElementById(`menu-${id}`);
+  if (menu) {
+    menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "flex" : "none";
+  }
+}
+
+window.toggleHabitMenu = toggleHabitMenu;
+
 function mostrarModal() {
   document.getElementById("modal-habito").classList.add("active");
 }
