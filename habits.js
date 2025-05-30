@@ -78,6 +78,7 @@ function ocultarModal() {
 function guardarHabito() {
   const nombre = document.getElementById("input-nombre").value.trim();
   const icono = document.getElementById("input-icono").value.trim() || "🧩";
+  const momento = document.getElementById("input-momento").value;
 
   if (!nombre) {
     alert("El nombre del hábito es obligatorio.");
@@ -85,7 +86,7 @@ function guardarHabito() {
   }
 
   const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
-  const nuevo = { id, nombre, icono, estado: "pending" };
+  const nuevo = { id, nombre, icono, momento, estado: "pending" };
 
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   habitos.push(nuevo);
