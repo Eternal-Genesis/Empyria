@@ -40,7 +40,7 @@ function cargarHabitos() {
   });
 }
 
-let habitToEdit = null;  // Variable para almacenar el hábito a editar
+let habitToEdit = null;  // Variable global para almacenar el hábito que estamos editando
 
 function editarHabito(id) {
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
@@ -91,6 +91,18 @@ document.getElementById("btn-guardar").onclick = function() {
     cargarHabitos();
     ocultarModal();
     habitToEdit = null;  // Limpiamos la variable después de la edición
+  } else {
+    // Si no estamos editando, creamos un nuevo hábito (esto es cuando se crea uno nuevo)
+    const id = Date.now().toString();
+    const nuevoHábito = { id, nombre: nuevoNombre, icono: nuevoIcono, momento: nuevoMomento };
+
+    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+    habitos.push(nuevoHábito);
+    localStorage.setItem("habitos", JSON.stringify(habitos));
+
+    // Recargamos los hábitos
+    cargarHabitos();
+    ocultarModal();
   }
 };
 
