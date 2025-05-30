@@ -1,4 +1,4 @@
-// 🧠 habits.js – Solución definitiva con botón blindado contra parpadeos
+// 🧠 habits.js – Inserción final profesional fuera del flujo animado
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -97,7 +97,6 @@ function iniciarVistaHabitos() {
 
     document.body.appendChild(btn);
 
-    // Esperar a que el DOM y CSS estén completamente listos
     requestAnimationFrame(() => {
       setTimeout(() => {
         btn.style.visibility = "visible";
@@ -121,4 +120,3 @@ window.addEventListener("hashchange", () => {
 if (location.hash === "#/habits") {
   setTimeout(iniciarVistaHabitos, 100);
 }
-
