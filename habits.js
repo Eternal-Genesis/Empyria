@@ -73,6 +73,15 @@ function editarHabito(id) {
   document.getElementById("input-nombre").value = habit.nombre;
   document.getElementById("input-icono").value = habit.icono;
   document.getElementById("input-momento").value = habit.momento;
+  document.getElementById("input-frecuencia").value = habit.frecuencia;
+  document.getElementById("input-hora-recordatorio").value = habit.recordatorio || ''; // Si no tiene recordatorio, lo dejamos vacío
+  
+  // Si la frecuencia es "personalizado", marcar los días correspondientes
+  if (habit.frecuencia === "personalizado") {
+    habit.dias.forEach(dia => {
+      document.getElementById(dia.toLowerCase()).checked = true;
+    });
+  }
 
   // Mostrar el modal
   document.getElementById("modal-habito").classList.add("active");
@@ -82,6 +91,8 @@ function editarHabito(id) {
     const nuevoNombre = document.getElementById("input-nombre").value.trim();
     const nuevoIcono = document.getElementById("input-icono").value.trim();
     const nuevoMomento = document.getElementById("input-momento").value;
+    const nuevaFrecuencia = document.getElementById("input-frecuencia").value;
+    const nuevaHoraRecordatorio = document.getElementById("input-hora-recordatorio").value;
 
     // Validación del nombre obligatorio
     if (!nuevoNombre) {
@@ -89,10 +100,25 @@ function editarHabito(id) {
       return;
     }
 
+    // Capturar los días seleccionados si la frecuencia es "personalizado"
+    let diasSeleccionados = [];
+    if (nuevaFrecuencia === "personalizado") {
+      if (document.getElementById("lunes").checked) diasSeleccionados.push("Lunes");
+      if (document.getElementById("martes").checked) diasSeleccionados.push("Martes");
+      if (document.getElementById("miercoles").checked) diasSeleccionados.push("Miércoles");
+      if (document.getElementById("jueves").checked) diasSeleccionados.push("Jueves");
+      if (document.getElementById("viernes").checked) diasSeleccionados.push("Viernes");
+      if (document.getElementById("sabado").checked) diasSeleccionados.push("Sábado");
+      if (document.getElementById("domingo").checked) diasSeleccionados.push("Domingo");
+    }
+
     // Actualizar el hábito con los nuevos valores
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
+    habit.frecuencia = nuevaFrecuencia;
+    habit.dias = diasSeleccionados;  // Guardamos los días seleccionados
+    habit.recordatorio = nuevaHoraRecordatorio || null;  // Guardamos el recordatorio
 
     // Guardar los cambios en localStorage
     localStorage.setItem("habitos", JSON.stringify(habitos));
