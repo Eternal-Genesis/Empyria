@@ -82,7 +82,15 @@ function ocultarModal() {
 
 function guardarHabito() {
   const nombre = document.getElementById("input-nombre").value.trim();
-  const icono = document.getElementById("input-icono").value.trim() || "🧩";
+  const iconoInput = document.getElementById("input-icono").value.trim();
+const emojiRegex = /^[\p{Emoji}]$/u;
+
+if (!emojiRegex.test(iconoInput)) {
+  alert("Solo se permite un único emoji como ícono.");
+  return;
+}
+
+const icono = iconoInput;
   const momento = document.getElementById("input-momento").value;
 
   if (!nombre) {
