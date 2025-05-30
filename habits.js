@@ -140,7 +140,8 @@ const icono = iconoInput;
 }
 
 function iniciarVistaHabitos() {
-  if (!document.getElementById("btn-nuevo-habito")) {
+  // Solo cargar el botón cuando estamos en la sección de hábitos
+  if (location.hash === "#/habits" && !document.getElementById("btn-nuevo-habito")) {
     const btn = document.createElement("button");
     btn.id = "btn-nuevo-habito";
     btn.textContent = "➕";
@@ -163,7 +164,9 @@ function iniciarVistaHabitos() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      visibility: "visible" // Hacemos que el botón sea visible desde el inicio
+      visibility: "visible", // Asegura que el botón esté visible inmediatamente
+      opacity: "1", // Asegura que esté completamente visible
+      transform: "translateY(0)" // Elimina la animación de caída
     });
 
     document.body.appendChild(btn);
