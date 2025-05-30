@@ -1,25 +1,81 @@
-<!-- 🧱 BLOQUE – habits.view.html -->
+<!-- habits.view.html tipo HabitNow con visualización simple -->
 <section class="section fade-in">
-  <h2>Red de Hábitos</h2>
+  <h2>Tus Hábitos</h2>
 
-  <!-- Secciones por momento del día -->
-  <div style="margin-top: 20px;">
-    <h3>Mañana</h3>
-    <div id="habits-morning" class="habits-grid"></div>
-  </div>
+  <!-- Contenedor de tarjetas de hábitos -->
+  <div id="habits-container" class="habits-grid" style="margin-top: 20px;"></div>
 
-  <div style="margin-top: 20px;">
-    <h3>Tarde</h3>
-    <div id="habits-afternoon" class="habits-grid"></div>
-  </div>
-
-  <div style="margin-top: 20px;">
-    <h3>Noche</h3>
-    <div id="habits-night" class="habits-grid"></div>
-  </div>
-
-  <!-- Botón para agregar hábito (versión simple) -->
-  <div style="margin-top: 24px; text-align: center;">
-    <button id="agregar-habito" class="btn btn-primary">➕ Nuevo hábito</button>
-  </div>
+  <!-- Botón flotante para agregar hábito -->
+  <button id="btn-nuevo-habito" class="btn-float" aria-label="Nuevo hábito">➕</button>
 </section>
+
+<style>
+  .habits-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 20px;
+  }
+
+  .habit-card {
+    background: var(--color-card);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .habit-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .habit-icon {
+    font-size: 1.5rem;
+  }
+
+  .habit-name {
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+  }
+
+  .habit-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .habit-actions button {
+    background: none;
+    border: none;
+    color: var(--color-accent-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .btn-float {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-accent-primary);
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+
+  .btn-float:hover {
+    background-color: var(--color-accent-secondary);
+  }
+</style>
+
