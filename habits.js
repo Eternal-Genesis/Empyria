@@ -155,12 +155,11 @@ function ocultarModal() {
 }
 
 function guardarHabito() {
-  // Capturar y limpiar el valor del nombre
-  const nombre = document.getElementById("input-nombre").value.trim();  // Usamos trim para eliminar espacios al principio y al final
+  const nombre = document.getElementById("input-nombre").value.trim();
   const iconoInput = document.getElementById("input-icono").value.trim();
   const momento = document.getElementById("input-momento").value;
   const frecuencia = document.getElementById("input-frecuencia").value;
-  const horaRecordatorio = document.getElementById("input-hora-recordatorio").value;
+  const horaRecordatorio = document.getElementById("input-hora-recordatorio").value; // Hora del recordatorio (opcional)
 
   const emojiRegex = /^[\p{Emoji}]$/u;
 
@@ -176,7 +175,22 @@ function guardarHabito() {
     return;
   }
 
-  // Crear el objeto de hábito
+  // Capturar los días seleccionados si la frecuencia es "personalizado"
+  let diasSeleccionados = [];
+  if (frecuencia === "personalizado") {
+    if (document.getElementById("lunes").checked) diasSeleccionados.push("Lunes");
+    if (document.getElementById("martes").checked) diasSeleccionados.push("Martes");
+    if (document.getElementById("miercoles").checked) diasSeleccionados.push("Miércoles");
+    if (document.getElementById("jueves").checked) diasSeleccionados.push("Jueves");
+    if (document.getElementById("viernes").checked) diasSeleccionados.push("Viernes");
+    if (document.getElementById("sabado").checked) diasSeleccionados.push("Sábado");
+    if (document.getElementById("domingo").checked) diasSeleccionados.push("Domingo");
+  }
+
+  // Si el campo de recordatorio está vacío, asignamos null o una cadena vacía
+  const recordatorio = horaRecordatorio ? horaRecordatorio : null;
+
+  // Crear el objeto del hábito
   const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
   const nuevoHábito = {
     id,
@@ -184,7 +198,8 @@ function guardarHabito() {
     icono: iconoInput,
     momento,
     frecuencia,        // Almacenamos la frecuencia
-    recordatorio: horaRecordatorio,  // Almacenamos el recordatorio
+    dias: diasSeleccionados,  // Almacenamos los días seleccionados
+    recordatorio,      // Si está vacío, se guarda como null o ""
     estado: "pending"  // Estado inicial del hábito
   };
 
