@@ -1,4 +1,4 @@
-<!-- 🏠 home.view.html – Estilo HabitNow (Header + Hábitos del Día) -->
+<!-- 🏠 home.view.html – Estilo HabitNow limpio y funcional -->
 <section class="section fade-in">
   <!-- Fecha y saludo tipo HabitNow -->
   <div class="home-date-box">
@@ -7,35 +7,10 @@
   </div>
   <h2 id="home-greeting" class="home-greeting">Hola 👋</h2>
 
-  <!-- Lista de hábitos de hoy -->
+  <!-- Lista dinámica de hábitos -->
   <div class="daily-habits">
     <h3 class="habits-title">Tus hábitos de hoy</h3>
-    <div class="habit-list">
-      <!-- Tarjetas de hábito -->
-      <div class="habit-card pending">
-        <div class="habit-info">
-          <span class="habit-icon">🌅</span>
-          <span class="habit-name">Meditar</span>
-        </div>
-        <span class="habit-status">⏳</span>
-      </div>
-
-      <div class="habit-card completed">
-        <div class="habit-info">
-          <span class="habit-icon">💧</span>
-          <span class="habit-name">Beber agua</span>
-        </div>
-        <span class="habit-status">✔️</span>
-      </div>
-
-      <div class="habit-card missed">
-        <div class="habit-info">
-          <span class="habit-icon">📖</span>
-          <span class="habit-name">Leer 15 min</span>
-        </div>
-        <span class="habit-status">❌</span>
-      </div>
-    </div>
+    <div class="habit-list"></div>
   </div>
 </section>
 
@@ -66,7 +41,7 @@
   }
 
   .daily-habits {
-    padding: 0 20px;
+    padding: 0 20px 40px;
   }
 
   .habits-title {
@@ -123,3 +98,4 @@
     background-color: rgba(255, 255, 255, 0.05);
   }
 </style>
+
