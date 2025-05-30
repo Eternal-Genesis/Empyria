@@ -1,4 +1,4 @@
-<!-- 🧱 BLOQUE – habits.view.html limpio y preparado para JS externo -->
+<!-- BLOQUE – habits.view.html limpio y preparado para JS externo -->
 <section class="section fade-in">
   <h2>Tus Hábitos</h2>
 
@@ -6,17 +6,26 @@
   <div id="habits-container" class="habits-grid" style="margin-top: 20px;"></div>
 
   <!-- Modal para crear hábito -->
-  <div id="modal-habito" class="modal-habito">
-    <div class="modal-content">
-      <h3>Nuevo Hábito</h3>
-      <input type="text" id="input-nombre" placeholder="Nombre del hábito">
-      <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
-      <div class="modal-actions">
-        <button id="btn-cancelar" class="btn">Cancelar</button>
-        <button id="btn-guardar" class="btn btn-primary">Guardar</button>
-      </div>
+<div id="modal-habito" class="modal-habito">
+  <div class="modal-content">
+    <h3>Nuevo Hábito</h3>
+
+    <input type="text" id="input-nombre" placeholder="Nombre del hábito">
+    <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
+
+    <label for="input-momento" style="margin-top: 8px;">Momento del día</label>
+    <select id="input-momento">
+      <option value="mañana">Mañana</option>
+      <option value="tarde">Tarde</option>
+      <option value="noche">Noche</option>
+    </select>
+
+    <div class="modal-actions" style="margin-top: 12px;">
+      <button id="btn-cancelar" class="btn">Cancelar</button>
+      <button id="btn-guardar" class="btn btn-primary">Guardar</button>
     </div>
   </div>
+</div>
 </section>
 
 <style>
