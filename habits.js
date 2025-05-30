@@ -99,17 +99,36 @@ function eliminarHabito(id) {
 
 window.eliminarHabito = eliminarHabito;
 
-function mostrarModal() {
+function mostrarModal(id = null) {
+  // Si hay un ID, es porque estamos editando un hábito
+  if (id) {
+    // Llamar a la función de editar habit (cargar datos)
+    editarHabito(id);
+  } else {
+    // Si no hay ID, es porque estamos creando un nuevo hábito
+    document.getElementById("modal-title").textContent = "Nuevo Hábito";
+    document.getElementById("input-nombre").value = "";
+    document.getElementById("input-icono").value = "";
+    document.getElementById("input-momento").value = "";
+    document.getElementById("btn-guardar").onclick = guardarHabito; // Llamar a la función de guardar
+  }
+
   document.getElementById("modal-habito").classList.add("active");
 }
 
 function ocultarModal() {
   document.getElementById("modal-habito").classList.remove("active");
-  // Limpiar los valores del formulario para evitar mostrar datos de un hábito previamente editado
-  document.getElementById("input-nombre").value = "";
-  document.getElementById("input-icono").value = "";
-  document.getElementById("input-momento").value = "";
-  document.getElementById("modal-title").textContent = "Nuevo Hábito"; // Restaurar título
+  
+  // Limpiar los valores del formulario solo si estamos creando un nuevo hábito (no editar)
+  const modalTitle = document.getElementById("modal-title").textContent;
+  if (modalTitle === "Nuevo Hábito") {
+    document.getElementById("input-nombre").value = "";
+    document.getElementById("input-icono").value = "";
+    document.getElementById("input-momento").value = "";
+  }
+
+  // Restaurar el título del modal al valor original para creación
+  document.getElementById("modal-title").textContent = "Nuevo Hábito";
 }
 
 function guardarHabito() {
