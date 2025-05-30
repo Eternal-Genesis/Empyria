@@ -1,33 +1,27 @@
-// 🧱 BLOQUE 2 – home.js
+// 🧠 home.js – Header tipo HabitNow (fecha y saludo minimalista)
 
-// Simula una carga de energía diaria (0 a 100%)
-function cargarEnergia() {
-  const energia = Math.floor(Math.random() * 61) + 40; // valor entre 40 y 100
-  const fill = document.getElementById("energy-fill");
-  if (fill) {
-    fill.style.width = `${energia}%`;
-    fill.title = `Energía actual: ${energia}%`;
-  }
+function obtenerSaludo() {
+  const hora = new Date().getHours();
+  if (hora < 12) return "Buenos días";
+  if (hora < 18) return "Buenas tardes";
+  return "Buenas noches";
 }
 
-// Simula sugerencias IA diarias
-function cargarSugerenciaIA() {
-  const sugerencias = [
-    "Haz solo una cosa, pero hazla completamente.",
-    "Tu foco es tu poder más valioso hoy.",
-    "Respira. Todo lo demás puede esperar.",
-    "Avanza con calma, pero avanza.",
-    "La claridad nace del orden mental.",
-  ];
-  const texto = sugerencias[Math.floor(Math.random() * sugerencias.length)];
-  const contenedor = document.getElementById("suggestion-text");
-  if (contenedor) {
-    contenedor.textContent = texto;
-  }
+function formatearFecha() {
+  const fecha = new Date();
+  const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+  const diaNombre = dias[fecha.getDay()];
+  const diaNumero = fecha.getDate();
+  return { dia: diaNumero, nombre: diaNombre };
 }
 
-// Inicializa elementos de la vista de inicio
 document.addEventListener("DOMContentLoaded", () => {
-  cargarEnergia();
-  cargarSugerenciaIA();
+  const saludoEl = document.getElementById("home-greeting");
+  const fechaEl = document.getElementById("home-date");
+
+  const saludo = obtenerSaludo();
+  const { dia, nombre } = formatearFecha();
+
+  saludoEl.textContent = saludo;
+  fechaEl.textContent = `${nombre}, ${dia}`;
 });
