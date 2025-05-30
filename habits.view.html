@@ -2,37 +2,65 @@
 <section class="section fade-in">
 
   <div class="habit-header">
-  <h2 class="habit-title">Tus Hábitos</h2>
-  <p id="habit-count" class="habit-count">Hábitos: 0</p>
-</div>
-  
+    <h2 class="habit-title">Tus Hábitos</h2>
+    <p id="habit-count" class="habit-count">Hábitos: 0</p>
+  </div>
+
   <!-- Contenedor de tarjetas de hábitos -->
   <div id="habits-container" class="habits-grid" style="margin-top: 20px;"></div>
 
-  <!-- Modal para crear hábito -->
-<div id="modal-habito" class="modal-habito">
-  <div class="modal-content">
-    <h3>Nuevo Hábito</h3>
+  <!-- Modal para crear o editar hábito -->
+  <div id="modal-habito" class="modal-habito">
+    <div class="modal-content">
+      <h3 id="modal-title">Nuevo Hábito</h3>
 
-    <input type="text" id="input-nombre" placeholder="Nombre del hábito">
-    <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
+      <input type="text" id="input-nombre" placeholder="Nombre del hábito">
+      <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
 
-<select id="input-momento" class="input-momento">
-  <option value="" disabled selected>Selecciona el momento del día</option>
-  <option value="mañana">Mañana</option>
-  <option value="tarde">Tarde</option>
-  <option value="noche">Noche</option>
-</select>
+      <select id="input-momento" class="input-momento">
+        <option value="" disabled selected>Selecciona el momento del día</option>
+        <option value="mañana">Mañana</option>
+        <option value="tarde">Tarde</option>
+        <option value="noche">Noche</option>
+      </select>
 
-    <div class="modal-actions" style="margin-top: 12px;">
-      <button id="btn-cancelar" class="btn">Cancelar</button>
-      <button id="btn-guardar" class="btn btn-primary">Guardar</button>
+      <div class="modal-actions" style="margin-top: 12px;">
+        <button id="btn-cancelar" class="btn">Cancelar</button>
+        <button id="btn-guardar" class="btn btn-primary">Guardar</button>
+      </div>
     </div>
   </div>
-</div>
 </section>
 
 <style>
+  /* Estilos generales de la sección */
+  .section {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* Encabezado de los hábitos */
+  .habit-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .habit-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-text-primary);
+  }
+
+  .habit-count {
+    font-size: 1rem;
+    color: var(--color-text-secondary, #777);
+    margin-top: 8px;
+  }
+
+  /* Contenedor de los hábitos */
   .habits-grid {
     display: flex;
     flex-direction: column;
@@ -40,8 +68,9 @@
     padding: 0 20px;
   }
 
+  /* Estilo de cada tarjeta de hábito */
   .habit-card {
-    background: var(--color-card);
+    background: var(--color-card, #f9f9f9);
     border-radius: 12px;
     padding: 16px;
     display: flex;
@@ -50,6 +79,7 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   }
 
+  /* Información del hábito */
   .habit-info {
     display: flex;
     align-items: center;
@@ -65,147 +95,145 @@
     color: var(--color-text-primary);
   }
 
-.habit-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0 20px;
-  margin-bottom: 10px;
-}
+  .habit-momento {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary, #666);
+    margin-top: 2px;
+  }
 
-.habit-title {
-  font-size: 1.6rem;
-  color: var(--color-text-primary);
-  margin: 0;
-}
-
-.habit-count {
-  font-size: 0.95rem;
-  color: var(--color-text-secondary, #777);
-  margin-top: 4px;
-}
-  
-.habit-texts {
-  display: flex;
-  flex-direction: column;
-}
-
-.habit-momento {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary, #666);
-  margin-top: 2px;
-}
-  
+  /* Acciones del hábito (editar/eliminar) */
   .habit-actions {
     display: flex;
     gap: 8px;
+    position: relative;
   }
 
   .habit-actions button {
     background: none;
     border: none;
-    color: var(--color-accent-primary);
+    color: var(--color-accent-primary, #007bff);
     font-size: 1.2rem;
     cursor: pointer;
   }
 
+  /* Modal para crear o editar hábito */
   .modal-habito {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.4);
-    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none; /* Oculto por defecto */
     align-items: center;
     justify-content: center;
     z-index: 1000;
   }
 
+  /* Modal activo */
   .modal-habito.active {
     display: flex;
   }
 
   .modal-content {
-    background-color: var(--color-bg);
+    background-color: var(--color-bg, #fff);
     padding: 20px;
     border-radius: 12px;
     width: 90%;
     max-width: 400px;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .modal-content h3 {
+    font-size: 1.5rem;
     margin-bottom: 16px;
   }
 
-  .modal-content input {
+  .modal-content input,
+  .modal-content select {
     width: 100%;
     padding: 10px;
     margin-bottom: 12px;
     border-radius: 8px;
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-border, #ddd);
     font-size: 1rem;
   }
-  
-.input-momento {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-  font-size: 1rem;
-  color: var(--color-text-primary);
-  background-color: var(--color-bg, white);
-}
-  
+
+  /* Estilo para el campo de momento */
+  .input-momento {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg, white);
+  }
+
   .modal-actions {
     display: flex;
     justify-content: space-between;
     gap: 10px;
   }
-  .habit-actions {
-  position: relative;
-}
 
-.habit-menu-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-accent-primary);
-  display: flex;
-  align-items: center;
-}
+  .modal-actions button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
 
-.habit-menu {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 40px;
-  right: 10px;
-  background: var(--color-card, #fff);
-  border: 1px solid var(--color-border, #ddd);
-  border-radius: 12px;
-  padding: 6px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  min-width: 160px;
-}
+  /* Estilos para los botones dentro del modal */
+  .btn {
+    background-color: var(--color-btn, #007bff);
+    color: white;
+    border: none;
+  }
 
-.habit-menu button {
-  background: none;
-  border: none;
-  padding: 12px 16px;
-  text-align: left;
-  width: 100%;
-  font-size: 1rem;
-  color: var(--color-text-primary, #111);
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-}
+  .btn-primary {
+    background-color: var(--color-btn-primary, #28a745);
+  }
 
-.habit-menu button:hover {
-  background-color: var(--color-hover, #eee);
-}
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  /* Menú desplegable de opciones (editar/eliminar) */
+  .habit-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background: var(--color-card, #fff);
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    min-width: 160px;
+  }
+
+  .habit-menu button {
+    background: none;
+    border: none;
+    padding: 12px 16px;
+    text-align: left;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--color-text-primary, #111);
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+
+  .habit-menu button:hover {
+    background-color: var(--color-hover, #f0f0f0);
+  }
+
+  .habit-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-accent-primary, #007bff);
+    display: flex;
+    align-items: center;
+  }
 </style>
+
 
