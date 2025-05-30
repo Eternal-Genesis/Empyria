@@ -14,8 +14,12 @@ function cargarHabitos() {
     card.innerHTML = `
   <div class="habit-info">
     <span class="habit-icon">${h.icono || "🧩"}</span>
-    <span class="habit-name">${h.nombre}</span>
+    <div>
+      <div class="habit-name">${h.nombre}</div>
+      <div class="habit-momento">${h.momento || ""}</div>
+    </div>
   </div>
+  
   <div class="habit-actions">
     <button class="habit-menu-btn" onclick="toggleHabitMenu('${h.id}')">
       <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
