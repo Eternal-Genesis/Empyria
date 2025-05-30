@@ -45,12 +45,38 @@ function editarHabito(id) {
   const habit = habitos.find(h => h.id === id);
   if (!habit) return;
 
-  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
-  if (nuevoNombre) {
+  // Mostrar los valores actuales en el modal de edición
+  document.getElementById("input-nombre").value = habit.nombre;
+  document.getElementById("input-icono").value = habit.icono; // Permite editar el ícono
+  document.getElementById("input-momento").value = habit.momento;
+
+  // Mostrar el modal para editar el hábito
+  document.getElementById("modal-habito").classList.add("active");
+
+  // Al presionar el botón "Guardar", actualizar los datos del hábito
+  document.getElementById("btn-guardar").onclick = function() {
+    const nuevoNombre = document.getElementById("input-nombre").value.trim();
+    const nuevoIcono = document.getElementById("input-icono").value.trim();
+    const nuevoMomento = document.getElementById("input-momento").value;
+
+    // Validación de los campos
+    if (!nuevoNombre || !nuevoIcono || !nuevoMomento) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    // Actualizar los datos del hábito
     habit.nombre = nuevoNombre;
+    habit.icono = nuevoIcono;
+    habit.momento = nuevoMomento;
+
+    // Guardar los cambios en el almacenamiento local
     localStorage.setItem("habitos", JSON.stringify(habitos));
+
+    // Cerrar el modal y recargar la lista de hábitos
+    ocultarModal();
     cargarHabitos();
-  }
+  };
 }
 
 function toggleHabitMenu(id) {
