@@ -1,4 +1,4 @@
-// 🧠 home.js – Header y hábitos del día usando localStorage (interactivos)
+// 🧠 home.js – Header, hábitos del día y progreso diario con localStorage
 
 function obtenerSaludo() {
   const hora = new Date().getHours();
@@ -27,6 +27,7 @@ function cambiarEstado(id) {
 
   localStorage.setItem("habitos", JSON.stringify(habitos));
   cargarHabitosDelDia();
+  actualizarProgreso();
 }
 
 function cargarHabitosDelDia() {
@@ -53,6 +54,16 @@ function cargarHabitosDelDia() {
   });
 }
 
+function actualizarProgreso() {
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const total = habitos.length;
+  const completados = habitos.filter(h => h.estado === "completed").length;
+  const porcentaje = total ? Math.round((completados / total) * 100) : 0;
+
+  const progreso = document.getElementById("progreso-habitos");
+  if (progreso) progreso.textContent = `Progreso diario: ${porcentaje}% ✔️`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const saludoEl = document.getElementById("home-greeting");
   const diaEl = document.getElementById("home-day");
@@ -66,4 +77,5 @@ document.addEventListener("DOMContentLoaded", () => {
   nombreEl.textContent = nombre;
 
   cargarHabitosDelDia();
+  actualizarProgreso();
 });
