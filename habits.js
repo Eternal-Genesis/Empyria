@@ -141,7 +141,8 @@ function ocultarModal() {
 }
 
 function guardarHabito() {
-  const nombre = document.getElementById("input-nombre").value.trim();
+  // Capturar y limpiar el valor del nombre
+  const nombre = document.getElementById("input-nombre").value.trim();  // Usamos trim para eliminar espacios al principio y al final
   const iconoInput = document.getElementById("input-icono").value.trim();
   const momento = document.getElementById("input-momento").value;
   const frecuencia = document.getElementById("input-frecuencia").value;
@@ -155,7 +156,7 @@ function guardarHabito() {
     return;
   }
 
-  // Validar el nombre
+  // Validación del nombre
   if (!nombre) {
     alert("El nombre del hábito es obligatorio.");
     return;
