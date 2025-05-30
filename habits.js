@@ -1,4 +1,4 @@
-// 🧠 habits.js – Visualización y gestión de hábitos
+// 🧠 habits.js – Visualización y gestión completa de hábitos (creación y edición)
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -26,13 +26,34 @@ function cargarHabitos() {
 }
 
 function editarHabito(id) {
-  alert("Abrir editor para hábito ID: " + id);
-  // Aquí puedes redirigir o abrir un modal de edición
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const habit = habitos.find(h => h.id === id);
+  if (!habit) return;
+
+  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
+  if (nuevoNombre) {
+    habit.nombre = nuevoNombre;
+    localStorage.setItem("habitos", JSON.stringify(habitos));
+    cargarHabitos();
+  }
 }
 
 function nuevoHabito() {
-  alert("Abrir formulario para nuevo hábito");
-  // Aquí puedes redirigir o abrir un modal de creación
+  const nombre = prompt("Nombre del nuevo hábito:");
+  if (!nombre) return;
+
+  const icono = prompt("Icono para el hábito (emoji):", "🧩");
+  const nuevo = {
+    id: crypto.randomUUID(),
+    nombre,
+    icono,
+    estado: "pending"
+  };
+
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  habitos.push(nuevo);
+  localStorage.setItem("habitos", JSON.stringify(habitos));
+  cargarHabitos();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
