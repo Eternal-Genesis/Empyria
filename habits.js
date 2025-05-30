@@ -1,4 +1,3 @@
-// habits.js
 let habitToEdit = null;  // Variable global para almacenar el hábito que estamos editando
 
 // Función para cargar los hábitos desde el almacenamiento local y mostrarlos
@@ -44,7 +43,7 @@ function cargarHabitos() {
 function toggleHabitMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
   const allMenus = document.querySelectorAll('.habit-menu'); // Seleccionamos todos los menús
-
+  
   // Ocultamos todos los menús abiertos que no sean el que estamos clicando
   allMenus.forEach(m => {
     if (m !== menu) {
@@ -66,6 +65,24 @@ function eliminarHabito(id) {
   const nuevos = habitos.filter(h => h.id !== id);
   localStorage.setItem("habitos", JSON.stringify(nuevos));
   cargarHabitos();
+}
+
+// **Función para editar un hábito** (Esto es lo que faltaba definir correctamente)
+function editarHabito(id) {
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const habit = habitos.find(h => h.id === id);
+  if (!habit) return;
+
+  // Llenamos los campos del modal con los valores actuales del hábito
+  document.getElementById("input-nombre").value = habit.nombre;
+  document.getElementById("input-icono").value = habit.icono;
+  document.getElementById("input-momento").value = habit.momento;
+
+  // Guardamos el hábito que estamos editando en una variable global
+  habitToEdit = habit;
+
+  // Mostrar el modal
+  mostrarModal();
 }
 
 // Función para mostrar el modal de creación/edición de hábito
@@ -194,5 +211,4 @@ if (location.hash === "#/habits") {
 }
 
 window.editarHabito = editarHabito;
-
 
