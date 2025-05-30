@@ -1,69 +1,42 @@
-// 🧱 BLOQUE – habits.js (versión inicial con Firebase)
+// 🧠 habits.js – Visualización y gestión de hábitos
 
-import { db } from './firebase.js';
+function cargarHabitos() {
+  const container = document.getElementById("habits-container");
+  if (!container) return;
 
-// Estructura por bloques (morning, afternoon, night)
-const bloques = ["morning", "afternoon", "night"];
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  container.innerHTML = "";
 
-// Referencia a la colección 'habits'
-const habitsRef = db.collection('habits');
+  habitos.forEach(h => {
+    const card = document.createElement("div");
+    card.className = "habit-card";
 
-// Cargar y renderizar hábitos
-export async function cargarHabitos() {
-  try {
-    const snapshot = await habitsRef.get();
-    const habitos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    card.innerHTML = `
+      <div class="habit-info">
+        <span class="habit-icon">${h.icono || "🧩"}</span>
+        <span class="habit-name">${h.nombre}</span>
+      </div>
+      <div class="habit-actions">
+        <button title="Editar" onclick="editarHabito('${h.id}')">✏️</button>
+      </div>
+    `;
 
-    bloques.forEach(bloque => {
-      const contenedor = document.getElementById(`habits-${bloque}`);
-      if (!contenedor) return;
-      contenedor.innerHTML = "";
-
-      habitos
-        .filter(h => h.bloque === bloque)
-        .forEach(h => {
-          const div = document.createElement("div");
-          div.classList.add("habit-node");
-          div.textContent = h.nombre;
-
-          if (h.estado === "completed") div.classList.add("habit-completed");
-          if (h.estado === "missed") div.classList.add("habit-missed");
-
-          div.addEventListener("click", () => toggleEstado(h.id, h.estado));
-
-          contenedor.appendChild(div);
-        });
-    });
-  } catch (error) {
-    console.error("Error al cargar hábitos:", error);
-  }
+    container.appendChild(card);
+  });
 }
 
-// Cambiar estado al hacer click
-async function toggleEstado(id, estadoActual) {
-  let nuevoEstado = "completed";
-  if (estadoActual === "completed") nuevoEstado = "missed";
-  else if (estadoActual === "missed") nuevoEstado = "pending";
-
-  try {
-    await habitsRef.doc(id).update({ estado: nuevoEstado });
-    cargarHabitos();
-  } catch (error) {
-    console.error("Error al actualizar estado:", error);
-  }
+function editarHabito(id) {
+  alert("Abrir editor para hábito ID: " + id);
+  // Aquí puedes redirigir o abrir un modal de edición
 }
 
-// Agregar nuevo hábito (ejemplo)
-export async function agregarHabit(nombre, bloque) {
-  try {
-    await habitsRef.add({
-      nombre,
-      bloque,
-      estado: "pending",
-      creadoEn: new Date(),
-    });
-    cargarHabitos();
-  } catch (error) {
-    console.error("Error al agregar hábito:", error);
-  }
+function nuevoHabito() {
+  alert("Abrir formulario para nuevo hábito");
+  // Aquí puedes redirigir o abrir un modal de creación
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btn-nuevo-habito")?.addEventListener("click", nuevoHabito);
+  cargarHabitos();
+});
+
