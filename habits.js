@@ -41,9 +41,16 @@ function cargarHabitos() {
 }
 
 function editarHabito(id) {
+  // Obtener el array de hábitos del localStorage
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  // Encontrar el hábito a editar
   const habit = habitos.find(h => h.id === id);
-  if (!habit) return;
+  
+  // Si el hábito no se encuentra, no hacer nada
+  if (!habit) {
+    console.error("Hábito no encontrado");
+    return;
+  }
 
   // Cambiar el título del modal a "Editar Hábito"
   document.getElementById("modal-title").textContent = "Editar Hábito";
@@ -53,25 +60,27 @@ function editarHabito(id) {
   document.getElementById("input-icono").value = habit.icono;
   document.getElementById("input-momento").value = habit.momento;
 
-  // Cambiar el comportamiento del botón de guardar para actualizar el hábito
+  // Mostrar el modal
+  document.getElementById("modal-habito").classList.add("active");
+
+  // Configurar el botón de "Guardar" para actualizar el hábito
   document.getElementById("btn-guardar").onclick = function() {
     const nuevoNombre = document.getElementById("input-nombre").value.trim();
     const nuevoIcono = document.getElementById("input-icono").value.trim();
     const nuevoMomento = document.getElementById("input-momento").value;
 
-    // Validación del nombre
+    // Validación del nombre obligatorio
     if (!nuevoNombre) {
       alert("El nombre del hábito es obligatorio.");
       return;
     }
 
-    // Actualizar el hábito
+    // Actualizar el hábito con los nuevos valores
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
 
     // Guardar los cambios en localStorage
-    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
     localStorage.setItem("habitos", JSON.stringify(habitos));
 
     // Cerrar el modal y recargar los hábitos
