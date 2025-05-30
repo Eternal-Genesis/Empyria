@@ -1,4 +1,4 @@
-// 🧠 habits.js – Crea y edita hábitos con modal moderno y persistencia
+// 🧠 habits.js – Control total visual y funcional para hábitos
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -68,10 +68,17 @@ function guardarHabito() {
   cargarHabitos();
 }
 
-// Inicialización segura para SPA
+// ✅ Inicialización visual y funcional en SPA
 setTimeout(() => {
-  document.getElementById("btn-nuevo-habito")?.addEventListener("click", mostrarModal);
-  document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
-  document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
-  cargarHabitos();
+  try {
+    const btnFloat = document.getElementById("btn-nuevo-habito");
+    if (btnFloat) btnFloat.classList.add("visible");
+
+    btnFloat?.addEventListener("click", mostrarModal);
+    document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
+    document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
+    cargarHabitos();
+  } catch (e) {
+    console.error("Error al inicializar hábitos:", e);
+  }
 }, 100);
