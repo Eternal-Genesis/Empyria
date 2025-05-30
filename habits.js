@@ -1,4 +1,3 @@
-// habits.js
 let habitToEdit = null;  // Variable global para almacenar el hábito que estamos editando
 
 // Función para cargar los hábitos desde el almacenamiento local y mostrarlos
