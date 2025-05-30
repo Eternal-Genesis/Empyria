@@ -45,12 +45,42 @@ function editarHabito(id) {
   const habit = habitos.find(h => h.id === id);
   if (!habit) return;
 
-  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
-  if (nuevoNombre) {
+  // Abrimos el modal y mostramos los valores actuales
+  document.getElementById("input-nombre").value = habit.nombre;
+  document.getElementById("input-icono").value = habit.icono;
+  document.getElementById("input-momento").value = habit.momento;
+
+  // Mostramos el modal
+  document.getElementById("modal-habito").classList.add("active");
+
+  // Cuando el usuario haga clic en "guardar"
+  document.getElementById("btn-guardar").onclick = function() {
+    const nuevoNombre = document.getElementById("input-nombre").value.trim();
+    const nuevoIcono = document.getElementById("input-icono").value.trim();
+    const nuevoMomento = document.getElementById("input-momento").value;
+
+    if (!nuevoNombre || !nuevoIcono) {
+      alert("Por favor, ingresa un nombre y un ícono.");
+      return;
+    }
+
+    // Actualizamos el hábito
     habit.nombre = nuevoNombre;
+    habit.icono = nuevoIcono;
+    habit.momento = nuevoMomento;
+
+    // Guardamos el hábito actualizado
     localStorage.setItem("habitos", JSON.stringify(habitos));
+
+    // Cerramos el modal y recargamos la lista
+    ocultarModal();
     cargarHabitos();
-  }
+  };
+}
+
+// Función para ocultar el modal
+function ocultarModal() {
+  document.getElementById("modal-habito").classList.remove("active");
 }
 
 function toggleHabitMenu(id) {
