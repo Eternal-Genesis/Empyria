@@ -40,6 +40,8 @@ function cargarHabitos() {
   });
 }
 
+let habitToEdit = null;  // Variable para almacenar el hábito a editar
+
 function editarHabito(id) {
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   const habit = habitos.find(h => h.id === id);
@@ -53,37 +55,44 @@ function editarHabito(id) {
   // Cambiar el título del modal para indicar que estamos editando
   document.querySelector(".modal-content h3").textContent = "Editar Hábito";
 
-  // Cambiar la acción del botón para guardar la edición
-  document.getElementById("btn-guardar").onclick = function() {
-    const nuevoNombre = document.getElementById("input-nombre").value.trim();
-    const nuevoIcono = document.getElementById("input-icono").value.trim();
-    const nuevoMomento = document.getElementById("input-momento").value;
+  // Guardamos el hábito que estamos editando en una variable global
+  habitToEdit = habit;
 
-    if (!nuevoNombre || !nuevoIcono || !nuevoMomento) {
-      alert("Por favor, completa todos los campos.");
-      return;
+  // Mostrar el modal
+  mostrarModal();
+}
+
+// Función para guardar o actualizar el hábito
+document.getElementById("btn-guardar").onclick = function() {
+  const nuevoNombre = document.getElementById("input-nombre").value.trim();
+  const nuevoIcono = document.getElementById("input-icono").value.trim();
+  const nuevoMomento = document.getElementById("input-momento").value;
+
+  if (!nuevoNombre || !nuevoIcono || !nuevoMomento) {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  if (habitToEdit) {
+    // Si habitToEdit está definido, actualizamos el hábito existente
+    habitToEdit.nombre = nuevoNombre;
+    habitToEdit.icono = nuevoIcono;
+    habitToEdit.momento = nuevoMomento;
+
+    // Recuperamos los hábitos y actualizamos el hábito editado
+    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+    const index = habitos.findIndex(h => h.id === habitToEdit.id);
+    if (index !== -1) {
+      habitos[index] = habitToEdit;
+      localStorage.setItem("habitos", JSON.stringify(habitos));
     }
 
-    // Actualizamos el hábito con los nuevos datos
-    habit.nombre = nuevoNombre;
-    habit.icono = nuevoIcono;
-    habit.momento = nuevoMomento;
-
-    // Guardamos los cambios en el almacenamiento local
-    localStorage.setItem("habitos", JSON.stringify(habitos));
-
-    // Cerramos el modal y recargamos los hábitos
+    // Recargamos los hábitos
+    cargarHabitos();
     ocultarModal();
-    cargarHabitos(); // Recarga la lista de hábitos para mostrar los cambios
-  };
-
-  // Mostrar el modal
-  mostrarModal();
-}
-
-  // Mostrar el modal
-  mostrarModal();
-}
+    habitToEdit = null;  // Limpiamos la variable después de la edición
+  }
+};
 
 function toggleHabitMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
