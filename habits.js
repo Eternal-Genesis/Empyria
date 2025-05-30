@@ -1,4 +1,4 @@
-// 🧠 habits.js – Inicialización sólida para navegación SPA
+// 🧠 habits.js – Ahora crea el botón dinámicamente para evitar parpadeo visual
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -69,11 +69,16 @@ function guardarHabito() {
 }
 
 function iniciarVistaHabitos() {
-  const btn = document.getElementById("btn-nuevo-habito");
-  if (btn) {
-    btn.classList.add("visible"); // <-- esto lo hace visible, sin animación
+  if (!document.getElementById("btn-nuevo-habito")) {
+    const btn = document.createElement("button");
+    btn.id = "btn-nuevo-habito";
+    btn.className = "btn-float";
+    btn.setAttribute("aria-label", "Nuevo hábito");
+    btn.textContent = "➕";
     btn.addEventListener("click", mostrarModal);
+    document.body.appendChild(btn);
   }
+
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
   document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
   cargarHabitos();
