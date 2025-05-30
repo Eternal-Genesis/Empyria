@@ -1,4 +1,4 @@
-// 🧠 habits.js – Visualización y gestión completa de hábitos (creación y edición)
+// 🧠 habits.js – Funcionalidad sólida en SPA para creación/edición de hábitos
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -56,8 +56,8 @@ function nuevoHabito() {
   cargarHabitos();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// ✅ Ejecutar directamente y esperar el DOM inyectado por SPA
+setTimeout(() => {
   document.getElementById("btn-nuevo-habito")?.addEventListener("click", nuevoHabito);
   cargarHabitos();
-});
-
+}, 50);
