@@ -131,8 +131,103 @@ function eliminarHabito(id) {
   cargarHabitos();
 }
 
+// === ABRIR Y CERRAR EL MODAL DE CREACIÓN ===
+function mostrarModal() {
+  document.getElementById("modal-habito").classList.add("active");
+}
+
+function ocultarModal() {
+  document.getElementById("modal-habito").classList.remove("active");
+  document.getElementById("input-nombre").value = "";
+  document.getElementById("input-icono").value = "";
+  document.getElementById("input-momento").value = "";
+}
+
+// === GUARDAR NUEVO HÁBITO ===
+function guardarHabito() {
+  const nombre = document.getElementById("input-nombre").value.trim();
+  const iconoInput = document.getElementById("input-icono").value.trim();
+  const emojiRegex = /^[\p{Emoji}]$/u;
+
+  if (!emojiRegex.test(iconoInput)) {
+    alert("Solo se permite un único emoji como ícono.");
+    return;
+  }
+
+  const icono = iconoInput;
+  const momento = document.getElementById("input-momento").value;
+
+  if (!nombre || !icono || !momento) {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
+  const nuevo = { id, nombre, icono, momento, estado: "pending" };
+
+  const habitos = obtenerHabitosDeStorage();
+  habitos.push(nuevo);
+  localStorage.setItem(HABITOS_KEY, JSON.stringify(habitos));
+
+  ocultarModal();
+  cargarHabitos();
+}
+
 // === EVENTO DE CANCELAR (Cerrar Modal) ===
 document.getElementById("btn-cancelar-editar")?.addEventListener("click", ocultarModalEditar);
+document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
 
 // === INICIALIZACIÓN DE LA VISTA ===
 document.addEventListener("DOMContentLoaded", cargarHabitos);
+
+// === NUEVO HÁBITO (Botón flotante) ===
+function iniciarVistaHabitos() {
+  if (!document.getElementById("btn-nuevo-habito")) {
+    const btn = document.createElement("button");
+    btn.id = "btn-nuevo-habito";
+    btn.textContent = "➕";
+    btn.setAttribute("aria-label", "Nuevo hábito");
+    btn.onclick = mostrarModal;
+
+    Object.assign(btn.style, {
+      position: "fixed",
+      bottom: "80px",
+      right: "20px",
+      width: "56px",
+      height: "56px",
+      borderRadius: "50%",
+      backgroundColor: "var(--color-accent-primary)",
+      color: "white",
+      fontSize: "1.5rem",
+      border: "none",
+      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+      zIndex: 999,
+      visibility: "hidden"
+    });
+
+    document.body.appendChild(btn);
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        btn.style.visibility = "visible";
+      }, 50);
+    });
+  }
+}
+
+// Detectar navegación en SPA y recargar la vista
+window.addEventListener("hashchange", () => {
+  if (location.hash === "#/habits") {
+    setTimeout(iniciarVistaHabitos, 100);
+  } else {
+    limpiarBotonHabito();
+  }
+});
+
+// Si ya estás en /habits al cargar
+if (location.hash === "#/habits") {
+  setTimeout(iniciarVistaHabitos, 100);
+}
+
+window.editarHabito = editarHabito;
+window.eliminarHabito = eliminarHabito;
