@@ -42,8 +42,18 @@ function cargarHabitos() {
 // Función para mostrar u ocultar el menú de opciones de un hábito
 function toggleHabitMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
-  if (menu) {
-    menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "flex" : "none";
+  const allMenus = document.querySelectorAll('.habit-menu'); // Seleccionamos todos los menús
+  allMenus.forEach(m => {
+    if (m !== menu) {
+      m.style.display = 'none'; // Ocultamos todos los menús que no sean el que hemos clicado
+    }
+  });
+
+  // Mostrar o ocultar el menú clicado
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "flex";
+  } else {
+    menu.style.display = "none";
   }
 }
 
@@ -181,3 +191,4 @@ if (location.hash === "#/habits") {
 }
 
 window.editarHabito = editarHabito;
+
