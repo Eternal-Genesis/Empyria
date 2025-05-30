@@ -1,4 +1,4 @@
-// 🧠 habits.js – Funcionalidad sólida en SPA para creación/edición de hábitos
+// 🧠 habits.js – Carga robusta con soporte y manejo de errores
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -26,38 +26,52 @@ function cargarHabitos() {
 }
 
 function editarHabito(id) {
-  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  const habit = habitos.find(h => h.id === id);
-  if (!habit) return;
+  try {
+    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+    const habit = habitos.find(h => h.id === id);
+    if (!habit) return;
 
-  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
-  if (nuevoNombre) {
-    habit.nombre = nuevoNombre;
-    localStorage.setItem("habitos", JSON.stringify(habitos));
-    cargarHabitos();
+    const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
+    if (nuevoNombre) {
+      habit.nombre = nuevoNombre;
+      localStorage.setItem("habitos", JSON.stringify(habitos));
+      cargarHabitos();
+    }
+  } catch (e) {
+    console.error("Error al editar hábito:", e);
   }
 }
 
 function nuevoHabito() {
-  const nombre = prompt("Nombre del nuevo hábito:");
-  if (!nombre) return;
+  try {
+    const nombre = prompt("Nombre del nuevo hábito:");
+    if (!nombre) return;
 
-  const icono = prompt("Icono para el hábito (emoji):", "🧩");
-  const nuevo = {
-    id: crypto.randomUUID(),
-    nombre,
-    icono,
-    estado: "pending"
-  };
+    const icono = prompt("Icono para el hábito (emoji):", "🧩");
+    const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
 
-  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  habitos.push(nuevo);
-  localStorage.setItem("habitos", JSON.stringify(habitos));
-  cargarHabitos();
+    const nuevo = {
+      id,
+      nombre,
+      icono,
+      estado: "pending"
+    };
+
+    const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+    habitos.push(nuevo);
+    localStorage.setItem("habitos", JSON.stringify(habitos));
+    cargarHabitos();
+  } catch (e) {
+    console.error("Error al crear nuevo hábito:", e);
+  }
 }
 
-// ✅ Ejecutar directamente y esperar el DOM inyectado por SPA
+// ✅ Ejecutar cuando la vista ya esté renderizada
 setTimeout(() => {
-  document.getElementById("btn-nuevo-habito")?.addEventListener("click", nuevoHabito);
-  cargarHabitos();
-}, 50);
+  try {
+    document.getElementById("btn-nuevo-habito")?.addEventListener("click", nuevoHabito);
+    cargarHabitos();
+  } catch (e) {
+    console.error("Error al inicializar hábitos:", e);
+  }
+}, 100);
