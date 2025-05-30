@@ -1,4 +1,4 @@
-// 🧠 habits.js – Botón insertado con estilo directo para evitar saltos visuales
+// 🧠 habits.js – Versión final y robusta con aparición sin errores del botón
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -72,12 +72,10 @@ function iniciarVistaHabitos() {
   if (!document.getElementById("btn-nuevo-habito")) {
     const btn = document.createElement("button");
     btn.id = "btn-nuevo-habito";
-    btn.className = "btn-float";
-    btn.setAttribute("aria-label", "Nuevo hábito");
     btn.textContent = "➕";
+    btn.setAttribute("aria-label", "Nuevo hábito");
     btn.onclick = mostrarModal;
 
-    // Aplicar estilo directamente para evitar interferencias externas
     Object.assign(btn.style, {
       position: "fixed",
       bottom: "80px",
@@ -93,10 +91,14 @@ function iniciarVistaHabitos() {
       zIndex: 999,
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      visibility: "hidden"
     });
 
     document.querySelector(".section")?.appendChild(btn);
+    requestAnimationFrame(() => {
+      btn.style.visibility = "visible";
+    });
   }
 
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
