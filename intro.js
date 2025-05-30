@@ -1,6 +1,7 @@
-// 🧠 intro.js – Lógica del carrusel de introducción
+// 🧠 intro.js – Lógica del carrusel de introducción para SPA
 
-document.addEventListener("DOMContentLoaded", () => {
+// Esperar que la vista se cargue dinámicamente
+setTimeout(() => {
   let pasoActual = 0;
   const totalPasos = 3;
 
@@ -18,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const offset = -pasoActual * 100;
     slider.style.transform = `translateX(${offset}vw)`;
     indicador.textContent = `${pasoActual + 1} / ${totalPasos}`;
-
     btnSiguiente.textContent = pasoActual === totalPasos - 1 ? "Empezar" : "Siguiente";
   }
 
@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     location.hash = "#/inicio";
   });
 
-  // Forzar estilos a cada slide por seguridad visual
   document.querySelectorAll(".slide").forEach(slide => {
     slide.style.minHeight = "100vh";
     slide.style.minWidth = "100vw";
@@ -47,5 +46,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   actualizarVista();
-});
-
+}, 50);
