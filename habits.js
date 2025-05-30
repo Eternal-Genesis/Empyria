@@ -107,22 +107,21 @@ function eliminarHabito(id) {
 window.eliminarHabito = eliminarHabito;
 
 function mostrarModal(id = null) {
-  // Si hay un ID, es porque estamos editando un hábito
   if (id) {
-    // Llamar a la función de editar habit (cargar datos)
-    editarHabito(id);
+    editarHabito(id);  // Si estamos editando, llamamos a la función de edición
   } else {
-    // Si no hay ID, es porque estamos creando un nuevo hábito
+    // Si no hay ID, estamos creando un nuevo hábito
     document.getElementById("modal-title").textContent = "Nuevo Hábito";
     document.getElementById("input-nombre").value = "";
     document.getElementById("input-icono").value = "";
     document.getElementById("input-momento").value = "";
-    
-    // Cambiar el comportamiento del botón de "Guardar" para crear un nuevo hábito
-    document.getElementById("btn-guardar").onclick = guardarHabito; 
+    document.getElementById("input-frecuencia").value = "";  // Inicializar frecuencia
+    document.getElementById("input-hora-recordatorio").value = "";  // Inicializar recordatorio
+
+    // Asignamos la función de crear hábito al botón de "Guardar"
+    document.getElementById("btn-guardar").onclick = guardarHabito;
   }
 
-  // Mostrar el modal
   document.getElementById("modal-habito").classList.add("active");
 }
 
