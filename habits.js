@@ -1,4 +1,4 @@
-// 🧠 habits.js – Ahora crea el botón dinámicamente para evitar parpadeo visual
+// 🧠 habits.js – Corrección: botón insertado correctamente y modal controlado solo por click
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -76,7 +76,7 @@ function iniciarVistaHabitos() {
     btn.setAttribute("aria-label", "Nuevo hábito");
     btn.textContent = "➕";
     btn.addEventListener("click", mostrarModal);
-    document.body.appendChild(btn);
+    document.querySelector(".section")?.appendChild(btn); // dentro del section, no body
   }
 
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
