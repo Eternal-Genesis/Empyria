@@ -56,6 +56,14 @@ function toggleHabitMenu(id) {
 }
 
 window.toggleHabitMenu = toggleHabitMenu;
+function eliminarHabito(id) {
+  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+  const nuevos = habitos.filter(h => h.id !== id);
+  localStorage.setItem("habitos", JSON.stringify(nuevos));
+  cargarHabitos();
+}
+
+window.eliminarHabito = eliminarHabito;
 
 function mostrarModal() {
   document.getElementById("modal-habito").classList.add("active");
