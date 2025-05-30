@@ -24,8 +24,9 @@ function cargarHabitos() {
         <circle cx="19" cy="12" r="2" />
       </svg>
     </button>
-<button onclick="editarHabito('${h.id}')">Editar</button>
-<button onclick="eliminarHabito('${h.id}')">Eliminar</button>
+<div class="habit-menu" id="menu-${h.id}" style="display:none;">
+  <button onclick="editarHabito('${h.id}')">Editar</button>
+  <button onclick="eliminarHabito('${h.id}')">Eliminar</button>
 </div>
   </div>
 `;
