@@ -30,6 +30,28 @@
     </div>
   </div>
 </div>
+  <!-- Modal para editar hábito -->
+<div id="modal-editar-habito" class="modal-habito">
+  <div class="modal-content">
+    <h3>Editar Hábito</h3>
+
+    <!-- Campos pre-llenados -->
+    <input type="text" id="input-nombre-editar" placeholder="Nombre del hábito">
+    <input type="text" id="input-icono-editar" placeholder="Emoji (ej: 🧘)">
+
+    <select id="input-momento-editar" class="input-momento">
+      <option value="" disabled>Selecciona el momento del día</option>
+      <option value="mañana">Mañana</option>
+      <option value="tarde">Tarde</option>
+      <option value="noche">Noche</option>
+    </select>
+
+    <div class="modal-actions" style="margin-top: 12px;">
+      <button id="btn-cancelar-editar" class="btn">Cancelar</button>
+      <button id="btn-guardar-editar" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+</div>
 </section>
 
 <style>
