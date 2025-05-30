@@ -1,12 +1,9 @@
-<!-- 🧱 BLOQUE – habits.view.html con carga invisible y animación correcta -->
+<!-- 🧱 BLOQUE – habits.view.html limpio sin botón duplicado -->
 <section class="section fade-in">
   <h2>Tus Hábitos</h2>
 
   <!-- Contenedor de tarjetas de hábitos -->
   <div id="habits-container" class="habits-grid" style="margin-top: 20px;"></div>
-
-  <!-- Botón flotante oculto inicialmente -->
-  <button id="btn-nuevo-habito" class="btn-float" aria-label="Nuevo hábito">➕</button>
 
   <!-- Modal para crear hábito -->
   <div id="modal-habito" class="modal-habito">
@@ -68,28 +65,36 @@
     cursor: pointer;
   }
 
-.btn-float {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-color: var(--color-accent-primary);
-  color: white;
-  font-size: 1.5rem;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden;
-}
+  .btn-float {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-accent-primary);
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.btn-float.visible {
-  visibility: visible;
-}
+  .modal-habito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
 
   .modal-habito.active {
     display: flex;
@@ -123,4 +128,3 @@
     gap: 10px;
   }
 </style>
-
