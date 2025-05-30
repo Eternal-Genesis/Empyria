@@ -1,12 +1,12 @@
-<!-- 🧱 BLOQUE – habits.view.html con modal y botón animado -->
+<!-- 🧱 BLOQUE – habits.view.html con carga invisible y animación correcta -->
 <section class="section fade-in">
   <h2>Tus Hábitos</h2>
 
   <!-- Contenedor de tarjetas de hábitos -->
   <div id="habits-container" class="habits-grid" style="margin-top: 20px;"></div>
 
-  <!-- Botón flotante para agregar hábito -->
-  <button id="btn-nuevo-habito" class="btn-float hidden" aria-label="Nuevo hábito">➕</button>
+  <!-- Botón flotante oculto inicialmente -->
+  <button id="btn-nuevo-habito" class="btn-float invisible" aria-label="Nuevo hábito">➕</button>
 
   <!-- Modal para crear hábito -->
   <div id="modal-habito" class="modal-habito">
@@ -81,17 +81,16 @@
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 999;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     transition: opacity 0.3s ease;
     opacity: 0;
-    visibility: hidden;
   }
 
   .btn-float.visible {
+    display: flex;
     opacity: 1;
-    visibility: visible;
   }
 
   .modal-habito {
@@ -139,3 +138,4 @@
     gap: 10px;
   }
 </style>
+
