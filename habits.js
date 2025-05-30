@@ -45,15 +45,15 @@ function editarHabito(id) {
   const habit = habitos.find(h => h.id === id);
   if (!habit) return;
 
-  // Llenamos los campos del modal con los valores actuales
+  // Llenamos los campos del modal con los valores actuales del hábito
   document.getElementById("input-nombre").value = habit.nombre;
   document.getElementById("input-icono").value = habit.icono;
   document.getElementById("input-momento").value = habit.momento;
 
-  // Mostrar el modal para edición
-  mostrarModal();
+  // Cambiar el título del modal para indicar que estamos editando
+  document.querySelector(".modal-content h3").textContent = "Editar Hábito";
 
-  // Cuando el usuario guarda el hábito editado
+  // Cambiar la acción del botón para guardar la edición
   document.getElementById("btn-guardar").onclick = function() {
     const nuevoNombre = document.getElementById("input-nombre").value.trim();
     const nuevoIcono = document.getElementById("input-icono").value.trim();
@@ -76,6 +76,9 @@ function editarHabito(id) {
     ocultarModal();
     cargarHabitos();
   };
+
+  // Mostrar el modal
+  mostrarModal();
 }
 
 function toggleHabitMenu(id) {
