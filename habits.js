@@ -127,3 +127,5 @@ window.addEventListener("hashchange", () => {
 if (location.hash === "#/habits") {
   setTimeout(iniciarVistaHabitos, 100);
 }
+
+window.editarHabito = editarHabito;
