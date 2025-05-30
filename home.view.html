@@ -1,4 +1,4 @@
-<!-- 🏠 home.view.html – Estilo HabitNow (Header minimalista) -->
+<!-- 🏠 home.view.html – Estilo HabitNow (Header + Hábitos del Día) -->
 <section class="section fade-in">
   <!-- Fecha y saludo tipo HabitNow -->
   <div class="home-date-box">
@@ -6,6 +6,37 @@
     <div class="date-name" id="home-weekday">Miércoles</div>
   </div>
   <h2 id="home-greeting" class="home-greeting">Hola 👋</h2>
+
+  <!-- Lista de hábitos de hoy -->
+  <div class="daily-habits">
+    <h3 class="habits-title">Tus hábitos de hoy</h3>
+    <div class="habit-list">
+      <!-- Tarjetas de hábito -->
+      <div class="habit-card pending">
+        <div class="habit-info">
+          <span class="habit-icon">🌅</span>
+          <span class="habit-name">Meditar</span>
+        </div>
+        <span class="habit-status">⏳</span>
+      </div>
+
+      <div class="habit-card completed">
+        <div class="habit-info">
+          <span class="habit-icon">💧</span>
+          <span class="habit-name">Beber agua</span>
+        </div>
+        <span class="habit-status">✔️</span>
+      </div>
+
+      <div class="habit-card missed">
+        <div class="habit-info">
+          <span class="habit-icon">📖</span>
+          <span class="habit-name">Leer 15 min</span>
+        </div>
+        <span class="habit-status">❌</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -32,5 +63,63 @@
     font-size: 1.5rem;
     padding: 8px 20px 16px;
     color: var(--color-text-primary);
+  }
+
+  .daily-habits {
+    padding: 0 20px;
+  }
+
+  .habits-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--color-accent-secondary);
+  }
+
+  .habit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .habit-card {
+    background: var(--color-card);
+    padding: 12px 16px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+  }
+
+  .habit-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .habit-icon {
+    font-size: 1.4rem;
+  }
+
+  .habit-name {
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+  }
+
+  .habit-status {
+    font-size: 1.4rem;
+  }
+
+  .habit-card.completed {
+    background-color: rgba(42, 245, 152, 0.1);
+  }
+
+  .habit-card.missed {
+    background-color: rgba(255, 95, 109, 0.1);
+  }
+
+  .habit-card.pending {
+    background-color: rgba(255, 255, 255, 0.05);
   }
 </style>
