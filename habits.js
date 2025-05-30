@@ -1,58 +1,67 @@
-// 🧠 habits.js – Versión final con control del botón solo en sección hábitos
+// === CONSTANTES ===
+const HABITOS_KEY = "habitos";  // Clave para el almacenamiento en localStorage
 
+// === CARGAR HÁBITOS ===
 function cargarHabitos() {
+  const habitos = obtenerHabitosDeStorage();
+  actualizarContadorDeHabitos(habitos.length);
+
   const container = document.getElementById("habits-container");
   if (!container) return;
-  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  const countDisplay = document.getElementById("habit-count");
-  if (countDisplay) countDisplay.textContent = `Hábitos: ${habitos.length}`;
+  
+  // Limpiar contenido actual
   container.innerHTML = "";
 
+  // Crear una tarjeta para cada hábito
   habitos.forEach(h => {
-    const card = document.createElement("div");
-    card.className = "habit-card";
-
-    card.innerHTML = `
-  <div class="habit-info">
-    <span class="habit-icon">${h.icono || "🧩"}</span>
-    <div>
-      <div class="habit-name">${h.nombre}</div>
-      <div class="habit-momento">${h.momento || ""}</div>
-    </div>
-  </div>
-  
-  <div class="habit-actions">
-    <button class="habit-menu-btn" onclick="toggleHabitMenu('${h.id}')">
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-        <circle cx="5" cy="12" r="2" />
-        <circle cx="12" cy="12" r="2" />
-        <circle cx="19" cy="12" r="2" />
-      </svg>
-    </button>
-<div class="habit-menu" id="menu-${h.id}" style="display:none;">
-  <button onclick="editarHabito('${h.id}')">Editar</button>
-  <button onclick="eliminarHabito('${h.id}')">Eliminar</button>
-</div>
-  </div>
-`;
-
+    const card = crearCardHabit(h);
     container.appendChild(card);
   });
 }
 
-function editarHabito(id) {
-  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  const habit = habitos.find(h => h.id === id);
-  if (!habit) return;
-
-  const nuevoNombre = prompt("Editar nombre del hábito:", habit.nombre);
-  if (nuevoNombre) {
-    habit.nombre = nuevoNombre;
-    localStorage.setItem("habitos", JSON.stringify(habitos));
-    cargarHabitos();
-  }
+// === OBTENER HÁBITOS DE LOCALSTORAGE ===
+function obtenerHabitosDeStorage() {
+  return JSON.parse(localStorage.getItem(HABITOS_KEY) || "[]");
 }
 
+// === ACTUALIZAR EL CONTADOR DE HÁBITOS ===
+function actualizarContadorDeHabitos(count) {
+  const countDisplay = document.getElementById("habit-count");
+  if (countDisplay) countDisplay.textContent = `Hábitos: ${count}`;
+}
+
+// === CREAR TARJETA DE HÁBITO ===
+function crearCardHabit(habito) {
+  const card = document.createElement("div");
+  card.className = "habit-card";
+
+  card.innerHTML = `
+    <div class="habit-info">
+      <span class="habit-icon">${habito.icono || "🧩"}</span>
+      <div>
+        <div class="habit-name">${habito.nombre}</div>
+        <div class="habit-momento">${habito.momento || ""}</div>
+      </div>
+    </div>
+    <div class="habit-actions">
+      <button class="habit-menu-btn" onclick="toggleHabitMenu('${habito.id}')">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <circle cx="5" cy="12" r="2" />
+          <circle cx="12" cy="12" r="2" />
+          <circle cx="19" cy="12" r="2" />
+        </svg>
+      </button>
+      <div class="habit-menu" id="menu-${habito.id}" style="display:none;">
+        <button onclick="editarHabito('${habito.id}')">Editar</button>
+        <button onclick="eliminarHabito('${habito.id}')">Eliminar</button>
+      </div>
+    </div>
+  `;
+
+  return card;
+}
+
+// === TOGGLE MENÚ DE ACCIONES ===
 function toggleHabitMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
   if (menu) {
@@ -60,113 +69,70 @@ function toggleHabitMenu(id) {
   }
 }
 
-window.toggleHabitMenu = toggleHabitMenu;
-function eliminarHabito(id) {
-  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  const nuevos = habitos.filter(h => h.id !== id);
-  localStorage.setItem("habitos", JSON.stringify(nuevos));
-  cargarHabitos();
+// === EDITAR HÁBITO ===
+function editarHabito(id) {
+  const habitos = obtenerHabitosDeStorage();
+  const habit = habitos.find(h => h.id === id);
+  if (!habit) return;
+
+  // Pre-llenar los campos del modal de edición
+  document.getElementById("input-nombre-editar").value = habit.nombre;
+  document.getElementById("input-icono-editar").value = habit.icono;
+  document.getElementById("input-momento-editar").value = habit.momento;
+
+  // Mostrar el modal de edición
+  mostrarModalEdicion();
+
+  // Guardar los cambios cuando el usuario haga clic en "Guardar"
+  document.getElementById("btn-guardar-editar").onclick = function() {
+    guardarCambiosHabito(habit, habitos);
+  };
 }
 
-window.eliminarHabito = eliminarHabito;
+// === GUARDAR CAMBIOS DEL HÁBITO ===
+function guardarCambiosHabito(habit, habitos) {
+  const nuevoNombre = document.getElementById("input-nombre-editar").value.trim();
+  const nuevoIcono = document.getElementById("input-icono-editar").value.trim();
+  const nuevoMomento = document.getElementById("input-momento-editar").value;
 
-function mostrarModal() {
-  document.getElementById("modal-habito").classList.add("active");
-}
-
-function ocultarModal() {
-  document.getElementById("modal-habito").classList.remove("active");
-  document.getElementById("input-nombre").value = "";
-  document.getElementById("input-icono").value = "";
-}
-
-function guardarHabito() {
-  const nombre = document.getElementById("input-nombre").value.trim();
-  const iconoInput = document.getElementById("input-icono").value.trim();
-const emojiRegex = /^[\p{Emoji}]$/u;
-
-if (!emojiRegex.test(iconoInput)) {
-  alert("Solo se permite un único emoji como ícono.");
-  return;
-}
-
-const icono = iconoInput;
-  const momento = document.getElementById("input-momento").value;
-
-  if (!nombre) {
-    alert("El nombre del hábito es obligatorio.");
+  if (!nuevoNombre || !nuevoIcono || !nuevoMomento) {
+    alert("Por favor, completa todos los campos.");
     return;
   }
 
-  const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
-  const nuevo = { id, nombre, icono, momento, estado: "pending" };
+  // Actualizar los datos del hábito
+  habit.nombre = nuevoNombre;
+  habit.icono = nuevoIcono;
+  habit.momento = nuevoMomento;
 
-  const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  habitos.push(nuevo);
-  localStorage.setItem("habitos", JSON.stringify(habitos));
+  // Actualizar localStorage
+  localStorage.setItem(HABITOS_KEY, JSON.stringify(habitos));
 
-  ocultarModal();
+  // Recargar la lista de hábitos y cerrar el modal
+  cargarHabitos();
+  ocultarModalEditar();
+}
+
+// === MOSTRAR EL MODAL DE EDICIÓN ===
+function mostrarModalEdicion() {
+  document.getElementById("modal-editar-habito").classList.add("active");
+}
+
+// === OCULTAR EL MODAL DE EDICIÓN ===
+function ocultarModalEditar() {
+  document.getElementById("modal-editar-habito").classList.remove("active");
+}
+
+// === ELIMINAR HÁBITO ===
+function eliminarHabito(id) {
+  const habitos = obtenerHabitosDeStorage();
+  const nuevosHabitos = habitos.filter(h => h.id !== id);
+  localStorage.setItem(HABITOS_KEY, JSON.stringify(nuevosHabitos));
   cargarHabitos();
 }
 
-function iniciarVistaHabitos() {
-  if (!document.getElementById("btn-nuevo-habito")) {
-    const btn = document.createElement("button");
-    btn.id = "btn-nuevo-habito";
-    btn.textContent = "➕";
-    btn.setAttribute("aria-label", "Nuevo hábito");
-    btn.onclick = mostrarModal;
+// === EVENTO DE CANCELAR (Cerrar Modal) ===
+document.getElementById("btn-cancelar-editar")?.addEventListener("click", ocultarModalEditar);
 
-    Object.assign(btn.style, {
-      position: "fixed",
-      bottom: "80px",
-      right: "20px",
-      width: "56px",
-      height: "56px",
-      borderRadius: "50%",
-      backgroundColor: "var(--color-accent-primary)",
-      color: "white",
-      fontSize: "1.5rem",
-      border: "none",
-      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-      zIndex: 999,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      visibility: "hidden"
-    });
-
-    document.body.appendChild(btn);
-
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        btn.style.visibility = "visible";
-      }, 50);
-    });
-  }
-
-  document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
-  document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
-  cargarHabitos();
-}
-
-function limpiarBotonHabito() {
-  const btn = document.getElementById("btn-nuevo-habito");
-  if (btn) btn.remove();
-}
-
-// Detectar navegación en SPA y recargar la vista
-window.addEventListener("hashchange", () => {
-  if (location.hash === "#/habits") {
-    setTimeout(iniciarVistaHabitos, 100);
-  } else {
-    limpiarBotonHabito();
-  }
-});
-
-// Si ya estás en /habits al cargar
-if (location.hash === "#/habits") {
-  setTimeout(iniciarVistaHabitos, 100);
-}
-
-window.editarHabito = editarHabito;
+// === INICIALIZACIÓN DE LA VISTA ===
+document.addEventListener("DOMContentLoaded", cargarHabitos);
