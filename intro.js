@@ -1,28 +1,26 @@
 // 🧠 intro.js – Lógica del carrusel de introducción
 
-let pasoActual = 0;
-const totalPasos = 3;
+document.addEventListener("DOMContentLoaded", () => {
+  let pasoActual = 0;
+  const totalPasos = 3;
 
-function actualizarVista() {
   const slider = document.getElementById("intro-slider");
-  const indicador = document.getElementById("slide-indicator");
-  const btnSiguiente = document.getElementById("btn-siguiente");
-
-  const offset = -pasoActual * 100;
-  slider.style.transform = `translateX(${offset}vw)`;
-  indicador.textContent = `${pasoActual + 1} / ${totalPasos}`;
-
-  if (pasoActual === totalPasos - 1) {
-    btnSiguiente.textContent = "Empezar";
-  } else {
-    btnSiguiente.textContent = "Siguiente";
-  }
-}
-
-window.addEventListener("load", () => {
   const btnSiguiente = document.getElementById("btn-siguiente");
   const btnOmitir = document.getElementById("btn-omitir");
-  const slider = document.getElementById("intro-slider");
+  const indicador = document.getElementById("slide-indicator");
+
+  if (!slider || !btnSiguiente || !btnOmitir || !indicador) {
+    console.error("❌ Elementos no encontrados en intro.js");
+    return;
+  }
+
+  function actualizarVista() {
+    const offset = -pasoActual * 100;
+    slider.style.transform = `translateX(${offset}vw)`;
+    indicador.textContent = `${pasoActual + 1} / ${totalPasos}`;
+
+    btnSiguiente.textContent = pasoActual === totalPasos - 1 ? "Empezar" : "Siguiente";
+  }
 
   btnSiguiente.addEventListener("click", () => {
     if (pasoActual < totalPasos - 1) {
@@ -37,7 +35,7 @@ window.addEventListener("load", () => {
     location.hash = "#/inicio";
   });
 
-  // Asegura que cada slide tenga dimensiones correctas
+  // Forzar estilos a cada slide por seguridad visual
   document.querySelectorAll(".slide").forEach(slide => {
     slide.style.minHeight = "100vh";
     slide.style.minWidth = "100vw";
@@ -50,3 +48,4 @@ window.addEventListener("load", () => {
 
   actualizarVista();
 });
+
