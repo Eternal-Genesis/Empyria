@@ -42,6 +42,29 @@ function cargarHabitos() {
 
 let habitToEdit = null;  // Variable global para almacenar el hábito que estamos editando
 
+function mostrarModal() {
+  const modalTitle = document.querySelector(".modal-content h3");
+  const btnNuevoHabito = document.getElementById("btn-nuevo-habito");
+
+  if (!habitToEdit) {
+    // Si no estamos editando, mostramos "Nuevo Hábito"
+    modalTitle.textContent = "Nuevo Hábito";
+  }
+  
+  document.getElementById("modal-habito").classList.add("active");
+
+  // Si estamos mostrando el modal, ocultamos el botón de crear hábito
+  btnNuevoHabito.style.visibility = "hidden";
+}
+
+function ocultarModal() {
+  document.getElementById("modal-habito").classList.remove("active");
+
+  // Mostrar el botón de nuevo hábito cuando el modal se oculta
+  const btnNuevoHabito = document.getElementById("btn-nuevo-habito");
+  btnNuevoHabito.style.visibility = "visible";
+}
+
 function editarHabito(id) {
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   const habit = habitos.find(h => h.id === id);
@@ -60,15 +83,6 @@ function editarHabito(id) {
 
   // Mostrar el modal
   mostrarModal();
-}
-
-function mostrarModal() {
-  const modalTitle = document.querySelector(".modal-content h3");
-  if (!habitToEdit) {
-    // Si no estamos editando, mostramos "Nuevo Hábito"
-    modalTitle.textContent = "Nuevo Hábito";
-  }
-  document.getElementById("modal-habito").classList.add("active");
 }
 
 document.getElementById("btn-guardar").onclick = function() {
@@ -120,6 +134,35 @@ document.getElementById("btn-guardar").onclick = function() {
     ocultarModal();
   }
 };
+
+// Función para mostrar el botón de "Nuevo Hábito"
+function iniciarVistaHabitos() {
+  const btnNuevoHabito = document.createElement("button");
+  btnNuevoHabito.id = "btn-nuevo-habito";
+  btnNuevoHabito.textContent = "➕";
+  btnNuevoHabito.setAttribute("aria-label", "Nuevo hábito");
+  btnNuevoHabito.onclick = mostrarModal;
+
+  Object.assign(btnNuevoHabito.style, {
+    position: "fixed",
+    bottom: "80px",
+    right: "20px",
+    width: "56px",
+    height: "56px",
+    borderRadius: "50%",
+    backgroundColor: "var(--color-accent-primary)",
+    color: "white",
+    fontSize: "1.5rem",
+    border: "none",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+    zIndex: 999,
+  });
+
+  document.body.appendChild(btnNuevoHabito);
+}
+
+// Ejecutamos la función para mostrar el botón de crear hábito al cargar
+iniciarVistaHabitos();
 
 function toggleHabitMenu(id) {
   const menu = document.getElementById(`menu-${id}`);
