@@ -163,16 +163,10 @@ function iniciarVistaHabitos() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      visibility: "hidden"
+      visibility: "visible" // Hacemos que el botón sea visible desde el inicio
     });
 
     document.body.appendChild(btn);
-
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        btn.style.visibility = "visible";
-      }, 50);
-    });
   }
 
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
