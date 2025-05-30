@@ -1,30 +1,36 @@
-<!-- 🏠 home.view.html – Estilo HabitNow (Header inicial) -->
+<!-- 🏠 home.view.html – Estilo HabitNow (Header minimalista) -->
 <section class="section fade-in">
-  <!-- Header con fecha y saludo -->
-  <div class="home-header">
-    <h1 id="home-greeting">Hola 👋</h1>
-    <p id="home-date">Hoy es...</p>
+  <!-- Fecha y saludo tipo HabitNow -->
+  <div class="home-date-box">
+    <div class="date-number" id="home-day">29</div>
+    <div class="date-name" id="home-weekday">Miércoles</div>
   </div>
+  <h2 id="home-greeting" class="home-greeting">Hola 👋</h2>
 </section>
 
 <style>
-  .home-header {
-    padding: 24px 20px 16px;
-    background-color: var(--color-card);
-    border-radius: 16px;
-    margin: 20px;
-    text-align: left;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  .home-date-box {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 20px 20px 0;
   }
 
-  .home-header h1 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+  .date-number {
+    font-size: 3.2rem;
+    font-weight: bold;
     color: var(--color-accent-primary);
   }
 
-  .home-header p {
-    font-size: 1.1rem;
+  .date-name {
+    font-size: 1.2rem;
     color: var(--color-text-secondary);
+    margin-top: 12px;
+  }
+
+  .home-greeting {
+    font-size: 1.5rem;
+    padding: 8px 20px 16px;
+    color: var(--color-text-primary);
   }
 </style>
