@@ -47,7 +47,7 @@ function editarHabito(id) {
 
   // Mostrar los valores actuales en el modal de edición
   document.getElementById("input-nombre").value = habit.nombre;
-  document.getElementById("input-icono").value = habit.icono; // Permite editar el ícono
+  document.getElementById("input-icono").value = habit.icono;
   document.getElementById("input-momento").value = habit.momento;
 
   // Mostrar el modal para editar el hábito
@@ -65,7 +65,7 @@ function editarHabito(id) {
       return;
     }
 
-    // Actualizar los datos del hábito
+    // Actualizar los datos del hábito en el arreglo
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
