@@ -12,14 +12,24 @@ function cargarHabitos() {
     card.className = "habit-card";
 
     card.innerHTML = `
-      <div class="habit-info">
-        <span class="habit-icon">${h.icono || "🧩"}</span>
-        <span class="habit-name">${h.nombre}</span>
-      </div>
-      <div class="habit-actions">
-        <button title="Editar" onclick="editarHabito('${h.id}')">✏️</button>
-      </div>
-    `;
+  <div class="habit-info">
+    <span class="habit-icon">${h.icono || "🧩"}</span>
+    <span class="habit-name">${h.nombre}</span>
+  </div>
+  <div class="habit-actions">
+    <button class="habit-menu-btn" onclick="toggleHabitMenu('${h.id}')">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+        <circle cx="5" cy="12" r="2" />
+        <circle cx="12" cy="12" r="2" />
+        <circle cx="19" cy="12" r="2" />
+      </svg>
+    </button>
+    <div class="habit-menu" id="menu-${h.id}" style="display:none;">
+      <button onclick="editarHabito('${h.id}')">Editar</button>
+      <button onclick="eliminarHabito('${h.id}')">Eliminar</button>
+    </div>
+  </div>
+`;
 
     container.appendChild(card);
   });
