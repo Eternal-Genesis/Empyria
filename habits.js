@@ -1,4 +1,4 @@
-// 🧠 habits.js – Inserción final profesional fuera del flujo animado
+// 🧠 habits.js – Versión final con control del botón solo en sección hábitos
 
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
@@ -109,10 +109,17 @@ function iniciarVistaHabitos() {
   cargarHabitos();
 }
 
+function limpiarBotonHabito() {
+  const btn = document.getElementById("btn-nuevo-habito");
+  if (btn) btn.remove();
+}
+
 // Detectar navegación en SPA y recargar la vista
 window.addEventListener("hashchange", () => {
   if (location.hash === "#/habits") {
     setTimeout(iniciarVistaHabitos, 100);
+  } else {
+    limpiarBotonHabito();
   }
 });
 
