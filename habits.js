@@ -42,24 +42,24 @@ function cargarHabitos() {
 
 function editarHabito(id) {
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  const habit = habitos.find(h => h.id === id);
-  if (!habit) return;
+  const habit = habitos.find(h => h.id === id); // Encontrar el hábito por su ID
+  if (!habit) return; // Si no existe, no hacemos nada
 
-  // Mostrar los valores actuales en el modal de edición
+  // Rellenar el modal con los datos actuales del hábito
   document.getElementById("input-nombre").value = habit.nombre;
   document.getElementById("input-icono").value = habit.icono;
   document.getElementById("input-momento").value = habit.momento;
 
-  // Mostrar el modal para editar el hábito
+  // Mostrar el modal de edición
   document.getElementById("modal-habito").classList.add("active");
 
-  // Al presionar el botón "Guardar", actualizar los datos del hábito
+  // Cuando el usuario presiona "Guardar", actualizamos el hábito
   document.getElementById("btn-guardar").onclick = function() {
     const nuevoNombre = document.getElementById("input-nombre").value.trim();
     const nuevoIcono = document.getElementById("input-icono").value.trim();
     const nuevoMomento = document.getElementById("input-momento").value;
 
-    // Validación de los campos
+    // Validación para asegurarse de que los campos no estén vacíos
     if (!nuevoNombre || !nuevoIcono || !nuevoMomento) {
       alert("Por favor, completa todos los campos.");
       return;
