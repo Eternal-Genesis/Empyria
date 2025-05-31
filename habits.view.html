@@ -17,7 +17,31 @@
       <input type="text" id="input-nombre" placeholder="Nombre del hábito">
       <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
 
-      <select id="input-momento" class="input-momento">
+      <!-- Repetición: Diario o Días específicos -->
+      <div style="margin-top: 12px; text-align: left;">
+        <label style="font-weight: bold;">¿Repetición?</label><br>
+        <label>
+          <input type="radio" name="input-repeticion" value="diario" id="rep-diario" checked>
+          Diario
+        </label>
+        <label style="margin-left: 20px;">
+          <input type="radio" name="input-repeticion" value="semanal" id="rep-semanal">
+          Días específicos
+        </label>
+      </div>
+
+      <!-- Checkboxes para días de la semana -->
+      <div id="dias-semanales" style="display: none; margin-top: 8px; text-align: left;">
+        <label><input type="checkbox" name="input-dias" value="L"> L</label>
+        <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="M"> M</label>
+        <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="X"> X</label>
+        <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="J"> J</label>
+        <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="V"> V</label>
+        <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="S"> S</label>
+        <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="D"> D</label>
+      </div>
+
+      <select id="input-momento" class="input-momento" style="margin-top: 12px;">
         <option value="" disabled selected>Selecciona el momento del día</option>
         <option value="mañana">Mañana</option>
         <option value="tarde">Tarde</option>
