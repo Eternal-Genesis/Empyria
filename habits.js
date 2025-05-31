@@ -262,6 +262,7 @@ function iniciarVistaHabitos() {
   document.getElementById("btn-cancelar")?.addEventListener("click", ocultarModal);
   document.getElementById("btn-guardar")?.addEventListener("click", guardarHabito);
   cargarHabitos();
+  configurarRepeticion();
 }
 
 function limpiarBotonHabito() {
@@ -276,10 +277,6 @@ window.addEventListener("hashchange", () => {
   } else {
     limpiarBotonHabito();
   }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  configurarRepeticion();
 });
 
 // Si ya estás en /habits al cargar
