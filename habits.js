@@ -90,24 +90,19 @@ function editarHabito(id) {
 }
 
 function configurarRepeticion() {
-  const repDiario = document.getElementById("rep-diario");
-  const repSemanal = document.getElementById("rep-semanal");
+  const selectRepeticion = document.getElementById("input-repeticion");
   const diasCont = document.getElementById("dias-semanales");
 
   function toggleDias() {
-    if (repSemanal.checked) {
+    if (selectRepeticion.value === "semanal") {
       diasCont.style.display = "block";
     } else {
       diasCont.style.display = "none";
-      // Desmarcar todos los días si vuelve a diario
       document.querySelectorAll('input[name="input-dias"]').forEach(cb => cb.checked = false);
     }
   }
 
-  repDiario.addEventListener("change", toggleDias);
-  repSemanal.addEventListener("change", toggleDias);
-
-  // Ejecutar de una vez para mostrar correctamente si el valor ya estaba precargado
+  selectRepeticion.addEventListener("change", toggleDias);
   toggleDias();
 }
 
