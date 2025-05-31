@@ -14,21 +14,17 @@
     <div class="modal-content">
       <h3 id="modal-title">Nuevo Hábito</h3>
 
+      <!-- Nombre del hábito -->
       <input type="text" id="input-nombre" placeholder="Nombre del hábito">
+
+      <!-- Emoji del hábito -->
       <input type="text" id="input-icono" placeholder="Emoji (ej: 🧘)">
 
-      <!-- Repetición: Diario o Días específicos -->
-      <div style="margin-top: 12px; text-align: left;">
-        <label style="font-weight: bold;">¿Repetición?</label><br>
-        <label>
-          <input type="radio" name="input-repeticion" value="diario" id="rep-diario" checked>
-          Diario
-        </label>
-        <label style="margin-left: 20px;">
-          <input type="radio" name="input-repeticion" value="semanal" id="rep-semanal">
-          Días específicos
-        </label>
-      </div>
+      <!-- Frecuencia (diario o días específicos) -->
+      <select id="input-repeticion" class="input-momento" style="margin-top: 12px;">
+        <option value="diario" selected>Diario</option>
+        <option value="semanal">Días específicos</option>
+      </select>
 
       <!-- Checkboxes para días de la semana -->
       <div id="dias-semanales" style="display: none; margin-top: 8px; text-align: left;">
@@ -41,6 +37,7 @@
         <label style="margin-left: 8px;"><input type="checkbox" name="input-dias" value="D"> D</label>
       </div>
 
+      <!-- Momento del día -->
       <select id="input-momento" class="input-momento" style="margin-top: 12px;">
         <option value="" disabled selected>Selecciona el momento del día</option>
         <option value="mañana">Mañana</option>
@@ -48,6 +45,7 @@
         <option value="noche">Noche</option>
       </select>
 
+      <!-- Botones del modal -->
       <div class="modal-actions" style="margin-top: 12px;">
         <button id="btn-cancelar" class="btn">Cancelar</button>
         <button id="btn-guardar" class="btn btn-primary">Guardar</button>
