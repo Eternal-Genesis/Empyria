@@ -41,49 +41,61 @@ function cargarHabitos() {
 }
 
 function editarHabito(id) {
-  // Obtener el array de hábitos del localStorage
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
-  // Encontrar el hábito a editar
   const habit = habitos.find(h => h.id === id);
-  
-  // Si el hábito no se encuentra, no hacer nada
   if (!habit) {
     console.error("Hábito no encontrado");
     return;
   }
 
-  // Cambiar el título del modal a "Editar Hábito"
   document.getElementById("modal-title").textContent = "Editar Hábito";
-  
-  // Rellenar los campos con los datos actuales del hábito
   document.getElementById("input-nombre").value = habit.nombre;
   document.getElementById("input-icono").value = habit.icono;
   document.getElementById("input-momento").value = habit.momento;
+  document.getElementById("input-repeticion").value = habit.repeticion || "diario";
 
-  // Mostrar el modal
+  // Mostrar días si aplica
+  const diasCont = document.getElementById("dias-semanales");
+  if (habit.repeticion === "semanal") {
+    diasCont.style.display = "block";
+  } else {
+    diasCont.style.display = "none";
+  }
+
+  // Preseleccionar días
+  document.querySelectorAll('input[name="input-dias"]').forEach(cb => {
+    cb.checked = habit.dias?.includes(cb.value) || false;
+  });
+
   document.getElementById("modal-habito").classList.add("active");
 
-  // Cambiar la lógica del botón de "Guardar" para actualizar el hábito
-  document.getElementById("btn-guardar").onclick = function() {
+  document.getElementById("btn-guardar").onclick = function () {
     const nuevoNombre = document.getElementById("input-nombre").value.trim();
     const nuevoIcono = document.getElementById("input-icono").value.trim();
     const nuevoMomento = document.getElementById("input-momento").value;
+    const nuevaRepeticion = document.getElementById("input-repeticion").value;
 
-    // Validación del nombre obligatorio
     if (!nuevoNombre) {
       alert("El nombre del hábito es obligatorio.");
       return;
     }
 
-    // Actualizar el hábito con los nuevos valores
+    let nuevosDias = [];
+    if (nuevaRepeticion === "semanal") {
+      document.querySelectorAll('input[name="input-dias"]:checked').forEach(cb => nuevosDias.push(cb.value));
+      if (nuevosDias.length === 0) {
+        alert("Selecciona al menos un día.");
+        return;
+      }
+    }
+
     habit.nombre = nuevoNombre;
     habit.icono = nuevoIcono;
     habit.momento = nuevoMomento;
+    habit.repeticion = nuevaRepeticion;
+    habit.dias = nuevosDias;
 
-    // Guardar los cambios en localStorage
     localStorage.setItem("habitos", JSON.stringify(habitos));
-
-    // Cerrar el modal y recargar los hábitos
     ocultarModal();
     cargarHabitos();
   };
@@ -159,17 +171,15 @@ function ocultarModal() {
 }
 
 function guardarHabito() {
-  const nombre = document.getElementById("input-nombre").value.trim();  // Asegurarse de que no haya espacios extra
+  const nombre = document.getElementById("input-nombre").value.trim();
   const iconoInput = document.getElementById("input-icono").value.trim();
   const emojiRegex = /^[\p{Emoji}]$/u;
 
-  // Validar si el emoji es correcto
   if (!emojiRegex.test(iconoInput)) {
     alert("Solo se permite un único emoji como ícono.");
     return;
   }
 
-  // Verificar si el nombre es vacío
   if (!nombre) {
     alert("El nombre del hábito es obligatorio.");
     return;
@@ -177,16 +187,33 @@ function guardarHabito() {
 
   const icono = iconoInput;
   const momento = document.getElementById("input-momento").value;
+  const repeticion = document.getElementById("input-repeticion").value;
 
-  // Crear un nuevo hábito
+  let dias = [];
+  if (repeticion === "semanal") {
+    document.querySelectorAll('input[name="input-dias"]:checked').forEach(cb => dias.push(cb.value));
+    if (dias.length === 0) {
+      alert("Selecciona al menos un día.");
+      return;
+    }
+  }
+
   const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString();
-  const nuevo = { id, nombre, icono, momento, estado: "pending" };
+
+  const nuevo = {
+    id,
+    nombre,
+    icono,
+    momento,
+    repeticion,
+    dias,
+    estado: "pending"
+  };
 
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
   habitos.push(nuevo);
   localStorage.setItem("habitos", JSON.stringify(habitos));
 
-  // Cerrar el modal y recargar los hábitos
   ocultarModal();
   cargarHabitos();
 }
