@@ -1,40 +1,45 @@
-// 🧠 habits.js – Versión final con control del botón solo en sección hábitos
-
 function cargarHabitos() {
   const container = document.getElementById("habits-container");
   if (!container) return;
+
   const habitos = JSON.parse(localStorage.getItem("habitos") || "[]");
+
   const countDisplay = document.getElementById("habit-count");
   if (countDisplay) countDisplay.textContent = `Hábitos: ${habitos.length}`;
+  
   container.innerHTML = "";
 
   habitos.forEach(h => {
     const card = document.createElement("div");
     card.className = "habit-card";
 
+    const frecuenciaTexto = h.repeticion === "semanal"
+      ? h.dias?.join(", ") || ""
+      : "Diario";
+
     card.innerHTML = `
-  <div class="habit-info">
-    <span class="habit-icon">${h.icono || "🧩"}</span>
-    <div>
-      <div class="habit-name">${h.nombre}</div>
-      <div class="habit-momento">${h.momento || ""}</div>
-    </div>
-  </div>
-  
-  <div class="habit-actions">
-    <button class="habit-menu-btn" onclick="toggleHabitMenu('${h.id}')">
-      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-        <circle cx="5" cy="12" r="2" />
-        <circle cx="12" cy="12" r="2" />
-        <circle cx="19" cy="12" r="2" />
-      </svg>
-    </button>
-<div class="habit-menu" id="menu-${h.id}" style="display:none;">
-  <button onclick="editarHabito('${h.id}')">Editar</button>
-  <button onclick="eliminarHabito('${h.id}')">Eliminar</button>
-</div>
-  </div>
-`;
+      <div class="habit-info">
+        <span class="habit-icon">${h.icono || "🧩"}</span>
+        <div>
+          <div class="habit-name">${h.nombre}</div>
+          <div class="habit-momento">${h.momento || ""} – ${frecuenciaTexto}</div>
+        </div>
+      </div>
+
+      <div class="habit-actions">
+        <button class="habit-menu-btn" onclick="toggleHabitMenu('${h.id}')">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <circle cx="5" cy="12" r="2" />
+            <circle cx="12" cy="12" r="2" />
+            <circle cx="19" cy="12" r="2" />
+          </svg>
+        </button>
+        <div class="habit-menu" id="menu-${h.id}" style="display:none;">
+          <button onclick="editarHabito('${h.id}')">Editar</button>
+          <button onclick="eliminarHabito('${h.id}')">Eliminar</button>
+        </div>
+      </div>
+    `;
 
     container.appendChild(card);
   });
